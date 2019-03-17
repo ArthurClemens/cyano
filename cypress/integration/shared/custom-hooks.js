@@ -1,0 +1,21 @@
+export default () => {
+  describe("Custom hooks", () => {
+
+    it("should use a custom hook counter function", () => {
+      cy.get("[data-test-id=count]").should("contain", "0");
+      cy.get("[data-test-id=increment]").click();
+      cy.get("[data-test-id=count]").should("contain", "1");
+      cy.get("[data-test-id=decrement]").click();
+      cy.get("[data-test-id=count]").should("contain", "0");
+    });
+
+    it("should use a custom hook that references another hook", () => {
+      cy.get("[data-test-id=counters]").should("contain", "1");
+      cy.get("[data-test-id=increment-counters]").click();
+      cy.get("[data-test-id=counters]").should("contain", "2");
+      cy.get("[data-test-id=decrement-counters]").click();
+      cy.get("[data-test-id=counters]").should("contain", "1");
+    });
+
+  });
+};

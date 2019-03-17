@@ -1,0 +1,25 @@
+<html>
+<body>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.4/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.4/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <script src="../../../dist/react/cyano.js"></script>
+  <script src="../components/bundle.js"></script>
+  <script type="text/babel">
+
+const { createComponent } = cyano;
+const { Counter, customHooks } = components;
+const ReactCounter = createComponent(Counter, customHooks);
+
+const App = () => 
+  <ReactCounter initialCount={0} />;
+
+ReactDOM.render(
+  <App />,
+  document.getElementById("root")
+);
+
+  </script>
+</body>
+</html>
