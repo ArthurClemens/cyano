@@ -1,5 +1,6 @@
 {
   "name": "cyano",
+  "private": true,
   "version": "0.1.0",
   "description": "Takes a base component and returns a Mithril or React component",
   "main": "dist/cyano",
