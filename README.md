@@ -5,20 +5,28 @@ Takes a base component and returns a Mithril or React component. This is useful 
 
 ## Usage
 
+### With Mithril
+
 ```bash
-npm install cyano
+npm install cyano-mithril
 ```
 
 Use in code:
 
 ```javascript
-import { createComponent } from "cyano/mithril"
+import { createComponent } from "cyano-mithril"
 ```
 
-Or:
+### With React
+
+```bash
+npm install cyano-react
+```
+
+Use in code:
 
 ```javascript
-import { createComponent } from "cyano/react"
+import { createComponent } from "cyano-react"
 ```
 
 
@@ -28,26 +36,26 @@ Create a Mithril component from a base component:
 
 ```javascript
 import m from "mithril"
-import { createComponent } from "cyano/mithril"
-import { Counter } from "./shared/components"
+import { createComponent } from "cyano-mithril"
+import { SharedCounter } from "./shared/components"
 
-const MithrilCounter = createComponent(Counter)
+const Counter = createComponent(SharedCounter)
 
 // Use:
-m(MithrilCounter, { initialCount: 1 })
+m(Counter, { initialCount: 1 })
 ```
 
 Similarly create a React component from the same base component:
 
 ```jsx
 import React from "react"
-import { createComponent } from "cyano/react"
-import { Counter } from "./shared/components"
+import { createComponent } from "cyano-react"
+import { SharedCounter } from "./shared/components"
 
-const ReactCounter = createComponent(Counter)
+const Counter = createComponent(SharedCounter)
 
 // Use:
-<ReactCounter initialCount={1} />
+<Counter initialCount={1} />
 ```
 
 
@@ -63,12 +71,12 @@ The base component receives:
 * Accepted HTML attributes
 
 ```javascript
-const Counter = ({
+const SharedCounter = ({
   initialCount,    // Component prop
   useState,        // Default hook
   useCounter,      // Custom hook
-  renderer,        // Render function
-  htmlAttributes,  // Accepted HTML attributes  
+  h,               // Render function
+  a,               // Object with accepted HTML attributes  
 }) => {
   // ...
 }
@@ -91,12 +99,12 @@ The base components are render functions. Instead of lifecycle methods you use h
 
 React follows the camelCase convention for accepted HTML attributes, whereas Mithril uses lowercase names.
 
-Possible names are passed in `htmlAttributes`. Instead of `onClick` you write `[htmlAttributes.onclick]` (or any shorthand you want to use):
+Possible names are passed in `a`. Instead of `onClick` you write `[a.onclick]`:
 
 ### Example
 
 ```javascript
-const Counter = ({ initialCount, renderer: h, htmlAttributes: a }) => {
+const SharedCounter = ({ initialCount, h, a }) => {
   return (
     h("div", 
       [
@@ -123,7 +131,7 @@ const Counter = ({ initialCount, renderer: h, htmlAttributes: a }) => {
 Base components have access to default hooks (see "supported hooks" below) and custom hooks.
 
 ```javascript
-const Counter = ({ initialCount, renderer: h, htmlAttributes: a, useState, useEffect }) => {
+const SharedCounter = ({ initialCount, h, a, useState, useEffect }) => {
   const [count, setCount] = useState(initialCount)
 
   useEffect(
@@ -159,7 +167,7 @@ const Counter = ({ initialCount, renderer: h, htmlAttributes: a, useState, useEf
 Custom hooks are passed as second parameter to `createComponent`:
 
 ```javascript
-const MithrilCounter = createComponent(MyBaseComponent, customHooks)
+const Counter = createComponent(SharedCounter, customHooks)
 ```
 
 Custom hooks are created with a factory function. The function receives the default hooks (automatically), and should return an object with custom hook functions:
@@ -180,7 +188,7 @@ const customHooks = ({ useState /* or other default hooks required here */ }) =>
 To use the custom hooks:
 
 ```javascript
-const Counter = ({ initialCount, renderer: h, htmlAttributes: a, useCount }) => {
+const SharedCounter = ({ initialCount, h, a, useCount }) => {
   const [count, increment, decrement] = useCount(initialCount)
   // ...
 }
@@ -207,13 +215,26 @@ See [mithril-hookup](https://github.com/ArthurClemens/mithril-hookup) for more e
 * React: tested with React 16.8.4
 
 
+## React and Webpack
+
+It may be necessary to point Webpack to the React module. Add a `resolve` entry to the config:
+
+```javascript
+resolve: {
+  alias: {
+    "react": path.resolve(baseDir, "node_modules/react"),
+  },
+},
+```
+
+
 ## Size
 
-* `mithril/cyano.js`:
-  * 1.4 Kb gzipped
+* `cyano-mithril.js`:
+  * 1.7 Kb gzipped
   * Includes: [mithril-hookup](https://github.com/ArthurClemens/mithril-hookup)
-* `react/cyano.js`:
-  * 1.6 Kb gzipped
+* `cyano-react.js`:
+  * 1.3 Kb gzipped
   * Includes: [react-hyperscript](https://github.com/mlmorg/react-hyperscript)
 
 

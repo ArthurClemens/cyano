@@ -1,0 +1,27 @@
+{
+  "name": "cyano-react",
+  "version": "0.0.1",
+  "description": "Takes a base component and returns a React component",
+  "main": "dist/cyano-react",
+  "module": "dist/cyano-react.mjs",
+  "scripts": {
+    "lint": "eslint ./src",
+    "build": "npm run clean && npm run rollup",
+    "rollup": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
+    "clean": "rimraf dist/*",
+    "size": "gzip -c dist/cyano-react.js | wc -c"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "author": "Arthur Clemens <arthurclemens@gmail.com> (http://visiblearea.com)",
+  "homepage": "https://github.com/ArthurClemens/cyano",
+  "license": "MIT",
+  "dependencies": {
+    "react-hyperscript": "^3.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.4"
+  }
+}
