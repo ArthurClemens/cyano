@@ -1,35 +1,4 @@
 {
   "name": "cyano",
-  "private": true,
-  "version": "0.1.0",
-  "description": "Takes a base component and returns a Mithril or React component",
-  "main": "dist/cyano",
-  "module": "dist/cyano.mjs",
-  "scripts": {
-    "lint": "eslint ./src",
-    "build": "npm run clean && npm run rollup",
-    "rollup": "npm run rollup-mithril && npm run rollup-react && npm run rollup-both",
-    "rollup-mithril": "ENTRY=src/mithril.js DEST=dist/mithril ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js && ENTRY=src/mithril.js DEST=dist/mithril ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
-    "rollup-react": "ENTRY=src/react.js DEST=dist/react ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js && ENTRY=src/react.js DEST=dist/react ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
-    "rollup-both": "ENTRY=src/index.js DEST=dist/cyano ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js && ENTRY=src/index.js DEST=dist/cyano ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
-    "clean": "rimraf dist/*",
-    "size": "npm run size:react && npm run size:mithril",
-    "size:react": "gzip -c dist/react.js | wc -c",
-    "size:mithril": "gzip -c dist/mithril.js | wc -c"
-  },
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "author": "Arthur Clemens <arthurclemens@gmail.com> (http://visiblearea.com)",
-  "homepage": "https://github.com/ArthurClemens/cyano",
-  "license": "MIT",
-  "dependencies": {
-    "mithril-hookup": "^0.2.6",
-    "react-hyperscript": "^3.2.0"
-  },
-  "peerDependencies": {
-    "mithril": "2.0.0-rc.4",
-    "react": "^16.8.4"
-  }
+  "private": true
 }
