@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "cyano-react": "^0.1.0",
+    "navigo": "^7.1.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "superouter": "0.2.1",
     "tests-cyano-shared": "^0.1.0"
   },
   "devDependencies": {

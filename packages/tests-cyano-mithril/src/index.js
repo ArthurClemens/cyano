@@ -2,12 +2,16 @@ import m from "mithril";
 import CounterController from "./custom-hooks-usereducer";
 import Toggle from "./toggle";
 
+import TestCustomHooks from "./cypress-tests/TestCustomHooks";
+
 const links = [
   ["Simple toggle", "/toggle", Toggle],
   ["Custom hooks with useReducer", "/custom-hooks-usereducer", CounterController],
 ];
 
-const tests = [];
+const tests = [
+  ["Test custom hooks", "/TestCustomHooks", TestCustomHooks],
+];
 
 const link = (href, currentRoute, label) => 
   m("li",
@@ -28,14 +32,14 @@ const createMenu = currentRoute => (
       )
     ),
     tests.length
-      ? (
+      ? [
         m("p.menu-label", "Cypress tests"),
         m("ul.menu-list", 
           tests.map(([label, href]) =>
             link(href, currentRoute, label)
           )
         )
-      )
+      ]
       : null
   ])
 );
