@@ -95,6 +95,10 @@ const Counter = createComponent(SharedCounter)
 
 `createComponent(baseComponent, customHooksFn, props)`
 
+or
+
+`createComponent(baseComponent, props)`
+
 | **Argument**    | **Type**  | **Required** | **Description** |
 | --- | --- | --- | --- | 
 | `baseComponent` | Function component | Yes | The base/common/shared component to be converted for Mithril or React |
@@ -173,7 +177,7 @@ Cyano provides callback function `getDom` to get a reference to the DOM element.
 
 `getDom` accepts a function that receives the DOM reference.
 
-DOM reference are commonly stored in a `useRef` object. Note that updating `useRef` will not cause a re-render.
+DOM reference are commonly stored in a `useRef` object. Note that setting or updating `useRef` will not cause a re-render.
 
 ```javascript
 const SharedComponent = ({ useRef, h, a, getDom }) => {
@@ -284,9 +288,25 @@ See [mithril-hookup](https://github.com/ArthurClemens/mithril-hookup) for more e
 
 ### Passing or nesting components
 
-Components used in another component need to be converted beforehand.
+Example: a base Navigation component that contains Link components. The Link component need to be converted beforehand, and then passed on to Navigation.
 
-Converted components are passed using the 3rd argument to `createComponent`:
+A pattern that scales well is the component factory:
+
+```javascript
+const createNavigation = createComponent => {
+  const Link = createComponent(_Link)
+  const Navigation = createComponent(_Navigation, { Link })
+  return Navigation
+}
+```
+
+Create the Navigation component from the factory:
+
+```javascript
+const Navigation = createNavigation(createComponent)
+```
+
+Full example:
 
 ```javascript
 // src/shared/Navigation.js
@@ -311,7 +331,7 @@ const _Navigation = ({ h, Link }) => [
 
 const createNavigation = createComponent => {
   const Link = createComponent(_Link)
-  const Navigation = createComponent(_Navigation, null, { Link })
+  const Navigation = createComponent(_Navigation, { Link })
   return Navigation
 }
 export default createNavigation
@@ -349,7 +369,7 @@ resolve: {
 ## Size
 
 * `cyano-mithril.js`:
-  * 1.7 Kb gzipped
+  * 1.8 Kb gzipped
   * Includes: [mithril-hookup](https://github.com/ArthurClemens/mithril-hookup)
 * `cyano-react.js`:
   * 1.4 Kb gzipped

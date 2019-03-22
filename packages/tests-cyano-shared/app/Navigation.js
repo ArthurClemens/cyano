@@ -50,7 +50,7 @@ const _Navigation = ({ router, currentPath, parts, h, MenuList }) => (
 
 export const createNavigation = createComponent => {
   const Link = createComponent(_Link);
-  const MenuList = createComponent(_MenuList, null, { Link });
-  const Navigation = createComponent(_Navigation, null, { MenuList });
+  const MenuList = createComponent(_MenuList, { Link });
+  const Navigation = createComponent(_Navigation, { MenuList });
   return Navigation;
 };

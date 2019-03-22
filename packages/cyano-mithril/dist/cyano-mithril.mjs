@@ -300,15 +300,23 @@ const htmlAttributes = {
   readonly: "readonly",
   tabindex: "tabindex"
 };
-const createComponent = function createComponent(component, customHooksFn) {
-  let rest = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+const createComponent = function createComponent(component) {
+  let customHooksFn, ccProps;
+
+  if (typeof (arguments.length <= 1 ? undefined : arguments[1]) === "function") {
+    customHooksFn = arguments.length <= 1 ? undefined : arguments[1];
+    ccProps = arguments.length <= 2 ? undefined : arguments[2];
+  } else {
+    ccProps = arguments.length <= 1 ? undefined : arguments[1];
+  }
+
   return withHooks(component, customHooksFn, _objectSpread({
     h: m,
     a: htmlAttributes,
     getDom: fn => ({
       oncreate: vnode => fn(vnode.dom)
     })
-  }, rest));
+  }, ccProps || {}));
 };
 
 export { createComponent };
