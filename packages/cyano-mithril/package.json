@@ -19,9 +19,12 @@
   "homepage": "https://github.com/ArthurClemens/cyano",
   "license": "MIT",
   "dependencies": {
-    "mithril-hookup": "^0.2.6"
+    "mithril-hookup": "^0.2.7"
   },
   "peerDependencies": {
     "mithril": "2.0.0-rc.4"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.3"
   }
 }

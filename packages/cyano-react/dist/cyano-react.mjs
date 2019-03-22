@@ -183,7 +183,10 @@ const createComponent = function createComponent(component, customHooksFn) {
     const customHooks = customHooksFn !== undefined && customHooksFn !== null ? customHooksFn(supportedHooks) : {};
     return component(_objectSpread({
       h: reactHyperscript,
-      a: htmlAttributes
+      a: htmlAttributes,
+      getDom: fn => ({
+        ref: dom => fn(dom)
+      })
     }, supportedHooks, customHooks, rest, props));
   };
 };

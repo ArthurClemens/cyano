@@ -47,6 +47,7 @@ export const createComponent = (component, customHooksFn, rest = {}) => (props =
   return component({
     h,
     a: htmlAttributes,
+    getDom: fn => ({ ref: dom => fn(dom) }),
     ...supportedHooks,
     ...customHooks,
     ...rest,

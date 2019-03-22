@@ -6,7 +6,7 @@ import pathmodify from "rollup-plugin-pathmodify";
 
 const env = process.env;
 export const pkg = JSON.parse(fs.readFileSync("./package.json"));
-const name = env.NAME;
+const name = pkg.name;
 const external = ["mithril", "react"];
 
 const globals = {};

@@ -23,5 +23,8 @@
   },
   "peerDependencies": {
     "react": "^16.8.4"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.3"
   }
 }

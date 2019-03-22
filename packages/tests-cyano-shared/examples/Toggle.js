@@ -1,4 +1,4 @@
-const Toggle = ({ useState, h, a }) => {
+const _Toggle = ({ useState, h, a }) => {
   const [clicked, setClicked] = useState(false);
   return h(".toggle", [
     h("button",
@@ -12,4 +12,7 @@ const Toggle = ({ useState, h, a }) => {
   ]);
 };
 
-export default Toggle;
+export const createToggle = createComponent => {
+  const Toggle = createComponent(_Toggle);
+  return Toggle;
+};

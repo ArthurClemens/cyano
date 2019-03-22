@@ -32,5 +32,10 @@ const htmlAttributes = {
 };
 
 export const createComponent = (component, customHooksFn, rest = {}) => (
-  withHooks(component, customHooksFn, { h: m, a: htmlAttributes, ...rest })
+  withHooks(component, customHooksFn, {
+    h: m,
+    a: htmlAttributes,
+    getDom: fn => ({ oncreate: vnode => fn(vnode.dom) }),
+    ...rest
+  })
 );

@@ -3,5 +3,9 @@
   "description": "Shared test scripts",
   "private": true,
   "version": "0.1.0",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "router5": "^7.0.2",
+    "router5-plugin-browser": "^7.0.2"
+  }
 }
