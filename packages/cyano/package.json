@@ -1,4 +1,5 @@
 {
   "name": "cyano",
-  "private": true
+  "private": true,
+  "version": "0.2.0"
 }
