@@ -5,6 +5,7 @@ import { createCounter } from "../examples/CustomHooksUseReducer";
 
 // Cypress tests
 import { createCustomHooks } from "../cypress-tests/CustomHooks";
+import { createTrust } from "../cypress-tests/Trust";
 
 const toLinkData = ([label, path, component]) => ({
   name: label.toLowerCase().replace(" ", "_"),
@@ -22,6 +23,7 @@ export const createRoutes = createComponent => {
 
   const tests = [
     ["Test custom hooks", "/TestCustomHooks", createCustomHooks(createComponent)],
+    ["Test trust", "/TestTrust", createTrust(createComponent)],
   ].map(toLinkData);
 
   return {

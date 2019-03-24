@@ -16,6 +16,8 @@ Takes a base component and returns a Mithril or React component. This is useful 
   - [HTML attributes](#html-attributes)
   - [Getting DOM elements](#getting-dom-elements)
     - [Under the hood](#under-the-hood)
+  - [Inserting trusted content](#inserting-trusted-content)
+    - [Signature](#signature-1)
   - [Using hooks](#using-hooks)
   - [Custom hooks](#custom-hooks)
   - [Supported hooks](#supported-hooks)
@@ -203,6 +205,32 @@ The example above contains a check to prevent superfluous updates to the variabl
 * `cyano-react`: `getDom` uses React's `ref` method to access the DOM element. This method will be called on each render. When the element is removed from the DOM, `getDom` will receive `null`. Using an update check as shown above will prevent that the reference will be lost.
 
 
+### Inserting trusted content
+
+Mithril's API contains [m.trust](https://mithril.js.org/trust.html) that "turns an HTML or SVG string into unescaped HTML or SVG". The documentation continues with the warning "Do not use m.trust on unsanitized user input. Always try to use an [alternative method](https://mithril.js.org/trust.html#avoid-trusting-html) first, before considering using m.trust."
+
+With all caveats, it is sometimes useful to insert a piece of HTML or SVG into a container.
+
+The render function `h` is enhanced with method `trust` to do that:
+
+```javascript
+const iconBack = h.trust("<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z\"/></svg>")
+```
+
+`cyano-react` uses `dangerouslySetInnerHTML` to set trusted content with a "div" as wrapper element. The element tag can be set with the second parameter.
+
+For consistency, `cyano-mithril` function `h.trust` is enhanced with this second parameter too.
+
+#### Signature 
+
+`h.trust(content, wrapper)`
+
+| **Argument**    | **Type**  | **Required** | **Default** | **Description** |
+| --- | --- | --- | --- | --- | 
+| `content` | HTML string | Yes | | A string containing HTML or SVG text. |
+| `wrapper` | Element tag name | No | `cyano-react`: "div"; `cyano-mithril`: undefined | Wrapper element |
+
+
 ### Using hooks
 
 Base components have access to default hooks (see "supported hooks" below) and custom hooks.
@@ -372,7 +400,7 @@ resolve: {
   * 1.8 Kb gzipped
   * Includes: [mithril-hookup](https://github.com/ArthurClemens/mithril-hookup)
 * `cyano-react.js`:
-  * 1.4 Kb gzipped
+  * 1.5 Kb gzipped
   * Includes: [react-hyperscript](https://github.com/mlmorg/react-hyperscript)
 
 

@@ -167,6 +167,17 @@ const htmlAttributes = {
   readonly: "readOnly",
   tabindex: "tabIndex"
 };
+
+reactHyperscript.trust = function () {
+  let html = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+  let wrapper = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "div";
+  return reactHyperscript(wrapper, {
+    dangerouslySetInnerHTML: {
+      __html: html
+    }
+  });
+};
+
 const createComponent = function createComponent(component) {
   let customHooksFn, ccProps;
 

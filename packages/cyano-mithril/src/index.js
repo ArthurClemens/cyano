@@ -31,6 +31,13 @@ const htmlAttributes = {
   tabindex:     "tabindex",
 };
 
+const renderer = m;
+const trust = m.trust;
+renderer.trust = (html, wrapper) =>
+  wrapper
+    ? m(wrapper, trust(html))
+    : trust(html);
+
 export const createComponent = (component, ...rest) => {
   let customHooksFn, ccProps;
   if (typeof rest[0] === "function") {
@@ -40,7 +47,7 @@ export const createComponent = (component, ...rest) => {
     ccProps = rest[0];
   }
   return withHooks(component, customHooksFn, {
-    h: m,
+    h: renderer,
     a: htmlAttributes,
     getDom: fn => ({ oncreate: vnode => fn(vnode.dom) }),
     ...(ccProps || {})

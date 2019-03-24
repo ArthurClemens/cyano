@@ -300,6 +300,11 @@ const htmlAttributes = {
   readonly: "readonly",
   tabindex: "tabindex"
 };
+const renderer = m;
+const trust = m.trust;
+
+renderer.trust = (html, wrapper) => wrapper ? m(wrapper, trust(html)) : trust(html);
+
 const createComponent = function createComponent(component) {
   let customHooksFn, ccProps;
 
@@ -311,7 +316,7 @@ const createComponent = function createComponent(component) {
   }
 
   return withHooks(component, customHooksFn, _objectSpread({
-    h: m,
+    h: renderer,
     a: htmlAttributes,
     getDom: fn => ({
       oncreate: vnode => fn(vnode.dom)

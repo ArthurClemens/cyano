@@ -1,5 +1,5 @@
 import React from "react";
-import h from "react-hyperscript";
+import renderer from "react-hyperscript";
 
 const htmlAttributes = {
   autocomplete: "autoComplete",
@@ -31,6 +31,11 @@ const htmlAttributes = {
   tabindex:     "tabIndex",
 };
 
+renderer.trust = (html, wrapper = "") =>
+  renderer(wrapper, {
+    dangerouslySetInnerHTML: { __html: html }
+  });
+
 export const createComponent = (component, ...rest) => {
   let customHooksFn, ccProps;
   if (typeof rest[0] === "function") {
@@ -53,7 +58,7 @@ export const createComponent = (component, ...rest) => {
       ? customHooksFn(supportedHooks)
       : {};
     return component({
-      h,
+      h: renderer,
       a: htmlAttributes,
       getDom: fn => ({ ref: dom => fn(dom) }),
       ...supportedHooks,
