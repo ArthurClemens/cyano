@@ -37,12 +37,12 @@ renderer.trust = (html, wrapper = "") =>
   });
 
 export const createComponent = (component, ...rest) => {
-  let customHooksFn, ccProps;
+  let customHooksFn, initialProps;
   if (typeof rest[0] === "function") {
     customHooksFn = rest[0];
-    ccProps = rest[1];
+    initialProps = rest[1];
   } else {
-    ccProps = rest[0];
+    initialProps = rest[0];
   }
   return (props = {}) => {
     const supportedHooks = {
@@ -63,7 +63,7 @@ export const createComponent = (component, ...rest) => {
       getDom: fn => ({ ref: dom => fn(dom) }),
       ...supportedHooks,
       ...customHooks,
-      ...(ccProps || {}),
+      ...(initialProps || {}),
       ...props,
     });
   };

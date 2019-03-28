@@ -39,17 +39,17 @@ renderer.trust = (html, wrapper) =>
     : trust(html);
 
 export const createComponent = (component, ...rest) => {
-  let customHooksFn, ccProps;
+  let customHooksFn, initialProps;
   if (typeof rest[0] === "function") {
     customHooksFn = rest[0];
-    ccProps = rest[1];
+    initialProps = rest[1];
   } else {
-    ccProps = rest[0];
+    initialProps = rest[0];
   }
   return withHooks(component, customHooksFn, {
     h: renderer,
     a: htmlAttributes,
     getDom: fn => ({ oncreate: vnode => fn(vnode.dom) }),
-    ...(ccProps || {})
+    ...(initialProps || {})
   })
 };

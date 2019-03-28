@@ -1,3 +1,3 @@
-# Cyano
+# Cyano for React
 
-[Documentation](../../README.md)
+[Documentation](https://github.com/ArthurClemens/cyano)

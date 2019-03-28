@@ -306,13 +306,13 @@ const trust = m.trust;
 renderer.trust = (html, wrapper) => wrapper ? m(wrapper, trust(html)) : trust(html);
 
 const createComponent = function createComponent(component) {
-  let customHooksFn, ccProps;
+  let customHooksFn, initialProps;
 
   if (typeof (arguments.length <= 1 ? undefined : arguments[1]) === "function") {
     customHooksFn = arguments.length <= 1 ? undefined : arguments[1];
-    ccProps = arguments.length <= 2 ? undefined : arguments[2];
+    initialProps = arguments.length <= 2 ? undefined : arguments[2];
   } else {
-    ccProps = arguments.length <= 1 ? undefined : arguments[1];
+    initialProps = arguments.length <= 1 ? undefined : arguments[1];
   }
 
   return withHooks(component, customHooksFn, _objectSpread({
@@ -321,7 +321,7 @@ const createComponent = function createComponent(component) {
     getDom: fn => ({
       oncreate: vnode => fn(vnode.dom)
     })
-  }, ccProps || {}));
+  }, initialProps || {}));
 };
 
 export { createComponent };

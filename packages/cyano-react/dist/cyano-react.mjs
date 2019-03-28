@@ -168,9 +168,8 @@ const htmlAttributes = {
   tabindex: "tabIndex"
 };
 
-reactHyperscript.trust = function () {
-  let html = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-  let wrapper = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "div";
+reactHyperscript.trust = function (html) {
+  let wrapper = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
   return reactHyperscript(wrapper, {
     dangerouslySetInnerHTML: {
       __html: html
@@ -179,13 +178,13 @@ reactHyperscript.trust = function () {
 };
 
 const createComponent = function createComponent(component) {
-  let customHooksFn, ccProps;
+  let customHooksFn, initialProps;
 
   if (typeof (arguments.length <= 1 ? undefined : arguments[1]) === "function") {
     customHooksFn = arguments.length <= 1 ? undefined : arguments[1];
-    ccProps = arguments.length <= 2 ? undefined : arguments[2];
+    initialProps = arguments.length <= 2 ? undefined : arguments[2];
   } else {
-    ccProps = arguments.length <= 1 ? undefined : arguments[1];
+    initialProps = arguments.length <= 1 ? undefined : arguments[1];
   }
 
   return function () {
@@ -206,7 +205,7 @@ const createComponent = function createComponent(component) {
       getDom: fn => ({
         ref: dom => fn(dom)
       })
-    }, supportedHooks, customHooks, ccProps || {}, props));
+    }, supportedHooks, customHooks, initialProps || {}, props));
   };
 };
 

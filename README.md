@@ -95,30 +95,31 @@ const Counter = createComponent(SharedCounter)
 
 #### Signature
 
-`createComponent(baseComponent, customHooksFn, props)`
-
-or
-
-`createComponent(baseComponent, props)`
+`createComponent(renderFunction, initialProps) => Component`
 
 | **Argument**    | **Type**  | **Required** | **Description** |
 | --- | --- | --- | --- | 
-| `baseComponent` | Function component | Yes | The base/common/shared component to be converted for Mithril or React |
-| `customHooksFn` | Function or undefined | No | See [Custom hooks](#custom-hooks) |
-| `props`         | Object | No | Any variable to pass to `baseComponent`; see also [Passing or nesting components](#passing-or-nesting-components) | 
+| `renderFunction` | Function component | Yes | The base/common/shared functional component to be converted for Mithril or React |
+| `initialProps`   | Object | No | Any variable to pass to `renderFunction`; see also [Passing or nesting components](#passing-or-nesting-components) | 
+
+The returned `Component` can be called as any component:
+
+```javascript
+h(Component, {
+  // component props
+})
+```
+
+`renderFunction` will receive a combined object of `initialProps` and component props.
 
 
-The base component accepts an options object and returns a view:
-
-`baseComponent(options) => any`
-
-Options contains these arguments:
+`initialProps` will also contains these helpers:
 
 | **Argument** | **Type**  | **Available by default** | **Description** |
 | --- | --- | --- | --- | 
 | `h`          | Function  | Yes | Render function: for Mithril `m`; for React [react-hyperscript](https://github.com/mlmorg/react-hyperscript) |
 | `a`          | Object    | Yes | Map of accepted HTML abbritutes; see [HTML attributes](#html-attributes) |
-| `getDom`    | Function | Yes | Function to return a DOM element; see [Getting DOM elements](#getting-dom-elements) |
+| `getDom`     | Function | Yes | Function to return a DOM element; see [Getting DOM elements](#getting-dom-elements) |
 | `useState` | Function | Yes | Default hook |
 | `useEffect` | Function | Yes | Default hook |
 | `useLayoutEffect` | Function | Yes | Default hook |
