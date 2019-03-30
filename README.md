@@ -11,8 +11,8 @@ Takes a base component and returns a Mithril or React component. This is useful 
   - [Write a single codebase, deploy twice](#write-a-single-codebase-deploy-twice)
   - [Shared language](#shared-language)
   - [Using hooks](#using-hooks)
-    - [Custom hooks](#custom-hooks)
     - [Supported hooks](#supported-hooks)
+    - [Custom hooks](#custom-hooks)
   - [Passing or nesting components](#passing-or-nesting-components)
 - [API](#api)
   - [createComponent](#createcomponent)
@@ -21,6 +21,7 @@ Takes a base component and returns a Mithril or React component. This is useful 
   - [a (Accepted HTML attributes)](#a-accepted-html-attributes)
   - [getDom](#getdom)
   - [jsx](#jsx)
+  - [Children](#children)
 - [Additional setup](#additional-setup)
   - [Bundler configuration](#bundler-configuration)
     - [Configuring Webpack](#configuring-webpack)
@@ -236,12 +237,6 @@ const SharedCounter = ({ initialCount }) => {
 }
 ```
 
-#### Custom hooks
-
-General introduction in React's documentation: [Building Your Own Hooks](https://reactjs.org/docs/hooks-custom.html)
-
-Using hooks with Mithril: see [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks) for examples.
-
 #### Supported hooks
 
 * `useState`
@@ -251,7 +246,20 @@ Using hooks with Mithril: see [mithril-hooks](https://github.com/ArthurClemens/m
 * `useRef`
 * `useMemo`
 * `useCallback`
-* Custom hooks
+
+These React hooks make little sense with Mithril and are not included:
+
+* `useContext`
+* `useImperativeHandle`
+* `useDebugValue`
+
+
+#### Custom hooks
+
+General introduction in React's documentation: [Building Your Own Hooks](https://reactjs.org/docs/hooks-custom.html)
+
+Using hooks with Mithril: see [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks) for examples.
+
 
 ### Passing or nesting components
 
@@ -412,6 +420,18 @@ The example above contains a check to prevent superfluous updates to the variabl
 
 Babel pragma. Only import this when writing JSX.
 
+### Children
+
+Child elements are accessed through the component prop `children`:
+
+```javascript
+const _Component = ({ children }) => {
+  return [
+    m("h2", "My title"),
+    children
+  ]
+}
+```
 
 ## Additional setup
 
