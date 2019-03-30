@@ -45,5 +45,5 @@ export const jsx = m;
 
 export const getDom = fn => ({ oncreate: vnode => fn(vnode.dom) });
 
-export const createComponent = (component, initialProps) =>
+export const cast = (component, initialProps) =>
   withHooks(component, initialProps);

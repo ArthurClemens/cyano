@@ -1,4 +1,4 @@
-import { createComponent, useState, a, h, jsx } from "cyano";
+import { cast, useState, a, h, jsx } from "cyano";
 /* jsx needs to be in scope for JSX parsing to work */
 
 const _Toggle = ({ title }) => {
@@ -26,7 +26,7 @@ const _Toggle = ({ title }) => {
   );
 };
 
-const Toggle = createComponent(_Toggle);
+const Toggle = cast(_Toggle);
 
 const _Wrapper = () => <Toggle title="Switch!" />;
-export default createComponent(_Wrapper);
+export default cast(_Wrapper);

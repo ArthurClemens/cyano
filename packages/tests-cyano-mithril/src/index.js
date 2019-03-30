@@ -1,5 +1,5 @@
 import m from "mithril";
-import { createComponent } from "cyano";
+import { cast } from "cyano";
 import { createApp } from "tests-cyano-shared/app/createApp";
 
 const mountNode = document.querySelector("#root");
@@ -13,5 +13,5 @@ const setContent = ({ AppLayout, ...props }) => {
 
 createApp({
   setContent,
-  createComponent,
+  cast,
 });

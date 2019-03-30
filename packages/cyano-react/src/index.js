@@ -44,7 +44,7 @@ export const jsx = React.createElement;
 
 export const getDom = fn => ({ ref: dom => fn(dom) });
 
-export const createComponent = (component, initialProps) =>
+export const cast = (component, initialProps) =>
   (props = {}) =>
     component({
       ...initialProps,

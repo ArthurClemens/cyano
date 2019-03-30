@@ -184,9 +184,9 @@ const jsx = react.createElement;
 const getDom = fn => ({
   ref: dom => fn(dom)
 });
-const createComponent = (component, initialProps) => function () {
+const cast = (component, initialProps) => function () {
   let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return component(_objectSpread({}, initialProps, props));
 };
 
-export { a, createComponent, getDom, h$1 as h, jsx };
+export { a, cast, getDom, h$1 as h, jsx };

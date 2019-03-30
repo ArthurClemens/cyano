@@ -17,7 +17,7 @@ const toLinkData = ([label, path, component]) => ({
   component
 });
 
-export const createRoutes = createComponent => {
+export const createRoutes = cast => {
   
   const examples = [
     ["Simple toggle", "/toggle", Toggle],

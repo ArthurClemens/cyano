@@ -296,6 +296,6 @@ const jsx = m;
 const getDom = fn => ({
   oncreate: vnode => fn(vnode.dom)
 });
-const createComponent = (component, initialProps) => withHooks(component, initialProps);
+const cast = (component, initialProps) => withHooks(component, initialProps);
 
-export { a, createComponent, getDom, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState };
+export { a, cast, getDom, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState };

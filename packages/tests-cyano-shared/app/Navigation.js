@@ -1,4 +1,4 @@
-import { createComponent, h, a } from "cyano";
+import { cast, h, a } from "cyano";
 
 const _Link = ({ router, name, label, path, currentPath }) => (
   h("li",
@@ -16,7 +16,7 @@ const _Link = ({ router, name, label, path, currentPath }) => (
     label)
   )
 );
-const Link = createComponent(_Link);
+const Link = cast(_Link);
 
 const _MenuList = ({ router, title, links, currentPath }) => {
   return [
@@ -38,7 +38,7 @@ const _MenuList = ({ router, title, links, currentPath }) => {
     )
   ];
 };
-const MenuList = createComponent(_MenuList);
+const MenuList = cast(_MenuList);
 
 const _Navigation = ({ router, currentPath, parts }) => (
   h("aside",
@@ -52,4 +52,4 @@ const _Navigation = ({ router, currentPath, parts }) => (
   )
 );
 
-export default createComponent(_Navigation);
+export default cast(_Navigation);

@@ -1,4 +1,4 @@
-import { createComponent, useState, h, a } from "cyano";
+import { cast, useState, h, a } from "cyano";
 
 const useCount = (initialValue = 0) => {
   const [count, setCount] = useState(initialValue);
@@ -111,6 +111,6 @@ const _CustomHooks = () => {
   ];
 };
 
-const CustomHooks = createComponent(_CustomHooks);
+const CustomHooks = cast(_CustomHooks);
 
 export default CustomHooks;

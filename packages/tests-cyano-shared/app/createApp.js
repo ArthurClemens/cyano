@@ -4,8 +4,8 @@ import Navigation from "./Navigation";
 import { createRoutes } from "./routes";
 import { setupRouter } from "./router";
 
-export const createApp = ({ setContent, createComponent }) => {
-  const { examples, tests } = createRoutes(createComponent);
+export const createApp = ({ setContent, cast }) => {
+  const { examples, tests } = createRoutes(cast);
   const routes = examples.concat(tests);
 
   setupRouter({

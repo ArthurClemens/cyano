@@ -1,4 +1,4 @@
-import { createComponent, useState, useEffect, useRef, useReducer, h, a, getDom } from "cyano";
+import { cast, useState, useEffect, useRef, useReducer, h, a, getDom } from "cyano";
 
 const useCounter = () => {
   // A custom hook that uses another custom hook.
@@ -171,7 +171,7 @@ const _CounterController = ({ Counter }) => {
   ];
 };
 
-const Counter = createComponent(_Counter);
-const CounterController = createComponent(_CounterController, { Counter });
+const Counter = cast(_Counter);
+const CounterController = cast(_CounterController, { Counter });
 
 export default CounterController;

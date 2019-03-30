@@ -1,4 +1,4 @@
-import { createComponent, h } from "cyano";
+import { cast, h } from "cyano";
 
 const _InitialProps = ({ title, defaultTitle }) => {
   return h("div",
@@ -20,7 +20,7 @@ const _Wrapper = ({ title, InitialProps }) =>
     )
   );
 
-const InitialProps = createComponent(_InitialProps, { defaultTitle: "default title" });
-const Wrapper = createComponent(_Wrapper, { title: "Hello", InitialProps });
+const InitialProps = cast(_InitialProps, { defaultTitle: "default title" });
+const Wrapper = cast(_Wrapper, { title: "Hello", InitialProps });
 
 export default Wrapper;

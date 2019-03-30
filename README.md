@@ -15,7 +15,7 @@ Takes a base component and returns a Mithril or React component. This is useful 
     - [Custom hooks](#custom-hooks)
   - [Passing or nesting components](#passing-or-nesting-components)
 - [API](#api)
-  - [createComponent](#createcomponent)
+  - [cast](#cast)
   - [h (render function)](#h-render-function)
   - [Inserting trusted content](#inserting-trusted-content)
   - [a (Accepted HTML attributes)](#a-accepted-html-attributes)
@@ -58,7 +58,7 @@ npm install cyano-react
 We use an import from alias "cyano". By making this import library agnostic, we can use indentical code for either library.
 
 ```javascript
-import { createComponent /*, useState, h, a, etcetera */ } from "cyano"
+import { cast /*, useState, h, a, etcetera */ } from "cyano"
 ```
 
 ### Configuring
@@ -76,7 +76,7 @@ Due to our agnostic (aliased) import from "cyano", the component code for React 
 **Hyperscript**
 
 ```javascript
-import { createComponent, useState, h, a } from "cyano"
+import { cast, useState, h, a } from "cyano"
 
 const _Toggle = ({ title }) => {
   const [clicked, setClicked] = useState(false)
@@ -95,7 +95,7 @@ const _Toggle = ({ title }) => {
   ])
 }
 
-const Toggle = createComponent(_Toggle)
+const Toggle = cast(_Toggle)
 
 // Use:
 h(Toggle, { title: "Switch!" })
@@ -106,7 +106,7 @@ h(Toggle, { title: "Switch!" })
 The same code written in JSX. See [Configuring JSX](#configuring-jsx) how to setup JSX rendering.
 
 ```jsx
-import { createComponent, useState, a, jsx } from "cyano"
+import { cast, useState, a, jsx } from "cyano"
 /* jsx needs to be in scope for JSX to work */
 
 const _Toggle = () => {
@@ -129,7 +129,7 @@ const _Toggle = () => {
   )
 }
 
-const Toggle = createComponent(_Toggle)
+const Toggle = cast(_Toggle)
 
 // Use:
 <Toggle title="Switch!" />
@@ -193,7 +193,7 @@ or in JSX:
 
 | **Variable**      | **Description** | **Doc** |
 | ----------------- | --------------- | ----------- |
-| `createComponent` | Takes a base component and returns a Mithril or React component. | [createComponent](#createcomponent) | 
+| `cast`            | Takes a base component and returns a Mithril or React component. | [cast](#cast) | 
 | `h`               | The render function for hyperscript. | [h (render function)](#h-render-function) |
 | `getDom`          | Callback function that gets a reference to the DOM element. | [getDom](#getdom) |
 | `a`               | Dictionary of accepted HTML attributes. | [a (Accepted HTML attributes)](#a-accepted-html-attributes) |
@@ -268,22 +268,22 @@ Example: a base Navigation component that contains Link components.
 Either convert the Link before using:
 
 ```javascript
-import { createComponent, h, a } from "cyano"
+import { cast, h, a } from "cyano"
 import _Link from "./shared/Link"
 
-const Link = createComponent(_Link)
+const Link = cast(_Link)
 
 const _Navigation = () => [
   h(Link, { label: "Home",    path: "/"} ),
   h(Link, { label: "Contact", path: "/contact"} ),
 ]
-const Navigation = createComponent(_Navigation)
+const Navigation = cast(_Navigation)
 ```
 
 Or pass the converted Link as parameter to Navigation:
 
 ```javascript
-import { createComponent, h, a } from "cyano"
+import { cast, h, a } from "cyano"
 import _Link from "./shared/Link"
 
 const _Navigation = ({ Link }) => [
@@ -291,20 +291,20 @@ const _Navigation = ({ Link }) => [
   h(Link, { label: "Contact", path: "/contact"} ),
 ]
 
-const Link = createComponent(_Link)
-const Navigation = createComponent(_Navigation, { Link })
+const Link = cast(_Link)
+const Navigation = cast(_Navigation, { Link })
 ```
 
 
 ## API
 
-### createComponent
+### cast
 
 Takes a base component and returns a Mithril or React component.
 
 **Signature**
 
-`createComponent(renderFunction, initialProps?) => Component`
+`cast(renderFunction, initialProps?) => Component`
 
 | **Argument**    | **Type**  | **Required** | **Description** |
 | --- | --- | --- | --- | 
@@ -527,7 +527,7 @@ Install `@babel/plugin-transform-react-jsx` and add to the `plugins` in your Bab
 `jsx` is a variable exported by Cyano. This needs to be in scope when using JSX in component code (but does not need to be called explicitly):
 
 ```javascript
-import { createComponent, a, jsx } from "cyano"
+import { cast, a, jsx } from "cyano"
 ```
 
 ### React and Webpack

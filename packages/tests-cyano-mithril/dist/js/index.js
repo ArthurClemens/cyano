@@ -624,13 +624,13 @@ module.exports = function(originalModule) {
 /*!*****************************************************************************************************!*\
   !*** /Users/arthur/code/Github Projects/cyano/master/packages/cyano-mithril/dist/cyano-mithril.mjs ***!
   \*****************************************************************************************************/
-/*! exports provided: a, createComponent, getDom, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState */
+/*! exports provided: a, cast, getDom, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return a; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComponent", function() { return createComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cast", function() { return cast; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDom", function() { return getDom; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return h; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "jsx", function() { return jsx; });
@@ -979,7 +979,7 @@ var getDom = function getDom(fn) {
   };
 };
 
-var createComponent = function createComponent(component, initialProps) {
+var cast = function cast(component, initialProps) {
   return withHooks(component, initialProps);
 };
 
@@ -1018,7 +1018,7 @@ var _AppLayout = function _AppLayout(_ref) {
   }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(content));
 };
 
-var AppLayout = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_AppLayout);
+var AppLayout = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_AppLayout);
 /* harmony default export */ __webpack_exports__["default"] = (AppLayout);
 
 /***/ }),
@@ -1046,7 +1046,7 @@ var _Layout = function _Layout(_ref) {
   }, children)]);
 };
 
-var Layout = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Layout);
+var Layout = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Layout);
 /* harmony default export */ __webpack_exports__["default"] = (Layout);
 
 /***/ }),
@@ -1091,7 +1091,7 @@ var _Link = function _Link(_ref) {
   }), label));
 };
 
-var Link = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Link);
+var Link = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Link);
 
 var _MenuList = function _MenuList(_ref2) {
   var router = _ref2.router,
@@ -1112,7 +1112,7 @@ var _MenuList = function _MenuList(_ref2) {
   }))];
 };
 
-var MenuList = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_MenuList);
+var MenuList = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_MenuList);
 
 var _Navigation = function _Navigation(_ref3) {
   var router = _ref3.router,
@@ -1135,7 +1135,7 @@ var _Navigation = function _Navigation(_ref3) {
   }));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Navigation));
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Navigation));
 
 /***/ }),
 
@@ -1161,9 +1161,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var createApp = function createApp(_ref) {
   var _setContent = _ref.setContent,
-      createComponent = _ref.createComponent;
+      cast = _ref.cast;
 
-  var _createRoutes = Object(_routes__WEBPACK_IMPORTED_MODULE_3__["createRoutes"])(createComponent),
+  var _createRoutes = Object(_routes__WEBPACK_IMPORTED_MODULE_3__["createRoutes"])(cast),
       examples = _createRoutes.examples,
       tests = _createRoutes.tests;
 
@@ -1287,7 +1287,7 @@ var toLinkData = function toLinkData(_ref) {
   };
 };
 
-var createRoutes = function createRoutes(createComponent) {
+var createRoutes = function createRoutes(cast) {
   var examples = [["Simple toggle", "/toggle", _examples_Toggle__WEBPACK_IMPORTED_MODULE_0__["default"]], ["Custom hooks with useReducer", "/custom-hooks-usereducer", _examples_CustomHooksUseReducer__WEBPACK_IMPORTED_MODULE_1__["default"]]].map(toLinkData);
   var tests = [["Test custom hooks", "/TestCustomHooks", _cypress_tests_CustomHooks__WEBPACK_IMPORTED_MODULE_2__["default"]], ["Test trust", "/TestTrust", _cypress_tests_Trust__WEBPACK_IMPORTED_MODULE_3__["default"]], ["Test children", "/TestChildren", _cypress_tests_Children__WEBPACK_IMPORTED_MODULE_4__["default"]], ["Test initial props", "/TestInitialProps", _cypress_tests_InitialProps__WEBPACK_IMPORTED_MODULE_5__["default"]], ["Test toggle JSX", "/ToggleJSX", _cypress_tests_ToggleJSX__WEBPACK_IMPORTED_MODULE_6__["default"]]].map(toLinkData);
   return {
@@ -1326,8 +1326,8 @@ var _Wrapper = function _Wrapper(_ref2) {
   }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", null, "This is a child")));
 };
 
-var Children = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Children);
-var Wrapper = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Wrapper, {
+var Children = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Children);
+var Wrapper = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Wrapper, {
   title: "Children",
   Children: Children
 });
@@ -1464,7 +1464,7 @@ var _CustomHooks = function _CustomHooks() {
   }), "Add")])];
 };
 
-var CustomHooks = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_CustomHooks);
+var CustomHooks = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_CustomHooks);
 /* harmony default export */ __webpack_exports__["default"] = (CustomHooks);
 
 /***/ }),
@@ -1497,10 +1497,10 @@ var _Wrapper = function _Wrapper(_ref2) {
   }));
 };
 
-var InitialProps = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_InitialProps, {
+var InitialProps = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_InitialProps, {
   defaultTitle: "default title"
 });
-var Wrapper = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Wrapper, {
+var Wrapper = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Wrapper, {
   title: "Hello",
   InitialProps: InitialProps
 });
@@ -1552,7 +1552,7 @@ var _Toggle = function _Toggle(_ref) {
   }, clicked ? Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", "On") : Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", "Off")), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", null, cyano__WEBPACK_IMPORTED_MODULE_0__["h"].trust("<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z\"/></svg>")));
 };
 
-var Toggle = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Toggle);
+var Toggle = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Toggle);
 
 var _Wrapper = function _Wrapper() {
   return Object(cyano__WEBPACK_IMPORTED_MODULE_0__["jsx"])(Toggle, {
@@ -1560,7 +1560,7 @@ var _Wrapper = function _Wrapper() {
   });
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Wrapper));
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Wrapper));
 
 /***/ }),
 
@@ -1589,7 +1589,7 @@ var _Trust = function _Trust() {
   }, cyano__WEBPACK_IMPORTED_MODULE_0__["h"].trust("Hello", "span"))];
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Trust));
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Trust));
 
 /***/ }),
 
@@ -1790,8 +1790,8 @@ var _CounterController = function _CounterController(_ref2) {
   })];
 };
 
-var Counter = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Counter);
-var CounterController = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_CounterController, {
+var Counter = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Counter);
+var CounterController = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_CounterController, {
   Counter: Counter
 });
 /* harmony default export */ __webpack_exports__["default"] = (CounterController);
@@ -1837,7 +1837,7 @@ var _Toggle = function _Toggle() {
   }, clicked ? "On" : "Off")]);
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["createComponent"])(_Toggle));
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Toggle));
 
 /***/ }),
 
@@ -5799,7 +5799,7 @@ var setContent = function setContent(_ref) {
 
 Object(tests_cyano_shared_app_createApp__WEBPACK_IMPORTED_MODULE_2__["createApp"])({
   setContent: setContent,
-  createComponent: cyano__WEBPACK_IMPORTED_MODULE_1__["createComponent"]
+  cast: cyano__WEBPACK_IMPORTED_MODULE_1__["cast"]
 });
 
 /***/ })

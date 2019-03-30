@@ -1,4 +1,4 @@
-import { createComponent, h } from "cyano";
+import { cast, h } from "cyano";
 
 const _Children = ({ title, children }) => {
   return h("div",
@@ -21,7 +21,7 @@ const _Wrapper = ({ title, Children }) =>
     )
   );
 
-const Children = createComponent(_Children);
-const Wrapper = createComponent(_Wrapper, { title: "Children", Children });
+const Children = cast(_Children);
+const Wrapper = cast(_Wrapper, { title: "Children", Children });
 
 export default Wrapper;

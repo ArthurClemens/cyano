@@ -1,4 +1,4 @@
-import { createComponent, useState, h, a } from "cyano";
+import { cast, useState, h, a } from "cyano";
 
 const _Toggle = () => {
   const [clicked, setClicked] = useState(false);
@@ -24,4 +24,4 @@ const _Toggle = () => {
   );
 };
 
-export default createComponent(_Toggle);
+export default cast(_Toggle);

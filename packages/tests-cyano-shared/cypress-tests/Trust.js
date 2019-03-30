@@ -1,4 +1,4 @@
-import { createComponent, h } from "cyano";
+import { cast, h } from "cyano";
 
 const _Trust = () => {
   return [
@@ -26,4 +26,4 @@ const _Trust = () => {
   ];
 };
 
-export default createComponent(_Trust);
+export default cast(_Trust);
