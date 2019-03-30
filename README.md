@@ -20,6 +20,7 @@ Takes a base component and returns a Mithril or React component. This is useful 
   - [Inserting trusted content](#inserting-trusted-content)
   - [a (Accepted HTML attributes)](#a-accepted-html-attributes)
   - [getDom](#getdom)
+  - [jsx](#jsx)
 - [Additional setup](#additional-setup)
   - [Bundler configuration](#bundler-configuration)
     - [Configuring Webpack](#configuring-webpack)
@@ -189,13 +190,14 @@ or in JSX:
 
 **Helper functions**
 
-| **Variable**      | **Description** | **API doc** | 
+| **Variable**      | **Description** | **Doc** |
 | ----------------- | --------------- | ----------- |
-| `createComponent` | Takes a base component and returns a Mithril or React component. | |
-| `h`               | The render function for hyperscript. | |
-| `getDom`          | Callback function that gets a reference to the DOM element. | |
-| `a`               | Dictionary of accepted HTML attributes. | |
-| `jsx`             | Babel pragma, only import when writing JSX. | |
+| `createComponent` | Takes a base component and returns a Mithril or React component. | [createComponent](#createcomponent) | 
+| `h`               | The render function for hyperscript. | [h (render function)](#h-render-function) |
+| `getDom`          | Callback function that gets a reference to the DOM element. | [getDom](#getdom) |
+| `a`               | Dictionary of accepted HTML attributes. | [a (Accepted HTML attributes)](#a-accepted-html-attributes) |
+| `jsx`             | Babel pragma, only import when writing JSX. | [jsx](#jsx) |
+
 
 ### Using hooks
 
@@ -405,6 +407,10 @@ The example above contains a check to prevent superfluous updates to the variabl
 
 * `cyano-mithril`: `getDom` uses Mithril's lifecycle method `oncreate` to access the DOM element. This method will be called once.
 * `cyano-react`: `getDom` uses React's `ref` method to access the DOM element. This method will be called on each render. When the element is removed from the DOM, `getDom` will receive `null`. Using an update check as shown above will prevent that the reference will be lost.
+
+### jsx
+
+Babel pragma. Only import this when writing JSX.
 
 
 ## Additional setup
