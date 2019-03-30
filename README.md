@@ -2,242 +2,209 @@
 
 Takes a base component and returns a Mithril or React component. This is useful if you want to support both libraries with a minimum of duplicate code.
 
-
+- [Getting started](#getting-started)
+  - [Install](#install)
+  - [Import](#import)
+  - [Configuring](#configuring)
+  - [Code example](#code-example)
 - [Usage](#usage)
-  - [Install and import](#install-and-import)
-    - [With Mithril](#with-mithril)
-    - [With React](#with-react)
-  - [createComponent](#createcomponent)
-    - [With Mithril](#with-mithril-1)
-    - [With React](#with-react-1)
-    - [Signature](#signature)
-  - [Hyperscript](#hyperscript)
-  - [Lifecycle methods using hooks](#lifecycle-methods-using-hooks)
-  - [HTML attributes](#html-attributes)
-  - [Getting DOM elements](#getting-dom-elements)
-    - [Under the hood](#under-the-hood)
-  - [Inserting trusted content](#inserting-trusted-content)
-    - [Signature](#signature-1)
+  - [Write a single codebase, deploy twice](#write-a-single-codebase-deploy-twice)
+  - [Shared language](#shared-language)
   - [Using hooks](#using-hooks)
-  - [Custom hooks](#custom-hooks)
-  - [Supported hooks](#supported-hooks)
+    - [Custom hooks](#custom-hooks)
+    - [Supported hooks](#supported-hooks)
   - [Passing or nesting components](#passing-or-nesting-components)
+- [API](#api)
+  - [createComponent](#createcomponent)
+  - [h (render function)](#h-render-function)
+  - [Inserting trusted content](#inserting-trusted-content)
+  - [a (Accepted HTML attributes)](#a-accepted-html-attributes)
+  - [getDom](#getdom)
+- [Additional setup](#additional-setup)
+  - [Bundler configuration](#bundler-configuration)
+    - [Configuring Webpack](#configuring-webpack)
+    - [Configuring Rollup](#configuring-rollup)
+    - [Configuring Browserify](#configuring-browserify)
+  - [Configuring JSX](#configuring-jsx)
+  - [React and Webpack](#react-and-webpack)
 - [Compatibility](#compatibility)
-- [React and Webpack](#react-and-webpack)
 - [Size](#size)
 - [Supported browsers](#supported-browsers)
 - [License](#license)
 
 
-## Usage
+## Getting started
 
-### Install and import 
+Usage of Cyano requires setting an alias setting in your bundler configuration. Read on for details.
 
-#### With Mithril
+### Install
+
+With Mithril:
 
 ```bash
 npm install cyano-mithril
 ```
 
-Use in code:
-
-```javascript
-import { createComponent } from "cyano-mithril"
-```
-
-#### With React
+With React:
 
 ```bash
 npm install cyano-react
 ```
 
-Use in code:
+### Import
+
+We use an import from alias "cyano". By making this import library agnostic, we can use indentical code for either library.
 
 ```javascript
-import { createComponent } from "cyano-react"
+import { createComponent /*, useState, h, a, etcetera */ } from "cyano"
 ```
 
+### Configuring
 
-### createComponent
+We need to let the bundler point from "cyano" to `cyano-react` or `cyano-mithril`. See instructions for bundlers below:
 
-Takes a base component and returns a Mithril or React component.
+- [Configuring Webpack](#configuring-webpack)
+- [Configuring Rollup](#configuring-rollup)
+- [Configuring Browserify](#configuring-browserify)
 
-#### With Mithril
+### Code example
 
-Create a Mithril component from a base component:
+Due to our agnostic (aliased) import from "cyano", the component code for React and Mithril is identical.
+
+**Hyperscript**
 
 ```javascript
-import m from "mithril"
-import { createComponent } from "cyano-mithril"
-import { SharedCounter } from "./shared/components"
+import { createComponent, useState, h, a } from "cyano"
 
-const Counter = createComponent(SharedCounter)
+const _Toggle = ({ title }) => {
+  const [clicked, setClicked] = useState(false)
+  
+  return h(".toggle", [
+    h("h2", title),
+    h("button",
+      {
+        [a.onclick]: () => setClicked(!clicked)
+      },
+      "Toggle"
+    ),
+    h("div",
+      clicked ? "On" : "Off"
+    )
+  ])
+}
+
+const Toggle = createComponent(_Toggle)
 
 // Use:
-m(Counter, { initialCount: 1 })
+h(Toggle, { title: "Switch!" })
 ```
 
-#### With React
+**JSX**
 
-Similarly create a React component from the same base component:
+The same code written in JSX. See [Configuring JSX](#configuring-jsx) how to setup JSX rendering.
 
 ```jsx
-import React from "react"
-import { createComponent } from "cyano-react"
-import { SharedCounter } from "./shared/components"
+import { createComponent, useState, a, jsx } from "cyano"
+/* jsx needs to be in scope for JSX to work */
 
-const Counter = createComponent(SharedCounter)
+const _Toggle = () => {
+  const [clicked, setClicked] = useState(false)
+
+  return (
+    <div className="toggle">
+      <h2>{title}</h2>
+      <div
+        className={`button ${clicked ? "is-info" : ""}`}
+        {...{
+          [a.onclick]: () => setClicked(!clicked)
+        }}>
+        Toggle
+      </div>
+      <div className="info">
+        {clicked ? "On" : "Off"}
+      </div>
+    </div>
+  )
+}
+
+const Toggle = createComponent(_Toggle)
 
 // Use:
-<Counter initialCount={1} />
+<Toggle title="Switch!" />
 ```
 
-
-#### Signature
-
-`createComponent(renderFunction, initialProps) => Component`
-
-| **Argument**    | **Type**  | **Required** | **Description** |
-| --- | --- | --- | --- | 
-| `renderFunction` | Function component | Yes | The base/common/shared functional component to be converted for Mithril or React |
-| `initialProps`   | Object | No | Any variable to pass to `renderFunction`; see also [Passing or nesting components](#passing-or-nesting-components) | 
-
-The returned `Component` can be called as any component:
-
-```javascript
-h(Component, {
-  // component props
-})
-```
-
-`renderFunction` will receive a combined object of `initialProps` and component props.
+Note the HTML attribute "onclick" that must be passed in the properties object, because we can't use dynamic keys for JSX attributes.
 
 
-`initialProps` will also contains these helpers:
+## Usage
 
-| **Argument** | **Type**  | **Available by default** | **Description** |
-| --- | --- | --- | --- | 
-| `h`          | Function  | Yes | Render function: for Mithril `m`; for React [react-hyperscript](https://github.com/mlmorg/react-hyperscript) |
-| `a`          | Object    | Yes | Map of accepted HTML abbritutes; see [HTML attributes](#html-attributes) |
-| `getDom`     | Function | Yes | Function to return a DOM element; see [Getting DOM elements](#getting-dom-elements) |
-| `useState` | Function | Yes | Default hook |
-| `useEffect` | Function | Yes | Default hook |
-| `useLayoutEffect` | Function | Yes | Default hook |
-| `useReducer` | Function | Yes | Default hook |
-| `useRef` | Function | Yes | Default hook |
-| `useMemo` | Function | Yes | Default hook |
-| `useCallback` | Function | Yes | Default hook |
-| prop1, ...        | any       | No | Properties passed to the component |
-| hookFunction1, ... | Function  | No | Custom hook functions |
+### Write a single codebase, deploy twice
 
+The basic idea behind Cyano is to make code portable to both Mithril and React.
 
-### Hyperscript
+Perhaps you are a library author who wants to have more users benefit from your solution. You can write once and deploy twice.
 
-To support both Mithril and React, components are written using hyperscript. This is common for Mithril, but less used for React.
+Or you are introducing Mithril in a company that is inclined to use React. By supporting both libraries you can hold out a decision until the team has had some more experience.
 
-[React Without JSX](https://reactjs.org/docs/react-without-jsx.html) demonstrates how to use `React.createElement` to write component code. Cyano uses an enhanced version through [react-hyperscript](https://github.com/mlmorg/react-hyperscript).
+Cyano lets you create Mithril and React components from shared base components. To make these base components interoperable, they need to understand a shared language.
 
-### Lifecycle methods using hooks
+### Shared language
 
-The base components are render functions. Instead of lifecycle methods you use hooks. 
+**Hooks instead of lifecycle methods**
 
-* React Hooks have been introduced in React 16.8.
-* For Mithril see we use helper library [mithril-hookup](https://github.com/ArthurClemens/mithril-hookup).
+Base components are "functional components" - render functions without lifecycle/class methods.
 
-### HTML attributes 
+[React Hooks](https://reactjs.org/docs/hooks-intro.html) are a replacement for React classes. Local state and lifecycle methods can be implemented using hooks with little effort.
+
+* React Hooks have been introduced in React 16.8 but seem to have taken off.
+* For Mithril hooks are implemented with helper library [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks).
+
+Hooks make it trivial to define logic outside of the component and to import parts where needed.
+
+**Hyperscript or JSX**
+
+Base components can be written in hyperscript of JSX.
+
+If you choose hyperscript: [React Without JSX](https://reactjs.org/docs/react-without-jsx.html) demonstrates how to use `React.createElement` to write component code. Cyano uses an enhanced version through [react-hyperscript](https://github.com/mlmorg/react-hyperscript), which is more lenient in omitting properties and keys.
+
+If you choose JSX, see [Configuring JSX](#configuring-jsx) how to setup JSX rendering.
+
+**Dictionary of accepted HTML attributes**
 
 React follows the camelCase convention for accepted HTML attributes, whereas Mithril uses lowercase names.
 
-Argument `a` will map the lowercase attribute name to an accepted one. Instead of `onClick` (for React) or (`onclick` (for Mithril) you write `[a.onclick]`:
+Imported variable `a` will map the lowercase attribute name to an accepted one. Instead of `onClick` (for React) or (`onclick` (for Mithril) you write:
 
 ```javascript
-const SharedCounter = ({ initialCount, h, a }) => {
-  return (
-    h("div", {},
-      [
-        h(".count",
-          {
-            key: "count", // required for React when in an array
-          },
-          initialCount
-        ),
-        h("button",
-          {
-            key: "increment", // required for React when in an array
-            [a.onclick]: () => console.log("clicked")
-          },
-          "More"
-        ),
-      ]
-    )
-  )
-}
+[a.onclick]: () => setClicked(!clicked)
 ```
 
-### Getting DOM elements
+or in JSX:
 
-Cyano provides callback function `getDom` to get a reference to the DOM element.
-
-`getDom` accepts a function that receives the DOM reference.
-
-DOM reference are commonly stored in a `useRef` object. Note that setting or updating `useRef` will not cause a re-render.
-
-```javascript
-const SharedComponent = ({ useRef, h, a, getDom }) => {
-  const domRef = useRef();
-  
-  return (
-    h("div", 
-      {
-        className: "component",
-        ...getDom(dom => domRef.current = domRef.current || dom) // React will call this each render
-      },
-      "My component"
-    )
-  )
-}
+```jsx
+{...{
+  [a.onclick]: () => setClicked(!clicked)
+}}
 ```
 
-The example above contains a check to prevent superfluous updates to the variable `domRef`.
+**Helper functions**
 
-#### Under the hood
-
-* `cyano-mithril`: `getDom` uses Mithril's lifecycle method `oncreate` to access the DOM element. This method will be called once.
-* `cyano-react`: `getDom` uses React's `ref` method to access the DOM element. This method will be called on each render. When the element is removed from the DOM, `getDom` will receive `null`. Using an update check as shown above will prevent that the reference will be lost.
-
-
-### Inserting trusted content
-
-Mithril's API contains [m.trust](https://mithril.js.org/trust.html) that "turns an HTML or SVG string into unescaped HTML or SVG". The documentation continues with the warning "Do not use m.trust on unsanitized user input. Always try to use an [alternative method](https://mithril.js.org/trust.html#avoid-trusting-html) first, before considering using m.trust."
-
-With all caveats, it is sometimes useful to insert a piece of HTML or SVG into a container.
-
-The render function `h` is enhanced with method `trust` to do that:
-
-```javascript
-const iconBack = h.trust("<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z\"/></svg>")
-```
-
-`cyano-react` uses `dangerouslySetInnerHTML` to set trusted content with a "div" as wrapper element. The element tag can be set with the second parameter.
-
-For consistency, `cyano-mithril` function `h.trust` is enhanced with this second parameter too.
-
-#### Signature 
-
-`h.trust(content, wrapper)`
-
-| **Argument**    | **Type**  | **Required** | **Default** | **Description** |
-| --- | --- | --- | --- | --- | 
-| `content` | HTML string | Yes | | A string containing HTML or SVG text. |
-| `wrapper` | Element tag name | No | `cyano-react`: "div"; `cyano-mithril`: undefined | Wrapper element |
-
+| **Variable**      | **Description** | **API doc** | 
+| ----------------- | --------------- | ----------- |
+| `createComponent` | Takes a base component and returns a Mithril or React component. | |
+| `h`               | The render function for hyperscript. | |
+| `getDom`          | Callback function that gets a reference to the DOM element. | |
+| `a`               | Dictionary of accepted HTML attributes. | |
+| `jsx`             | Babel pragma, only import when writing JSX. | |
 
 ### Using hooks
 
 Base components have access to default hooks (see "supported hooks" below) and custom hooks.
 
 ```javascript
-const SharedCounter = ({ initialCount, h, a, useState, useEffect }) => {
+import { h, a, useState, useEffect } from "cyano"
+
+const SharedCounter = ({ initialCount }) => {
   const [count, setCount] = useState(initialCount)
 
   useEffect(
@@ -267,43 +234,13 @@ const SharedCounter = ({ initialCount, h, a, useState, useEffect }) => {
 }
 ```
 
+#### Custom hooks
 
-### Custom hooks
+General introduction in React's documentation: [Building Your Own Hooks](https://reactjs.org/docs/hooks-custom.html)
 
-Custom hooks are passed as second parameter to `createComponent`:
+Using hooks with Mithril: see [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks) for examples.
 
-```javascript
-const Counter = createComponent(SharedCounter, customHooks)
-```
-
-Custom hooks are created with a factory function. The function receives the default hooks (automatically), and should return an object with custom hook functions:
-
-```javascript
-const customHooks = ({ useState /* or other default hooks required here */ }) => ({
-  useCount: (initialValue = 0) => {
-    const [count, setCount] = useState(initialValue)
-    return [
-      count,                      // value
-      () => setCount(count + 1),  // increment
-      () => setCount(count - 1)   // decrement
-    ]
-  }
-})
-```
-
-To use the custom hooks:
-
-```javascript
-const SharedCounter = ({ initialCount, h, a, useCount }) => {
-  const [count, increment, decrement] = useCount(initialCount)
-  // ...
-}
-```
-
-See [mithril-hookup](https://github.com/ArthurClemens/mithril-hookup) for more examples.
-
-
-### Supported hooks
+#### Supported hooks
 
 * `useState`
 * `useEffect`
@@ -314,75 +251,260 @@ See [mithril-hookup](https://github.com/ArthurClemens/mithril-hookup) for more e
 * `useCallback`
 * Custom hooks
 
-
 ### Passing or nesting components
 
-Example: a base Navigation component that contains Link components. The Link component need to be converted beforehand, and then passed on to Navigation.
+Example: a base Navigation component that contains Link components.
 
-A pattern that scales well is the component factory:
+Either convert the Link before using:
 
 ```javascript
-const createNavigation = createComponent => {
-  const Link = createComponent(_Link)
-  const Navigation = createComponent(_Navigation, { Link })
-  return Navigation
-}
+import { createComponent, h, a } from "cyano"
+import _Link from "./shared/Link"
+
+const Link = createComponent(_Link)
+
+const _Navigation = () => [
+  h(Link, { label: "Home",    path: "/"} ),
+  h(Link, { label: "Contact", path: "/contact"} ),
+]
+const Navigation = createComponent(_Navigation)
 ```
 
-Create the Navigation component from the factory:
+Or pass the converted Link as parameter to Navigation:
 
 ```javascript
-const Navigation = createNavigation(createComponent)
-```
+import { createComponent, h, a } from "cyano"
+import _Link from "./shared/Link"
 
-Full example:
-
-```javascript
-// src/shared/Navigation.js
-
-const _Link = ({ label, path, h, a }) => (  
-  h("a",
-    {
-      href: path,
-      [a.onclick]: e => (
-        e.preventDefault(),
-        // do something
-      )
-    },
-    label
-  )
-)
-
-const _Navigation = ({ h, Link }) => [
+const _Navigation = ({ Link }) => [
   h(Link, { label: "Home",    path: "/"} ),
   h(Link, { label: "Contact", path: "/contact"} ),
 ]
 
-const createNavigation = createComponent => {
-  const Link = createComponent(_Link)
-  const Navigation = createComponent(_Navigation, { Link })
-  return Navigation
-}
-export default createNavigation
-
-// src/app.js
-
-import createNavigation from "./shared/Navigation"
-const Navigation = createNavigation(createComponent)
-
-// Use:
-h(Navigation)
+const Link = createComponent(_Link)
+const Navigation = createComponent(_Navigation, { Link })
 ```
 
 
+## API
 
-## Compatibility
+### createComponent
 
-* Mithril: tested with Mithril 1.1.6 and Mithril 2.x
-* React: tested with React 16.8.4
+Takes a base component and returns a Mithril or React component.
+
+**Signature**
+
+`createComponent(renderFunction, initialProps?) => Component`
+
+| **Argument**    | **Type**  | **Required** | **Description** |
+| --- | --- | --- | --- | 
+| `renderFunction` | Function component | Yes | The base/common/shared functional component to be converted for Mithril or React |
+| `initialProps`   | Object | No | Any variable to pass to `renderFunction`; see also [Passing or nesting components](#passing-or-nesting-components) | 
+| **Returns** | Component |||
+
+The returned `Component` can be called as any component:
+
+```javascript
+h(Component, {
+  // component props
+})
+```
+
+The component render function that is called will receive a combined object of `initialProps` and component props:
+
+```javascript
+const _Component = allProps => {...}
+```
+
+### h (render function)
+
+The render function for hyperscript.
+
+**Signature**
+
+`h(selector, properties?, children?) => Element`
+
+| **Argument**    | **Type**  | **Required** | **Description** |
+| --- | --- | --- | --- | 
+| `selector` | `String|Object` | Yes | A CSS selector or a component |
+| `properties` | `Object` | No | HTML attributes or element properties |
+| `children` | `Array<Vnode|ReactElement>|String|Number|Boolean` | No | Child nodes |
+| **Returns** | `Vnode` (for Mithril); `ReactElement` for React |||
+
+### Inserting trusted content
+
+Mithril's API contains [m.trust](https://mithril.js.org/trust.html) that "turns an HTML or SVG string into unescaped HTML or SVG". The documentation continues with the warning
+
+> Do not use m.trust on unsanitized user input. Always try to use an [alternative method](https://mithril.js.org/trust.html#avoid-trusting-html) first, before considering using m.trust.
+
+With this caveat, it is sometimes useful to insert a piece of HTML or SVG into a container.
+
+The render function `h` is enhanced with method `trust` to do that:
+
+```javascript
+const iconBack = h.trust("<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z\"/></svg>")
+```
+
+`cyano-react` uses `dangerouslySetInnerHTML` to set trusted content with a "div" as wrapper element. The element tag can be set with the second parameter.
+
+For consistency, `cyano-mithril` function `h.trust` is enhanced with this second parameter too.
+
+**Signature**
+
+`h.trust(html, wrapper) => Element`
+
+| **Argument**    | **Type**  | **Required** | **Default** | **Description** |
+| --- | --- | --- | --- | --- | 
+| `html` | `String` | Yes | | A string containing HTML or SVG text. |
+| `wrapper` | Element tag name | No | `cyano-react`: "div"; `cyano-mithril`: undefined | Wrapper element |
+| **Returns** | `Vnode` (for Mithril); `ReactElement` for React |||
+
+### a (Accepted HTML attributes)
+
+Dictionary of accepted HTML attributes.
+
+`a.onclick` returns "onclick" for Mithril and "onClick" for React.
+
+### getDom
+
+Callback function `getDom` gets a reference to the DOM element.
+
+**Signature**
+
+`getDom(fn)`
+
+| **Argument**    | **Type**  | **Required** | **Description** |
+| --- | --- | --- | --- | --- | 
+| `fn` | `Function` | Yes | Function that receives the DOM reference. |
+| **Returns** | `function(dom) { /* use dom */}` |||
+
+`getDom` accepts a function that receives the DOM reference.
+
+DOM reference are commonly stored in a `useRef` object, with property `current` to store the data. Note that setting or updating `useRef` will not cause a re-render.
+
+```javascript
+import { useRef, h, a, getDom } from "cyano"
+
+const _Component = () => {
+  const domRef = useRef()
+  
+  return (
+    h("div", 
+      {
+        ...getDom(dom => domRef.current = domRef.current || dom) // React will call this each render
+      },
+      "My component"
+    )
+  )
+}
+```
+
+The example above contains a check to prevent superfluous updates to the variable `domRef`.
+
+**Under the hood**
+
+* `cyano-mithril`: `getDom` uses Mithril's lifecycle method `oncreate` to access the DOM element. This method will be called once.
+* `cyano-react`: `getDom` uses React's `ref` method to access the DOM element. This method will be called on each render. When the element is removed from the DOM, `getDom` will receive `null`. Using an update check as shown above will prevent that the reference will be lost.
 
 
-## React and Webpack
+## Additional setup
+
+### Bundler configuration
+
+This is a required step in the setup.
+
+We need to let the bundler point from "cyano" to `cyano-react` or `cyano-mithril`. 
+
+Each bundler has a different method to to this - it is generally called "map" or "alias".
+
+The examples below show how to direct from "cyano" to "cyano-mithril". When you are using the same bundler scripts for both Mithril and React, you should consider to configure the alias, for instance by using an environment variable. See [tests-cyano-mithril/package.json](https://github.com/ArthurClemens/cyano/blob/master/packages/tests-cyano-mithril/package.json#L7) for an example.
+
+#### Configuring Webpack
+
+```javascript
+// webpack.config.js
+
+const path = require("path");
+const baseDir = process.cwd();
+```
+
+Then add to the configuration:
+
+```javascript
+resolve: {
+  alias: {
+    "cyano": path.resolve(baseDir, "node_modules/cyano-mithril"),
+  }
+}
+```
+
+#### Configuring Rollup
+
+Use [rollup-plugin-pathmodify](https://www.npmjs.com/package/rollup-plugin-pathmodify):
+
+```javascript
+// rollup.config.js
+
+import path from "path";
+import pathmodify from "rollup-plugin-pathmodify";
+
+const baseDir = process.cwd();
+```
+
+Then add to plugins:
+
+```javascript
+pathmodify({
+  aliases: [
+    {
+      id: "cyano",
+      resolveTo: path.resolve(baseDir, "node_modules/cyano-mithril/dist/cyano-mithril.mjs"),
+    },
+  ]
+})
+```
+
+#### Configuring Browserify
+
+Use the [pathmodify](https://www.npmjs.com/package/pathmodify) plugin to change the default config path to your custom file:
+
+```javascript
+const path = require("path");
+const pathmodify = require('pathmodify');
+
+const baseDir = process.cwd();
+```
+
+Then add to `browserify()`:
+
+```javascript
+.plugin(pathmodify, {
+  mods: [
+    pathmodify.mod.id("cyano", path.resolve(baseDir, "node_modules/cyano-mithril")),
+  ]
+})
+// ...
+```
+
+### Configuring JSX
+
+This is an optional step.
+
+Install `@babel/plugin-transform-react-jsx` and add to the `plugins` in your Babel configuration:
+
+```javascript
+["@babel/plugin-transform-react-jsx", {
+  "pragma": "jsx"
+}]
+```
+
+`jsx` is a variable exported by Cyano. This needs to be in scope when using JSX in component code (but does not need to be called explicitly):
+
+```javascript
+import { createComponent, a, jsx } from "cyano"
+```
+
+### React and Webpack
 
 It may be necessary to point Webpack to the React module. Add a `resolve` entry to the config:
 
@@ -394,15 +516,20 @@ resolve: {
 },
 ```
 
+## Compatibility
+
+* Mithril: tested with Mithril 1.1.6 and Mithril 2.x
+* React: tested with React 16.8.4
+
 
 ## Size
 
 * `cyano-mithril.js`:
   * 1.8 Kb gzipped
-  * Includes: [mithril-hookup](https://github.com/ArthurClemens/mithril-hookup)
+  * Includes [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks)
 * `cyano-react.js`:
-  * 1.5 Kb gzipped
-  * Includes: [react-hyperscript](https://github.com/mlmorg/react-hyperscript)
+  * 1.4 Kb gzipped
+  * Includes [react-hyperscript](https://github.com/mlmorg/react-hyperscript)
 
 
 ## Supported browsers

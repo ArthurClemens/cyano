@@ -1,14 +1,11 @@
-import { createAppLayout } from "./AppLayout";
-import { createLayout } from "./Layout";
-import { createNavigation } from "./Navigation";
+import AppLayout from "./AppLayout";
+import Layout from "./Layout";
+import Navigation from "./Navigation";
 import { createRoutes } from "./routes";
 import { setupRouter } from "./router";
 
 export const createApp = ({ setContent, createComponent }) => {
   const { examples, tests } = createRoutes(createComponent);
-  const AppLayout = createAppLayout(createComponent);
-  const Layout = createLayout(createComponent);
-  const Navigation = createNavigation(createComponent);
   const routes = examples.concat(tests);
 
   setupRouter({

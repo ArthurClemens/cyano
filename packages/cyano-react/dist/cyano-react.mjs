@@ -1,4 +1,5 @@
-import React from 'react';
+import react from 'react';
+export { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState } from 'react';
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -93,7 +94,7 @@ var reactHyperscript = h;
 function h(componentOrTag, properties, children) {
   // if only one argument which is an array, wrap items with React.Fragment
   if (arguments.length === 1 && Array.isArray(componentOrTag)) {
-    return h(React.Fragment, null, componentOrTag);
+    return h(react.Fragment, null, componentOrTag);
   } else if (!children && isChildren(properties)) {
     // If a child array or text node are passed as the second argument, shift them
     children = properties;
@@ -131,14 +132,14 @@ function h(componentOrTag, properties, children) {
 
 
   var args = [componentOrTag, properties].concat(children);
-  return React.createElement.apply(React, args);
+  return react.createElement.apply(react, args);
 }
 
 function isChildren(x) {
   return typeof x === 'string' || typeof x === 'number' || Array.isArray(x);
 }
 
-const htmlAttributes = {
+const a = {
   autocomplete: "autoComplete",
   autofocus: "autoFocus",
   class: "className",
@@ -167,8 +168,9 @@ const htmlAttributes = {
   readonly: "readOnly",
   tabindex: "tabIndex"
 };
+const h$1 = reactHyperscript;
 
-reactHyperscript.trust = function (html) {
+h$1.trust = function (html) {
   let wrapper = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
   return reactHyperscript(wrapper, {
     dangerouslySetInnerHTML: {
@@ -177,36 +179,14 @@ reactHyperscript.trust = function (html) {
   });
 };
 
-const createComponent = function createComponent(component) {
-  let customHooksFn, initialProps;
-
-  if (typeof (arguments.length <= 1 ? undefined : arguments[1]) === "function") {
-    customHooksFn = arguments.length <= 1 ? undefined : arguments[1];
-    initialProps = arguments.length <= 2 ? undefined : arguments[2];
-  } else {
-    initialProps = arguments.length <= 1 ? undefined : arguments[1];
-  }
-
-  return function () {
-    let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    const supportedHooks = {
-      useState: React.useState,
-      useEffect: React.useEffect,
-      useLayoutEffect: React.useLayoutEffect,
-      useReducer: React.useReducer,
-      useRef: React.useRef,
-      useMemo: React.useMemo,
-      useCallback: React.useCallback
-    };
-    const customHooks = customHooksFn !== undefined && customHooksFn !== null ? customHooksFn(supportedHooks) : {};
-    return component(_objectSpread({
-      h: reactHyperscript,
-      a: htmlAttributes,
-      getDom: fn => ({
-        ref: dom => fn(dom)
-      })
-    }, supportedHooks, customHooks, initialProps || {}, props));
-  };
+h$1.displayName = "react";
+const jsx = react.createElement;
+const getDom = fn => ({
+  ref: dom => fn(dom)
+});
+const createComponent = (component, initialProps) => function () {
+  let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return component(_objectSpread({}, initialProps, props));
 };
 
-export { createComponent };
+export { a, createComponent, getDom, h$1 as h, jsx };

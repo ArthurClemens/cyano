@@ -1,5 +1,6 @@
+import { createComponent, h } from "cyano";
 
-const _Layout = ({ h, navigation, children }) => (
+const _Layout = ({ navigation, children }) => (
   h("div",
     {
       className: "layout"
@@ -17,7 +18,6 @@ const _Layout = ({ h, navigation, children }) => (
   )
 );
 
-export const createLayout = createComponent => {
-  const Layout = createComponent(_Layout);
-  return Layout;
-};
+const Layout = createComponent(_Layout);
+
+export default Layout;

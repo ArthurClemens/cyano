@@ -1,4 +1,6 @@
-const _AppLayout = ({ h, Layout, Navigation, route, router, content, examples, tests }) =>
+import { createComponent, h } from "cyano";
+
+const _AppLayout = ({ Layout, Navigation, route, router, content, examples, tests }) => (
   h(Layout,
     {
       route,
@@ -13,10 +15,9 @@ const _AppLayout = ({ h, Layout, Navigation, route, router, content, examples, t
       })
     },
     h(content)
-  );
+  )
+);
 
-  export const createAppLayout = createComponent => {
-    const AppLayout = createComponent(_AppLayout);
-    return AppLayout;
-  };
-  
+const AppLayout = createComponent(_AppLayout);
+
+export default AppLayout;

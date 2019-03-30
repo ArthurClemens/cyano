@@ -1,5 +1,6 @@
+import { createComponent, h } from "cyano";
 
-const _Trust = ({ h }) => {
+const _Trust = () => {
   return [
     h("div",
       {
@@ -25,7 +26,4 @@ const _Trust = ({ h }) => {
   ];
 };
 
-export const createTrust = createComponent => {
-  const Trust = createComponent(_Trust);
-  return Trust;
-};
+export default createComponent(_Trust);

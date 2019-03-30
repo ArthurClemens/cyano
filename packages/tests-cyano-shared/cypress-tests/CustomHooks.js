@@ -1,42 +1,39 @@
+import { createComponent, useState, h, a } from "cyano";
 
-const customHooks = ({ useState }) => {
-  // Use a name to access it from hook functions
-  const hooks = {
-    useCount: (initialValue = 0) => {
-      const [count, setCount] = useState(initialValue);
-      return [
-        count,                      // value
-        () => setCount(count + 1),  // increment
-        () => setCount(count - 1)   // decrement
-      ];
-    },
-    useCounter: () => {
-      // A custom hook that uses another custom hook.
-      const createNewCounter = () => ({
-        id: new Date().getTime(),
-        initialCount: Math.round(Math.random() * 1000)
-      });
-      const firstCounter = createNewCounter();
-      const [counters, addCounter, removeCounter] = hooks.useArray([firstCounter]);
-      return [
-        counters,
-        () => addCounter(createNewCounter()),
-        remove => removeCounter(remove)
-      ];
-    },
-    useArray: (initialValue = []) => {
-      const [arr, setArr] = useState(initialValue)
-      return [
-        arr,
-        add => setArr(arr.concat(add)),
-        remove => setArr(arr.filter(item => item !== remove))
-      ];
-    },
-  };
-  return hooks;
+const useCount = (initialValue = 0) => {
+  const [count, setCount] = useState(initialValue);
+  return [
+    count,                      // value
+    () => setCount(count + 1),  // increment
+    () => setCount(count - 1)   // decrement
+  ];
 };
 
-const _CustomHooks = ({ useCount, useCounter, h, a }) => {
+const useCounter = () => {
+  // A custom hook that uses another custom hook.
+  const createNewCounter = () => ({
+    id: new Date().getTime(),
+    initialCount: Math.round(Math.random() * 1000)
+  });
+  const firstCounter = createNewCounter();
+  const [counters, addCounter, removeCounter] = useArray([firstCounter]);
+  return [
+    counters,
+    () => addCounter(createNewCounter()),
+    remove => removeCounter(remove)
+  ];
+};
+
+const useArray = (initialValue = []) => {
+  const [arr, setArr] = useState(initialValue)
+  return [
+    arr,
+    add => setArr(arr.concat(add)),
+    remove => setArr(arr.filter(item => item !== remove))
+  ];
+};
+
+const _CustomHooks = () => {
   const [count, increment, decrement] = useCount(0);
   const [counters, addCounter, removeCounter] = useCounter();
   const [lastItem, ] = counters.reverse();
@@ -114,7 +111,6 @@ const _CustomHooks = ({ useCount, useCounter, h, a }) => {
   ];
 };
 
-export const createCustomHooks = createComponent => {
-  const CustomHooks = createComponent(_CustomHooks, customHooks);
-  return CustomHooks;
-};
+const CustomHooks = createComponent(_CustomHooks);
+
+export default CustomHooks;

@@ -1,7 +1,9 @@
 import React from "react";
 import renderer from "react-hyperscript";
 
-const htmlAttributes = {
+export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "react";
+
+export const a = {
   autocomplete: "autoComplete",
   autofocus:    "autoFocus",
   class:        "className",
@@ -31,40 +33,20 @@ const htmlAttributes = {
   tabindex:     "tabIndex",
 };
 
-renderer.trust = (html, wrapper = "") =>
+export const h = renderer;
+h.trust = (html, wrapper = "") =>
   renderer(wrapper, {
     dangerouslySetInnerHTML: { __html: html }
   });
+h.displayName = "react";
 
-export const createComponent = (component, ...rest) => {
-  let customHooksFn, initialProps;
-  if (typeof rest[0] === "function") {
-    customHooksFn = rest[0];
-    initialProps = rest[1];
-  } else {
-    initialProps = rest[0];
-  }
-  return (props = {}) => {
-    const supportedHooks = {
-      useState:        React.useState,
-      useEffect:       React.useEffect,
-      useLayoutEffect: React.useLayoutEffect,
-      useReducer:      React.useReducer,
-      useRef:          React.useRef,
-      useMemo:         React.useMemo,
-      useCallback:     React.useCallback,
-    };
-    const customHooks = customHooksFn !== undefined && customHooksFn !== null
-      ? customHooksFn(supportedHooks)
-      : {};
-    return component({
-      h: renderer,
-      a: htmlAttributes,
-      getDom: fn => ({ ref: dom => fn(dom) }),
-      ...supportedHooks,
-      ...customHooks,
-      ...(initialProps || {}),
+export const jsx = React.createElement;
+
+export const getDom = fn => ({ ref: dom => fn(dom) });
+
+export const createComponent = (component, initialProps) =>
+  (props = {}) =>
+    component({
+      ...initialProps,
       ...props,
     });
-  };
-}; 

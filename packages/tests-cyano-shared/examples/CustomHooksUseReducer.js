@@ -1,30 +1,27 @@
-const customHooks = ({ useState }) => {
-  // Use a name to access it from hook functions
-  const hooks = {
-    useCounter: () => {
-      // A custom hook that uses another custom hook.
-      const createNewCounter = () => ({
-        id: new Date().getTime(),
-        initialCount: Math.round(Math.random() * 10)
-      });
-      const firstCounter = createNewCounter();
-      const [counters, addCounter, removeCounter] = hooks.useArray([firstCounter]);
-      return [
-        counters,
-        () => addCounter(createNewCounter()),
-        remove => removeCounter(remove)
-      ];
-    },
-    useArray: (initialValue = []) => {
-      const [arr, setArr] = useState(initialValue)
-      return [
-        arr,
-        add => setArr(arr.concat(add)),
-        remove => setArr(arr.filter(item => item !== remove))
-      ]
-    },
-  };
-  return hooks;
+import { createComponent, useState, useEffect, useRef, useReducer, h, a, getDom } from "cyano";
+
+const useCounter = () => {
+  // A custom hook that uses another custom hook.
+  const createNewCounter = () => ({
+    id: new Date().getTime(),
+    initialCount: Math.round(Math.random() * 10)
+  });
+  const firstCounter = createNewCounter();
+  const [counters, addCounter, removeCounter] = useArray([firstCounter]);
+  return [
+    counters,
+    () => addCounter(createNewCounter()),
+    remove => removeCounter(remove)
+  ];
+};
+
+const useArray = (initialValue = []) => {
+  const [arr, setArr] = useState(initialValue)
+  return [
+    arr,
+    add => setArr(arr.concat(add)),
+    remove => setArr(arr.filter(item => item !== remove))
+  ]
 };
 
 const counterReducer = (state, action) => {
@@ -38,7 +35,7 @@ const counterReducer = (state, action) => {
   }
 };
 
-export const _Counter = ({ id, initialCount, removeCounter, useEffect, useState, useRef, useReducer, h, a, getDom }) => {
+const _Counter = ({ id, initialCount, removeCounter }) => {
   const [countState, dispatch] = useReducer(counterReducer, { count: initialCount });
   const count = countState.count;
 
@@ -59,16 +56,19 @@ export const _Counter = ({ id, initialCount, removeCounter, useEffect, useState,
   }, [/* empty array: only run at mount */]);
 
   return (
-    h(".counter",
+    h("div",
       {
-        className: inited ? "active" : "",
+        className: `counter ${inited ? "active" : ""}`,
         ...getDom(dom => domRef.current = domRef.current || dom)
       },
-      h(".counter-inner",
-        null,
+      h("div",
+        {
+          className: "counter-inner"
+        },
         [
-          h(".count",
+          h("div",
             {
+              className: "count",
               key: "count",
             },
             count
@@ -80,8 +80,15 @@ export const _Counter = ({ id, initialCount, removeCounter, useEffect, useState,
               disabled: count === 0,
               [a.onclick]: () => dispatch({ type: "decrement" })
             },
-            h("span.icon.is-small", null,
-              h("i.fas.fa-minus")
+            h("span",
+              {
+                className: "icon is-small"
+              },
+              h("i",
+                {
+                  className: "fas fa-minus"
+                }
+              )
             )
           ),
           h("button",
@@ -90,11 +97,19 @@ export const _Counter = ({ id, initialCount, removeCounter, useEffect, useState,
               className: "button",
               [a.onclick]: () => dispatch({ type: "increment" })
             },
-            h("span.icon.is-small", null,
-              h("i.fas.fa-plus")
+            h("span",
+              {
+                className: "icon is-small"
+              },
+              h("i",
+                {
+                  className: "fas fa-plus"
+                }
+              )
             )
           ),
-          h(".spacer", {
+          h("div", {
+            className: "spacer",
             key: "spacer"
           }),
           h("button", {
@@ -108,11 +123,12 @@ export const _Counter = ({ id, initialCount, removeCounter, useEffect, useState,
   );
 };
 
-const _CounterController = ({ useCounter, h, a, Counter }) => {
+const _CounterController = ({ Counter }) => {
   const [counters, addCounter, removeCounter] = useCounter();
   return [
-    h(".controls",
+    h("div",
       {
+        className: "controls",
         key: "controls"
       },
       [
@@ -124,13 +140,15 @@ const _CounterController = ({ useCounter, h, a, Counter }) => {
           },
           "Add counter"
         ),
-        h(".spacer",
+        h("div",
           {
+            className: "spacer",
             key: "spacer"
           }
         ),
-        h("span.info",
+        h("span",
           {
+            className: "info",
             key: "info"
           },
           h("span",
@@ -153,8 +171,7 @@ const _CounterController = ({ useCounter, h, a, Counter }) => {
   ];
 };
 
-export const createCounter = createComponent => {
-  const Counter = createComponent(_Counter, customHooks);
-  const CounterController = createComponent(_CounterController, customHooks, { Counter });
-  return CounterController;
-};
+const Counter = createComponent(_Counter);
+const CounterController = createComponent(_CounterController, { Counter });
+
+export default CounterController;

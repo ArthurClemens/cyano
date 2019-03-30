@@ -1,4 +1,6 @@
-const _Link = ({ router, name, label, path, currentPath, h, a }) => (
+import { createComponent, h, a } from "cyano";
+
+const _Link = ({ router, name, label, path, currentPath }) => (
   h("li",
     {
       key: path
@@ -14,8 +16,9 @@ const _Link = ({ router, name, label, path, currentPath, h, a }) => (
     label)
   )
 );
+const Link = createComponent(_Link);
 
-const _MenuList = ({ router, title, links, currentPath, h, Link }) => {
+const _MenuList = ({ router, title, links, currentPath }) => {
   return [
     h("p",
       {
@@ -35,8 +38,9 @@ const _MenuList = ({ router, title, links, currentPath, h, Link }) => {
     )
   ];
 };
+const MenuList = createComponent(_MenuList);
 
-const _Navigation = ({ router, currentPath, parts, h, MenuList }) => (
+const _Navigation = ({ router, currentPath, parts }) => (
   h("aside",
     {
       key: "menu",
@@ -48,9 +52,4 @@ const _Navigation = ({ router, currentPath, parts, h, MenuList }) => (
   )
 );
 
-export const createNavigation = createComponent => {
-  const Link = createComponent(_Link);
-  const MenuList = createComponent(_MenuList, { Link });
-  const Navigation = createComponent(_Navigation, { MenuList });
-  return Navigation;
-};
+export default createComponent(_Navigation);

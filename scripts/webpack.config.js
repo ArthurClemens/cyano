@@ -3,7 +3,8 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const baseDir = process.cwd();
-const env = process.env; // eslint-disable-line no-undef
+const env = process.env;
+const whichCyano = env.CYANO;
 
 module.exports = {
 
@@ -25,6 +26,8 @@ module.exports = {
       // Keep in this order!
       "mithril": path.resolve(baseDir, "node_modules/mithril/mithril.js"),
       "react": path.resolve(baseDir, "node_modules/react"),
+      // Resolve "cyano" to the proper lib
+      "cyano": path.resolve(baseDir, `node_modules/${whichCyano}`),
     },
     extensions: [".mjs", ".js", ".jsx", ".ts", ".tsx"],
   },

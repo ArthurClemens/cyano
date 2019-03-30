@@ -34,40 +34,6 @@ function _objectSpread(target) {
   return target;
 }
 
-function _defineProperty$1(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function _objectSpread$1(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-    var ownKeys = Object.keys(source);
-
-    if (typeof Object.getOwnPropertySymbols === 'function') {
-      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-
-    ownKeys.forEach(function (key) {
-      _defineProperty$1(target, key, source[key]);
-    });
-  }
-
-  return target;
-}
-
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 }
@@ -106,172 +72,192 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
-const hookup = (closure, addHooks) => () =>
-/* internal vnode, unused */
-{
-  let setup = false;
-  const states = [];
-  let statesIndex = 0;
-  const depsStates = [];
-  let depsIndex = 0;
-  const updates = [];
-  const teardowns = new Map(); // Keep track of teardowns even when the update was run only once
+let currentState;
+const call = Function.prototype.call.bind(Function.prototype.call);
 
-  const scheduleRender = m.redraw;
+const scheduleRender = () => // Call m within the function body so environments with a global instance of m (like flems.io) don't complain
+m.redraw();
 
-  const resetAfterUpdate = () => {
-    updates.length = 0;
-    depsIndex = 0;
-    statesIndex = 0;
-  };
+const updateDeps = deps => {
+  const state = currentState;
+  const index = state.depsIndex++;
+  const prevDeps = state.depsStates[index] || [];
+  const shouldRecompute = deps === undefined ? true // Always compute
+  : Array.isArray(deps) ? deps.length > 0 ? !deps.every((x, i) => x === prevDeps[i]) // Only compute when one of the deps has changed
+  : !state.setup // Empty array: only compute at mount
+  : false; // Invalid value, do nothing
 
-  const updateDeps = deps => {
-    const index = depsIndex++;
-    const prevDeps = depsStates[index] || [];
-    const shouldRecompute = deps === undefined ? true // Always compute
-    : Array.isArray(deps) ? deps.length > 0 ? !deps.every((x, i) => x === prevDeps[i]) // Only compute when one of the deps has changed
-    : !setup // Empty array: only compute at mount
-    : false; // Invalid value, do nothing
+  state.depsStates[index] = deps;
+  return shouldRecompute;
+};
 
-    depsStates[index] = deps;
-    return shouldRecompute;
-  };
-
-  const effect = function effect() {
-    let isAsync = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-    return (fn, deps) => {
-      const shouldRecompute = updateDeps(deps);
-
-      if (shouldRecompute) {
-        const runCallbackFn = () => {
-          const teardown = fn(); // A callback may return a function. If any, add it to the teardowns:
-
-          if (typeof teardown === "function") {
-            // Store this this function to be called at unmount
-            teardowns.set(fn, teardown); // At unmount, call re-render at least once
-
-            teardowns.set("_", scheduleRender);
-          }
-        };
-
-        updates.push(isAsync ? () => new Promise(resolve => requestAnimationFrame(resolve)).then(runCallbackFn) : runCallbackFn);
-      }
-    };
-  };
-
-  const updateState = function updateState(initialValue) {
-    let newValueFn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : value => value;
-    const index = statesIndex++;
-
-    if (!setup) {
-      states[index] = initialValue;
-    }
-
-    return [states[index], value => {
-      const previousValue = states[index];
-      const newValue = newValueFn(value, index);
-      states[index] = newValue;
-
-      if (newValue !== previousValue) {
-        scheduleRender(); // Calling redraw multiple times: Mithril will drop extraneous redraw calls, so performance should not be an issue
-      }
-    }];
-  }; // Hook functions
-
-
-  const useState = initialValue => {
-    const newValueFn = (value, index) => typeof value === "function" ? value(states[index]) : value;
-
-    return updateState(initialValue, newValueFn);
-  };
-
-  const useReducer = (reducer, initialArg, initFn) => {
-    // From the React docs: You can also create the initial state lazily. To do this, you can pass an init function as the third argument. The initial state will be set to init(initialArg).
-    const initialState = !setup && initFn ? initFn(initialArg) : initialArg;
-
-    const _updateState = updateState(initialState),
-          _updateState2 = _slicedToArray(_updateState, 2),
-          state = _updateState2[0],
-          setState = _updateState2[1];
-
-    const dispatch = action => setState( // Next state:
-    reducer(state, action));
-
-    return [state, dispatch];
-  };
-
-  const useRef = initialValue => {
-    // A ref is a persisted object that will not be updated, so it has no setter
-    const _updateState3 = updateState({
-      current: initialValue
-    }),
-          _updateState4 = _slicedToArray(_updateState3, 1),
-          value = _updateState4[0];
-
-    return value;
-  };
-
-  const useMemo = (fn, deps) => {
+const effect = function effect() {
+  let isAsync = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  return (fn, deps) => {
+    const state = currentState;
     const shouldRecompute = updateDeps(deps);
 
-    const _ref = !setup ? updateState(fn()) : updateState(),
-          _ref2 = _slicedToArray(_ref, 2),
-          memoized = _ref2[0],
-          setMemoized = _ref2[1];
+    if (shouldRecompute) {
+      const runCallbackFn = () => {
+        const teardown = fn(); // A callback may return a function. If any, add it to the teardowns:
 
-    if (setup && shouldRecompute) {
-      setMemoized(fn());
+        if (typeof teardown === "function") {
+          // Store this this function to be called at unmount
+          state.teardowns.set(fn, teardown); // At unmount, call re-render at least once
+
+          state.teardowns.set("_", scheduleRender);
+        }
+      };
+
+      state.updates.push(isAsync ? () => new Promise(resolve => requestAnimationFrame(resolve)).then(runCallbackFn) : runCallbackFn);
     }
+  };
+};
 
-    return memoized;
+const updateState = function updateState(initialValue) {
+  let newValueFn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : value => value;
+  const state = currentState;
+  const index = state.statesIndex++;
+
+  if (!state.setup) {
+    state.states[index] = initialValue;
+  }
+
+  return [state.states[index], value => {
+    const previousValue = state.states[index];
+    const newValue = newValueFn(value, index);
+    state.states[index] = newValue;
+
+    if (newValue !== previousValue) {
+      scheduleRender(); // Calling redraw multiple times: Mithril will drop extraneous redraw calls, so performance should not be an issue
+    }
+  }];
+};
+
+const useState = initialValue => {
+  const state = currentState;
+
+  const newValueFn = (value, index) => typeof value === "function" ? value(state.states[index]) : value;
+
+  return updateState(initialValue, newValueFn);
+};
+
+const useEffect = effect(true);
+const useLayoutEffect = effect();
+
+const useReducer = (reducer, initialArg, initFn) => {
+  const state = currentState; // From the React docs: You can also create the initial state lazily. To do this, you can pass an init function as the third argument. The initial state will be set to init(initialArg).
+
+  const initialValue = !state.setup && initFn ? initFn(initialArg) : initialArg;
+
+  const _updateState = updateState(initialValue),
+        _updateState2 = _slicedToArray(_updateState, 2),
+        value = _updateState2[0],
+        setValue = _updateState2[1];
+
+  const dispatch = action => setValue( // Next state:
+  reducer(value, action));
+
+  return [value, dispatch];
+};
+
+const useRef = initialValue => {
+  // A ref is a persisted object that will not be updated, so it has no setter
+  const _updateState3 = updateState({
+    current: initialValue
+  }),
+        _updateState4 = _slicedToArray(_updateState3, 1),
+        value = _updateState4[0];
+
+  return value;
+};
+
+const useMemo = (fn, deps) => {
+  const state = currentState;
+  const shouldRecompute = updateDeps(deps);
+
+  const _ref = !state.setup ? updateState(fn()) : updateState(),
+        _ref2 = _slicedToArray(_ref, 2),
+        memoized = _ref2[0],
+        setMemoized = _ref2[1];
+
+  if (state.setup && shouldRecompute) {
+    setMemoized(fn());
+  }
+
+  return memoized;
+};
+
+const useCallback = (fn, deps) => useMemo(() => fn, deps);
+
+const withHooks = (component, initialProps) => {
+  const init = vnode => {
+    Object.assign(vnode.state, {
+      setup: false,
+      states: [],
+      statesIndex: 0,
+      depsStates: [],
+      depsIndex: 0,
+      updates: [],
+      teardowns: new Map() // Keep track of teardowns even when the update was run only once
+
+    });
   };
 
-  const useCallback = (fn, deps) => useMemo(() => fn, deps);
+  const update = vnode => {
+    const prevState = currentState;
+    currentState = vnode.state;
 
-  const defaultHooks = {
-    useState,
-    useEffect: effect(true),
-    useLayoutEffect: effect(),
-    useReducer,
-    useRef,
-    useMemo,
-    useCallback
+    try {
+      vnode.state.updates.forEach(call);
+    } finally {
+      Object.assign(vnode.state, {
+        setup: true,
+        updates: [],
+        depsIndex: 0,
+        statesIndex: 0
+      });
+      currentState = prevState;
+    }
   };
 
-  const hooks = _objectSpread$1({}, defaultHooks, addHooks && addHooks(defaultHooks));
+  const render = vnode => {
+    const prevState = currentState;
+    currentState = vnode.state;
 
-  const update = () => {
-    updates.forEach(call);
-    resetAfterUpdate();
+    try {
+      return component(_objectSpread({}, initialProps, vnode.attrs, {
+        vnode,
+        children: vnode.children
+      }));
+    } catch (e) {
+      console.error(e); // eslint-disable-line no-console
+    } finally {
+      currentState = prevState;
+    }
   };
 
-  const teardown = () => {
-    [...teardowns.values()].forEach(call);
+  const teardown = vnode => {
+    const prevState = currentState;
+    currentState = vnode.state;
+
+    try {
+      [...vnode.state.teardowns.values()].forEach(call);
+    } finally {
+      currentState = prevState;
+    }
   };
 
   return {
-    view: vnode => closure(vnode, hooks),
-    oncreate: () => (update(), setup = true),
+    oninit: init,
+    oncreate: update,
     onupdate: update,
+    view: render,
     onremove: teardown
   };
 };
 
-const call = Function.prototype.call.bind(Function.prototype.call);
-
-const hookupComponent = component => hookup((vnode, hooks) => component(_objectSpread$1({}, vnode.attrs, hooks, {
-  children: vnode.children
-})));
-
-const withHooks = function withHooks(component, customHooksFn) {
-  let rest = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return hookupComponent(hooks => {
-    const customHooks = customHooksFn !== undefined && customHooksFn !== null ? customHooksFn(hooks) : {};
-    return component(_objectSpread$1({}, hooks, customHooks, rest));
-  });
-};
-
-const htmlAttributes = {
+const a = {
   autocomplete: "autocomplete",
   autofocus: "autofocus",
   class: "class",
@@ -300,28 +286,16 @@ const htmlAttributes = {
   readonly: "readonly",
   tabindex: "tabindex"
 };
-const renderer = m;
-const trust = m.trust;
+const h = m;
+const trust = h.trust;
 
-renderer.trust = (html, wrapper) => wrapper ? m(wrapper, trust(html)) : trust(html);
+h.trust = (html, wrapper) => wrapper ? m(wrapper, trust(html)) : trust(html);
 
-const createComponent = function createComponent(component) {
-  let customHooksFn, initialProps;
+h.displayName = "mithril";
+const jsx = m;
+const getDom = fn => ({
+  oncreate: vnode => fn(vnode.dom)
+});
+const createComponent = (component, initialProps) => withHooks(component, initialProps);
 
-  if (typeof (arguments.length <= 1 ? undefined : arguments[1]) === "function") {
-    customHooksFn = arguments.length <= 1 ? undefined : arguments[1];
-    initialProps = arguments.length <= 2 ? undefined : arguments[2];
-  } else {
-    initialProps = arguments.length <= 1 ? undefined : arguments[1];
-  }
-
-  return withHooks(component, customHooksFn, _objectSpread({
-    h: renderer,
-    a: htmlAttributes,
-    getDom: fn => ({
-      oncreate: vnode => fn(vnode.dom)
-    })
-  }, initialProps || {}));
-};
-
-export { createComponent };
+export { a, createComponent, getDom, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState };

@@ -1,5 +1,5 @@
 import m from "mithril";
-import { createComponent } from "cyano-mithril";
+import { createComponent } from "cyano";
 import { createApp } from "tests-cyano-shared/app/createApp";
 
 const mountNode = document.querySelector("#root");

@@ -1,7 +1,9 @@
 import m from "mithril";
-import { withHooks } from "mithril-hookup";
+import { withHooks, useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "mithril-hooks";
 
-const htmlAttributes = {
+export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "mithril-hooks";
+
+export const a = {
   autocomplete: "autocomplete",
   autofocus:    "autofocus",
   class:        "class",
@@ -31,25 +33,17 @@ const htmlAttributes = {
   tabindex:     "tabindex",
 };
 
-const renderer = m;
-const trust = m.trust;
-renderer.trust = (html, wrapper) =>
+export const h = m;
+const trust = h.trust;
+h.trust = (html, wrapper) =>
   wrapper
     ? m(wrapper, trust(html))
     : trust(html);
+h.displayName = "mithril";
 
-export const createComponent = (component, ...rest) => {
-  let customHooksFn, initialProps;
-  if (typeof rest[0] === "function") {
-    customHooksFn = rest[0];
-    initialProps = rest[1];
-  } else {
-    initialProps = rest[0];
-  }
-  return withHooks(component, customHooksFn, {
-    h: renderer,
-    a: htmlAttributes,
-    getDom: fn => ({ oncreate: vnode => fn(vnode.dom) }),
-    ...(initialProps || {})
-  })
-};
+export const jsx = m;
+
+export const getDom = fn => ({ oncreate: vnode => fn(vnode.dom) });
+
+export const createComponent = (component, initialProps) =>
+  withHooks(component, initialProps);

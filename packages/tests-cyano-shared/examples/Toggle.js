@@ -1,18 +1,27 @@
-const _Toggle = ({ useState, h, a }) => {
+import { createComponent, useState, h, a } from "cyano";
+
+const _Toggle = () => {
   const [clicked, setClicked] = useState(false);
-  return h(".toggle", [
-    h("button",
-      {
-        className: `button ${clicked ? "is-info" : ""}`,
-        [a.onclick]: () => setClicked(!clicked)
-      },
-      "Toggle"
-    ),
-    h(".info", clicked ? "On" : "Off")
-  ]);
+  return h("div", 
+    {
+      className: "toggle"
+    },
+    [
+      h("button",
+        {
+          className: `button ${clicked ? "is-info" : ""}`,
+          [a.onclick]: () => setClicked(!clicked)
+        },
+        "Toggle"
+      ),
+      h("div",
+        {
+          className: "info"
+        },
+        clicked ? "On" : "Off"
+      )
+    ]
+  );
 };
 
-export const createToggle = createComponent => {
-  const Toggle = createComponent(_Toggle);
-  return Toggle;
-};
+export default createComponent(_Toggle);

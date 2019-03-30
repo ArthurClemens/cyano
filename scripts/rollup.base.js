@@ -3,11 +3,14 @@ import fs from "fs";
 import commonjs from "rollup-plugin-commonjs";
 import resolve from "rollup-plugin-node-resolve";
 import pathmodify from "rollup-plugin-pathmodify";
+import path from "path";
 
 const env = process.env;
 export const pkg = JSON.parse(fs.readFileSync("./package.json"));
 const name = pkg.name;
-const external = ["mithril", "react"];
+const external = ["react", "mithril"];
+const baseDir = process.cwd();
+const whichCyano = env.CYANO;
 
 const globals = {};
 external.forEach(ext => {
@@ -40,6 +43,10 @@ export const createConfig = () => {
           {
             id: "mithril",
             resolveTo: "node_modules/mithril/mithril.js"
+          },
+          {
+            id: "cyano",
+            resolveTo: path.resolve(baseDir, `node_modules/${whichCyano}/dist/${whichCyano}.mjs`),
           },
         ]
       }),
