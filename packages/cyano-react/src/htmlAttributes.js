@@ -19,6 +19,7 @@ export default {
   class: "className",
   classid: "classID",
   classname: "className",
+  className: "className",
   colspan: "colSpan",
   cols: "cols",
   content: "content",
