@@ -1,37 +1,10 @@
 import m from "mithril";
 import { withHooks, useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "mithril-hooks";
+import htmlAttributes from "./htmlAttributes";
 
 export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "mithril-hooks";
 
-export const a = {
-  autocomplete: "autocomplete",
-  autofocus:    "autofocus",
-  class:        "class",
-  className:    "class",
-  enctype:      "enctype",
-  formaction:   "formaction",
-  frameborder:  "frameborder",
-  maxlength:    "maxlength",
-  minlength:    "minlength",
-  onblur:       "onblur",
-  onchange:     "onchange",
-  onclick:      "onclick",
-  onfocus:      "onfocus",
-  oninput:      "oninput",
-  onkeydown:    "onkeydown",
-  onkeyup:      "onkeyup",
-  onmousedown:  "onmousedown",
-  onmouseout:   "onmouseout",
-  onmouseover:  "onmouseover",
-  onmouseup:    "onmouseup",
-  onscroll:     "onscroll",
-  onsubmit:     "onsubmit",
-  ontouchend:   "ontouchend",
-  ontouchmove:  "ontouchmove",
-  ontouchstart: "ontouchstart",
-  readonly:     "readonly",
-  tabindex:     "tabindex",
-};
+export const a = htmlAttributes;
 
 export const h = m;
 const trust = h.trust;

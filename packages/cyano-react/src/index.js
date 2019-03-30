@@ -1,37 +1,10 @@
 import React from "react";
 import renderer from "react-hyperscript";
+import htmlAttributes from "./htmlAttributes";
 
 export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "react";
 
-export const a = {
-  autocomplete: "autoComplete",
-  autofocus:    "autoFocus",
-  class:        "className",
-  className:    "className",
-  enctype:      "encType",
-  formaction:   "formAction",
-  frameborder:  "frameBorder",
-  maxlength:    "maxLength",
-  minlength:    "minLength",
-  onblur:       "onBlur",
-  onchange:     "onChange",
-  onclick:      "onClick",
-  onfocus:      "onFocus",
-  oninput:      "onInput",
-  onkeydown:    "onKeyDown",
-  onkeyup:      "onKeyUp",
-  onmousedown:  "onMouseDown",
-  onmouseout:   "onMouseOut",
-  onmouseover:  "onMouseOver",
-  onmouseup:    "onMouseUp",
-  onscroll:     "onScroll",
-  onsubmit:     "onSubmit",
-  ontouchend:   "onTouchEnd",
-  ontouchmove:  "onTouchMove",
-  ontouchstart: "onTouchStart",
-  readonly:     "readOnly",
-  tabindex:     "tabIndex",
-};
+export const a = htmlAttributes;
 
 export const h = renderer;
 h.trust = (html, wrapper = "") =>
