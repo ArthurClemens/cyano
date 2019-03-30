@@ -17,11 +17,11 @@ Takes a base component and returns a Mithril or React component. This is useful 
 - [API](#api)
   - [cast](#cast)
   - [h (render function)](#h-render-function)
-  - [Inserting trusted content](#inserting-trusted-content)
+    - [Inserting trusted content](#inserting-trusted-content)
   - [a (HTML attributes)](#a-html-attributes)
   - [getDom](#getdom)
-  - [jsx](#jsx)
   - [Children](#children)
+  - [jsx](#jsx)
 - [Additional setup](#additional-setup)
   - [Bundler configuration](#bundler-configuration)
     - [Configuring Webpack](#configuring-webpack)
@@ -156,48 +156,37 @@ Cyano lets you create Mithril and React components from shared base components. 
 
 Base components are "functional components" - render functions without lifecycle/class methods.
 
-[React Hooks](https://reactjs.org/docs/hooks-intro.html) are a replacement for React classes. Local state and lifecycle methods can be implemented using hooks with little effort.
+[React Hooks](https://reactjs.org/docs/hooks-intro.html) are a replacement for functionality that was previously available only in (React) classes. By replacing class lifecycles with hooks, code becomes more succinct and easier to reason about. Hooks make it trivial to define logic outside of the component and to import parts where needed. Local state and lifecycle methods can be implemented using hooks with little effort.
 
-* React Hooks have been introduced in React 16.8 but seem to have taken off.
+* React Hooks have been introduced in React 16.8.
 * For Mithril hooks are implemented with helper library [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks).
 
-Hooks make it trivial to define logic outside of the component and to import parts where needed.
 
 **Hyperscript or JSX**
 
-Base components can be written in hyperscript of JSX.
+Base components can be written in hyperscript or JSX.
 
-If you choose hyperscript: [React Without JSX](https://reactjs.org/docs/react-without-jsx.html) demonstrates how to use `React.createElement` to write component code. Cyano uses an enhanced version through [react-hyperscript](https://github.com/mlmorg/react-hyperscript), which is more lenient in omitting properties and keys.
+If you choose hyperscript: [React Without JSX](https://reactjs.org/docs/react-without-jsx.html) demonstrates how to use `React.createElement` to write component code. Cyano uses an enhanced version by means of [react-hyperscript](https://github.com/mlmorg/react-hyperscript), which is more lenient in omitting properties and keys.
 
-If you choose JSX, see [Configuring JSX](#configuring-jsx) how to setup JSX rendering.
+If you choose JSX, see [Configuring JSX](#configuring-jsx) how to setup JSX rendering. JSX can be used for both React and Mithril.
 
-**Dictionary of accepted HTML attributes**
+**Dictionary of HTML attributes**
 
-React follows the camelCase convention for accepted HTML attributes, whereas Mithril uses lowercase names.
+React follows the camelCase convention for "official" HTML attributes, whereas Mithril uses lowercase names. Helper variable `a` maps the lowercase attribute name to an accepted one.
 
-Imported variable `a` will map the lowercase attribute name to an accepted one. Instead of `onClick` (for React) or (`onclick` (for Mithril) you write:
+For example:
 
-```javascript
-[a.onclick]: () => setClicked(!clicked)
-```
-
-or in JSX:
-
-```jsx
-{...{
-  [a.onclick]: () => setClicked(!clicked)
-}}
-```
+`a.onclick` returns "onclick" for Mithril and "onClick" for React.
 
 **Helper functions**
 
-| **Variable**      | **Description** | **Doc** |
+| **Variable**      | **Description** | **API doc** |
 | ----------------- | --------------- | ----------- |
 | `cast`            | Takes a base component and returns a Mithril or React component. | [cast](#cast) | 
 | `h`               | The render function for hyperscript. | [h (render function)](#h-render-function) |
 | `getDom`          | Callback function that gets a reference to the DOM element. | [getDom](#getdom) |
 | `a`               | Dictionary of accepted HTML attributes. | [a (Accepted HTML attributes)](#a-accepted-html-attributes) |
-| `jsx`             | Babel pragma, only import when writing JSX. | [jsx](#jsx) |
+| `jsx`             | Babel pragma, import this when writing JSX. | [jsx](#jsx) |
 
 
 ### Using hooks
@@ -263,14 +252,16 @@ Using hooks with Mithril: see [mithril-hooks](https://github.com/ArthurClemens/m
 
 ### Passing or nesting components
 
-Example: a base Navigation component that contains Link components.
+Example: a Navigation component that contains Link components.
 
 Either convert the Link before using:
 
 ```javascript
 import { cast, h, a } from "cyano"
-import _Link from "./shared/Link"
 
+const _Link = () => {
+  // ...
+}
 const Link = cast(_Link)
 
 const _Navigation = () => [
@@ -280,11 +271,14 @@ const _Navigation = () => [
 const Navigation = cast(_Navigation)
 ```
 
-Or pass the converted Link as parameter to Navigation:
+Or pass the converted Link as initial parameter to Navigation:
 
 ```javascript
 import { cast, h, a } from "cyano"
-import _Link from "./shared/Link"
+
+const _Link = () => {
+  // ...
+}
 
 const _Navigation = ({ Link }) => [
   h(Link, { label: "Home",    path: "/"} ),
@@ -320,10 +314,19 @@ h(Component, {
 })
 ```
 
-The component render function that is called will receive a combined object of `initialProps` and component props:
+The component render function that is called will receive a combined object of `initialProps` and component props, plus property [children](#children):
 
 ```javascript
-const _Component = allProps => {...}
+const _Component = ({ defaultTitle, title, children )} => {
+  // ...
+}
+
+const Component = cast(_Component, { defaultTitle: "a blue sky" })
+
+h(Component,
+  { title: "casting a shadow" },
+  h("div", "Cloud child")  
+)
 ```
 
 ### h (render function)
@@ -341,7 +344,7 @@ The render function for hyperscript.
 | `children` | `Array<Vnode|ReactElement>|String|Number|Boolean` | No | Child nodes |
 | **Returns** | `Vnode` (for Mithril); `ReactElement` for React |||
 
-### Inserting trusted content
+#### Inserting trusted content
 
 Mithril's API contains [m.trust](https://mithril.js.org/trust.html) that "turns an HTML or SVG string into unescaped HTML or SVG". The documentation continues with the warning
 
@@ -373,7 +376,19 @@ For consistency, `cyano-mithril` function `h.trust` is enhanced with this second
 
 Dictionary of accepted HTML attributes.
 
-`a.onclick` returns "onclick" for Mithril and "onClick" for React.
+`a` maps the lowercase attribute name to an accepted one. Instead of `onClick` (for React) or (`onclick` (for Mithril) you write:
+
+```javascript
+[a.onclick]: () => setClicked(!clicked)
+```
+
+or in JSX:
+
+```jsx
+{...{
+  [a.onclick]: () => setClicked(!clicked)
+}}
+```
 
 Complete list of included html attributes:
 
@@ -421,10 +436,6 @@ The example above contains a check to prevent superfluous updates to the variabl
 * `cyano-mithril`: `getDom` uses Mithril's lifecycle method `oncreate` to access the DOM element. This method will be called once.
 * `cyano-react`: `getDom` uses React's `ref` method to access the DOM element. This method will be called on each render. When the element is removed from the DOM, `getDom` will receive `null`. Using an update check as shown above will prevent that the reference will be lost.
 
-### jsx
-
-Babel pragma. Only import this when writing JSX.
-
 ### Children
 
 Child elements are accessed through the component prop `children`:
@@ -437,6 +448,10 @@ const _Component = ({ children }) => {
   ]
 }
 ```
+### jsx
+
+Babel pragma. Only import this when writing JSX.
+
 
 ## Additional setup
 
@@ -448,7 +463,16 @@ We need to let the bundler point from "cyano" to `cyano-react` or `cyano-mithril
 
 Each bundler has a different method to to this - it is generally called "map" or "alias".
 
-The examples below show how to direct from "cyano" to "cyano-mithril". When you are using the same bundler scripts for both Mithril and React, you should consider to configure the alias, for instance by using an environment variable. See [tests-cyano-mithril/package.json](https://github.com/ArthurClemens/cyano/blob/master/packages/tests-cyano-mithril/package.json#L7) for an example.
+**Environment variable setup**
+
+The examples below show how to direct from "cyano" to "cyano-mithril". When you are using the same bundler scripts for both Mithril and React, you should consider to configure the alias, for instance by using an environment variable.
+
+Example (using Webpack):
+
+* [Setting the environment variable](https://github.com/ArthurClemens/cyano/blob/master/packages/tests-cyano-mithril/package.json#L13)
+* [Reading the environment variable](https://github.com/ArthurClemens/cyano/blob/master/scripts/webpack.config.js#L7)
+* [Using the environment variable to set an alias](https://github.com/ArthurClemens/cyano/blob/master/scripts/webpack.config.js#L30)
+
 
 #### Configuring Webpack
 
@@ -532,12 +556,12 @@ Install `@babel/plugin-transform-react-jsx` and add to the `plugins` in your Bab
 `jsx` is a variable exported by Cyano. This needs to be in scope when using JSX in component code (but does not need to be called explicitly):
 
 ```javascript
-import { cast, a, jsx } from "cyano"
+import { jsx } from "cyano"
 ```
 
 ### React and Webpack
 
-It may be necessary to point Webpack to the React module. Add a `resolve` entry to the config:
+It may be necessary to point Webpack to the React module. Add an entry to `resolve.alias` in the config:
 
 ```javascript
 resolve: {
