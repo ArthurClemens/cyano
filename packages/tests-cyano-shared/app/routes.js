@@ -1,14 +1,15 @@
 
 // examples
-import Toggle from "../examples/Toggle";
-import CustomHooksUseReducer from "../examples/CustomHooksUseReducer";
+import Toggle from "../examples/toggle";
+import CustomHooksUseReducer from "../examples/custom-hooks-reducer";
 
 // Cypress tests
-import CustomHooks from "../cypress-tests/CustomHooks";
-import Trust from "../cypress-tests/Trust";
-import Children from "../cypress-tests/Children";
-import InitialProps from "../cypress-tests/InitialProps";
-import ToggleJSX from "../cypress-tests/ToggleJSX";
+import CustomHooks from "../cypress-tests/custom-hooks";
+import Trust from "../cypress-tests/trust";
+import Children from "../cypress-tests/children";
+import InitialProps from "../cypress-tests/initial-props";
+import ToggleJSX from "../cypress-tests/toggle-jsx";
+import GetDom from "../cypress-tests/getDom";
 
 const toLinkData = ([label, path, component]) => ({
   name: label.toLowerCase().replace(" ", "_"),
@@ -26,9 +27,10 @@ export const createRoutes = cast => {
 
   const tests = [
     ["Test custom hooks", "/TestCustomHooks", CustomHooks],
+    ["Test initial props", "/TestInitialProps", InitialProps],
+    ["Test getDom", "/GetDom", GetDom],
     ["Test trust", "/TestTrust", Trust],
     ["Test children", "/TestChildren", Children],
-    ["Test initial props", "/TestInitialProps", InitialProps],
     ["Test toggle JSX", "/ToggleJSX", ToggleJSX],
   ].map(toLinkData);
 
