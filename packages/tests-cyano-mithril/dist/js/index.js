@@ -950,9 +950,11 @@ var htmlAttributes = {
   challenge: "challenge",
   charset: "charset",
   checked: "checked",
-  class: "classname",
+  class: "className",
   classid: "classid",
-  classname: "classname",
+  classname: "className",
+  // Special case:
+  className: "className",
   colspan: "colspan",
   cols: "cols",
   content: "content",
