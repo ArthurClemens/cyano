@@ -81,8 +81,6 @@ const _Button = props => {
         ? children
         : null;
   const noWash = disabled || (props.wash !== undefined && !props.wash);
-
-  console.log("a.className", a.className);
   
   return h(props.element || "div",
     componentProps,

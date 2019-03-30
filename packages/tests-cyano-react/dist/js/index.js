@@ -8877,7 +8877,6 @@ var _Button = function _Button(props) {
     style: props.textStyle
   }, props.label)) : children ? children : null;
   var noWash = disabled || props.wash !== undefined && !props.wash;
-  console.log("a.className", cyano__WEBPACK_IMPORTED_MODULE_3__["a"].className);
   return Object(cyano__WEBPACK_IMPORTED_MODULE_3__["h"])(props.element || "div", componentProps, Object(cyano__WEBPACK_IMPORTED_MODULE_3__["h"])("div", (_h = {}, _defineProperty(_h, cyano__WEBPACK_IMPORTED_MODULE_3__["a"].className, polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_0__["default"].content), _defineProperty(_h, "style", props.style), _h), [// h(Shadow, {
   //   key: "shadow",
   //   shadowDepth: props.shadowDepth !== undefined
