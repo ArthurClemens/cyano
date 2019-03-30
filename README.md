@@ -18,7 +18,7 @@ Takes a base component and returns a Mithril or React component. This is useful 
   - [cast](#cast)
   - [h (render function)](#h-render-function)
   - [Inserting trusted content](#inserting-trusted-content)
-  - [a (Accepted HTML attributes)](#a-accepted-html-attributes)
+  - [a (HTML attributes)](#a-html-attributes)
   - [getDom](#getdom)
   - [jsx](#jsx)
   - [Children](#children)
@@ -369,11 +369,16 @@ For consistency, `cyano-mithril` function `h.trust` is enhanced with this second
 | `wrapper` | Element tag name | No | `cyano-react`: "div"; `cyano-mithril`: undefined | Wrapper element |
 | **Returns** | `Vnode` (for Mithril); `ReactElement` for React |||
 
-### a (Accepted HTML attributes)
+### a (HTML attributes)
 
 Dictionary of accepted HTML attributes.
 
 `a.onclick` returns "onclick" for Mithril and "onClick" for React.
+
+Complete list of included html attributes:
+
+* [for Mithril](https://github.com/ArthurClemens/cyano/blob/master/packages/cyano-mithril/src/htmlAttributes.js)
+* [for React](https://github.com/ArthurClemens/cyano/blob/master/packages/cyano-react/src/htmlAttributes.js)
 
 ### getDom
 
