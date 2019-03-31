@@ -3,7 +3,7 @@
   "description": "Test Cyano with React",
   "private": true,
   "main": "dist/js/index",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./src",
@@ -24,7 +24,7 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
-    "cyano-react": "^0.4.0",
+    "cyano-react": "^0.4.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "tests-cyano-shared": "^0.4.0"
