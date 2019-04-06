@@ -2,6 +2,7 @@
 // examples
 import Toggle from "../examples/toggle";
 import CustomHooksUseReducer from "../examples/custom-hooks-reducer";
+import Chat from "../examples/chat";
 
 // Cypress tests
 import CustomHooks from "../cypress-tests/custom-hooks";
@@ -23,6 +24,7 @@ export const createRoutes = cast => {
   const examples = [
     ["Simple toggle", "/toggle", Toggle],
     ["Custom hooks with useReducer", "/custom-hooks-usereducer", CustomHooksUseReducer],
+    ["Custom hooks chat example", "/custom-hooks-chat", Chat],
   ].map(toLinkData);
 
   const tests = [
