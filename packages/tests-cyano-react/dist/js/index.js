@@ -467,7 +467,7 @@ var htmlAttributes = {
   wrap: "wrap"
 };
 var a = htmlAttributes;
-var h$1 = reactHyperscript;
+var h$1 = reactHyperscript || {};
 
 h$1.trust = function (html) {
   var wrapper = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
@@ -763,12 +763,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRoutes", function() { return createRoutes; });
 /* harmony import */ var _examples_toggle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../examples/toggle */ "../../tests-cyano-shared/examples/toggle.js");
 /* harmony import */ var _examples_custom_hooks_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../examples/custom-hooks-reducer */ "../../tests-cyano-shared/examples/custom-hooks-reducer.js");
-/* harmony import */ var _cypress_tests_custom_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../cypress-tests/custom-hooks */ "../../tests-cyano-shared/cypress-tests/custom-hooks.js");
-/* harmony import */ var _cypress_tests_trust__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../cypress-tests/trust */ "../../tests-cyano-shared/cypress-tests/trust.js");
-/* harmony import */ var _cypress_tests_children__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../cypress-tests/children */ "../../tests-cyano-shared/cypress-tests/children.js");
-/* harmony import */ var _cypress_tests_initial_props__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../cypress-tests/initial-props */ "../../tests-cyano-shared/cypress-tests/initial-props.js");
-/* harmony import */ var _cypress_tests_toggle_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../cypress-tests/toggle-jsx */ "../../tests-cyano-shared/cypress-tests/toggle-jsx.js");
-/* harmony import */ var _cypress_tests_getDom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../cypress-tests/getDom */ "../../tests-cyano-shared/cypress-tests/getDom.js");
+/* harmony import */ var _examples_chat__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../examples/chat */ "../../tests-cyano-shared/examples/chat/index.js");
+/* harmony import */ var _cypress_tests_custom_hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../cypress-tests/custom-hooks */ "../../tests-cyano-shared/cypress-tests/custom-hooks.js");
+/* harmony import */ var _cypress_tests_trust__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../cypress-tests/trust */ "../../tests-cyano-shared/cypress-tests/trust.js");
+/* harmony import */ var _cypress_tests_children__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../cypress-tests/children */ "../../tests-cyano-shared/cypress-tests/children.js");
+/* harmony import */ var _cypress_tests_initial_props__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../cypress-tests/initial-props */ "../../tests-cyano-shared/cypress-tests/initial-props.js");
+/* harmony import */ var _cypress_tests_toggle_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../cypress-tests/toggle-jsx */ "../../tests-cyano-shared/cypress-tests/toggle-jsx.js");
+/* harmony import */ var _cypress_tests_getDom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../cypress-tests/getDom */ "../../tests-cyano-shared/cypress-tests/getDom.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -778,6 +779,7 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 // examples
+
 
  // Cypress tests
 
@@ -803,8 +805,8 @@ var toLinkData = function toLinkData(_ref) {
 };
 
 var createRoutes = function createRoutes(cast) {
-  var examples = [["Simple toggle", "/toggle", _examples_toggle__WEBPACK_IMPORTED_MODULE_0__["default"]], ["Custom hooks with useReducer", "/custom-hooks-usereducer", _examples_custom_hooks_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]]].map(toLinkData);
-  var tests = [["Test custom hooks", "/TestCustomHooks", _cypress_tests_custom_hooks__WEBPACK_IMPORTED_MODULE_2__["default"]], ["Test initial props", "/TestInitialProps", _cypress_tests_initial_props__WEBPACK_IMPORTED_MODULE_5__["default"]], ["Test getDom", "/GetDom", _cypress_tests_getDom__WEBPACK_IMPORTED_MODULE_7__["default"]], ["Test trust", "/TestTrust", _cypress_tests_trust__WEBPACK_IMPORTED_MODULE_3__["default"]], ["Test children", "/TestChildren", _cypress_tests_children__WEBPACK_IMPORTED_MODULE_4__["default"]], ["Test toggle JSX", "/ToggleJSX", _cypress_tests_toggle_jsx__WEBPACK_IMPORTED_MODULE_6__["default"]]].map(toLinkData);
+  var examples = [["Simple toggle", "/toggle", _examples_toggle__WEBPACK_IMPORTED_MODULE_0__["default"]], ["Custom hooks with useReducer", "/custom-hooks-usereducer", _examples_custom_hooks_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]], ["Custom hooks chat example", "/custom-hooks-chat", _examples_chat__WEBPACK_IMPORTED_MODULE_2__["default"]]].map(toLinkData);
+  var tests = [["Test custom hooks", "/TestCustomHooks", _cypress_tests_custom_hooks__WEBPACK_IMPORTED_MODULE_3__["default"]], ["Test initial props", "/TestInitialProps", _cypress_tests_initial_props__WEBPACK_IMPORTED_MODULE_6__["default"]], ["Test getDom", "/GetDom", _cypress_tests_getDom__WEBPACK_IMPORTED_MODULE_8__["default"]], ["Test trust", "/TestTrust", _cypress_tests_trust__WEBPACK_IMPORTED_MODULE_4__["default"]], ["Test children", "/TestChildren", _cypress_tests_children__WEBPACK_IMPORTED_MODULE_5__["default"]], ["Test toggle JSX", "/ToggleJSX", _cypress_tests_toggle_jsx__WEBPACK_IMPORTED_MODULE_7__["default"]]].map(toLinkData);
   return {
     examples: examples,
     tests: tests
@@ -1152,6 +1154,307 @@ var _Trust = function _Trust() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Trust));
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/examples/chat/ChatRecipientPicker.js":
+/*!************************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/examples/chat/ChatRecipientPicker.js ***!
+  \************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cyano */ "../../cyano-react/dist/cyano-react.mjs");
+/* harmony import */ var _FriendStatus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FriendStatus */ "../../tests-cyano-shared/examples/chat/FriendStatus.js");
+/* harmony import */ var _friends_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./friends-data */ "../../tests-cyano-shared/examples/chat/friends-data.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+/*
+To make this component library agnostic, use:
+
+import { cast, useState, h, a } from "cyano";
+
+and create an alias from "cyano" => "cyano" / "cyano-react" 
+in your bundler configuration.
+*/
+
+
+
+
+var _ChatRecipientPicker = function _ChatRecipientPicker() {
+  var _h;
+
+  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["useState"])("1"),
+      _useState2 = _slicedToArray(_useState, 2),
+      recipientId = _useState2[0],
+      setRecipientId = _useState2[1];
+
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "controls"
+  }, [Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_FriendStatus__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    key: recipientId,
+    friendId: recipientId
+  }), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "select"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("select", (_h = {}, _defineProperty(_h, cyano__WEBPACK_IMPORTED_MODULE_0__["a"].onchange, function (e) {
+    return setRecipientId(e.target.value);
+  }), _defineProperty(_h, "value", recipientId), _h), _friends_data__WEBPACK_IMPORTED_MODULE_2__["default"].map(function (friend) {
+    return Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("option", {
+      value: friend.id
+    }, friend.name);
+  })))]);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_ChatRecipientPicker));
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/examples/chat/Friend.js":
+/*!***********************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/examples/chat/Friend.js ***!
+  \***********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cyano */ "../../cyano-react/dist/cyano-react.mjs");
+/* harmony import */ var _FriendStatus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FriendStatus */ "../../tests-cyano-shared/examples/chat/FriendStatus.js");
+
+
+
+var _Friend = function _Friend(_ref) {
+  var friend = _ref.friend,
+      hasChatApi = _ref.hasChatApi;
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "friend"
+  }, [Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "avatar",
+    style: {
+      backgroundImage: "url(".concat(friend.avatar, ")")
+    }
+  }), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "name"
+  }, friend.name), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "spacer"
+  }), hasChatApi ? Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", null, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_FriendStatus__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    friendId: friend.id
+  })) : null]);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Friend));
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/examples/chat/FriendStatus.js":
+/*!*****************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/examples/chat/FriendStatus.js ***!
+  \*****************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cyano */ "../../cyano-react/dist/cyano-react.mjs");
+/* harmony import */ var _custom_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./custom-hooks */ "../../tests-cyano-shared/examples/chat/custom-hooks.js");
+
+
+
+var _FriendStatus = function _FriendStatus(_ref) {
+  var friendId = _ref.friendId;
+  var isOnline = Object(_custom_hooks__WEBPACK_IMPORTED_MODULE_1__["useFriendStatus"])(friendId);
+  return isOnline === null ? Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "status-dot unknown"
+  }) : isOnline ? Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "status-dot online"
+  }) : Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "status-dot offline"
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_FriendStatus));
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/examples/chat/chat-api.js":
+/*!*************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/examples/chat/chat-api.js ***!
+  \*************************************************************************************************************/
+/*! exports provided: api */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "api", function() { return api; });
+var friendsData = {
+  "0": {
+    status: {
+      isOnline: true
+    }
+  },
+  "1": {
+    status: {
+      isOnline: true
+    }
+  },
+  "2": {
+    status: {
+      isOnline: false
+    }
+  }
+};
+var api = {
+  subscribeToFriendStatus: function subscribeToFriendStatus(friendId, handleStatusChange) {
+    var friend = friendsData[friendId];
+    console.log("subscribing status for ".concat(friendId));
+    friend.status.isOnline = friendId === "2" ? false : true;
+    var delay = 200 + 100 * Math.random();
+    setTimeout(function () {
+      return handleStatusChange(friend.status);
+    }, delay);
+  },
+  unsubscribeFromFriendStatus: function unsubscribeFromFriendStatus(friendId, handleStatusChange) {
+    var friend = friendsData[friendId];
+    friend.status.isOnline = null;
+    console.log("unsubscribing status for ".concat(friendId));
+    handleStatusChange(friend.status);
+  }
+};
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/examples/chat/custom-hooks.js":
+/*!*****************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/examples/chat/custom-hooks.js ***!
+  \*****************************************************************************************************************/
+/*! exports provided: useFriendStatus */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useFriendStatus", function() { return useFriendStatus; });
+/* harmony import */ var _chat_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat-api */ "../../tests-cyano-shared/examples/chat/chat-api.js");
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cyano */ "../../cyano-react/dist/cyano-react.mjs");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+var useFriendStatus = function useFriendStatus(friendId) {
+  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_1__["useState"])(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      isOnline = _useState2[0],
+      setIsOnline = _useState2[1];
+
+  function handleStatusChange(status) {
+    setIsOnline(status.isOnline);
+  }
+
+  Object(cyano__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    _chat_api__WEBPACK_IMPORTED_MODULE_0__["api"].subscribeToFriendStatus(friendId, handleStatusChange);
+    return function () {
+      _chat_api__WEBPACK_IMPORTED_MODULE_0__["api"].unsubscribeFromFriendStatus(friendId, handleStatusChange);
+    };
+  }, []);
+  return isOnline;
+};
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/examples/chat/friends-data.js":
+/*!*****************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/examples/chat/friends-data.js ***!
+  \*****************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  id: "0",
+  name: "Ina",
+  avatar: "http://arthurclemens.github.io/assets/polythene/examples/avatar-1.png"
+}, {
+  id: "1",
+  name: "Jane",
+  avatar: "http://arthurclemens.github.io/assets/polythene/examples/avatar-2.png"
+}, {
+  id: "2",
+  name: "Maddy",
+  avatar: "http://arthurclemens.github.io/assets/polythene/examples/avatar-3.png"
+}]);
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/examples/chat/index.js":
+/*!**********************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/examples/chat/index.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cyano */ "../../cyano-react/dist/cyano-react.mjs");
+/* harmony import */ var _friends_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./friends-data */ "../../tests-cyano-shared/examples/chat/friends-data.js");
+/* harmony import */ var _ChatRecipientPicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ChatRecipientPicker */ "../../tests-cyano-shared/examples/chat/ChatRecipientPicker.js");
+/* harmony import */ var _Friend__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Friend */ "../../tests-cyano-shared/examples/chat/Friend.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var _Chat = function _Chat() {
+  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      hasChatApi = _useState2[0],
+      setHasChatApi = _useState2[1];
+
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "chat"
+  }, [Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "controls"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("button", _defineProperty({
+    className: hasChatApi ? "button" : "button is-link"
+  }, cyano__WEBPACK_IMPORTED_MODULE_0__["a"].onclick, function () {
+    return setHasChatApi(!hasChatApi);
+  }), hasChatApi ? "Deactivate chat" : "Activate chat")), hasChatApi ? Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_ChatRecipientPicker__WEBPACK_IMPORTED_MODULE_2__["default"]) : null, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    className: "friends"
+  }, _friends_data__WEBPACK_IMPORTED_MODULE_1__["default"].map(function (friend) {
+    return Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Friend__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      friend: friend,
+      hasChatApi: hasChatApi
+    });
+  }))]);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Chat));
 
 /***/ }),
 

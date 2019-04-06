@@ -401,7 +401,7 @@ var htmlAttributes = {
 };
 
 const a = htmlAttributes;
-const h = m;
+const h = m || {};
 const trust = h.trust;
 
 h.trust = (html, wrapper) => wrapper ? m(wrapper, trust(html)) : trust(html);

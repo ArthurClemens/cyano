@@ -1,0 +1,54 @@
+
+.chat .friend {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 15px;
+}
+.chat .friend + .friend {
+  border-top: 1px solid #eee;
+}
+.chat .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #eee;
+  background-size: cover;
+}
+.chat .name {
+  font-size: 16px;
+  margin: 0 0 0 30px;
+}
+.chat .spacer {
+  display: flex;
+  flex-grow: 1;
+}
+.chat .status {
+  font-size: 14px;
+  color: #aaa;
+}
+.chat .status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  
+}
+.chat .status-dot.online {
+  background: lime;
+}
+.chat .status-dot.offline {
+  background: red;
+}
+.chat .status-dot.unknown {
+  background: #ddd;
+}
+.chat .controls {
+  border-bottom: 1px solid #ddd;
+  padding: 0 0 15px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.chat .controls select {
+  margin: 0 0 0 1em;
+}

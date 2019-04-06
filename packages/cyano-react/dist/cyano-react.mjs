@@ -282,7 +282,7 @@ var htmlAttributes = {
 };
 
 const a = htmlAttributes;
-const h$1 = reactHyperscript;
+const h$1 = reactHyperscript || {};
 
 h$1.trust = function (html) {
   let wrapper = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
