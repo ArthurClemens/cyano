@@ -1,6 +1,6 @@
 {
   "name": "cyano-react",
-  "version": "0.3.0",
+  "version": "0.4.2",
   "description": "Takes a base component and returns a React component",
   "main": "dist/cyano-react",
   "module": "dist/cyano-react.mjs",
@@ -18,10 +18,13 @@
   "author": "Arthur Clemens <arthurclemens@gmail.com> (http://visiblearea.com)",
   "homepage": "https://github.com/ArthurClemens/cyano",
   "license": "MIT",
-  "peerDependencies": {
-    "react": "^16.8.4"
+  "dependencies": {
+    "react-hyperscript": "^3.2.0"
   },
   "devDependencies": {
     "rimraf": "^2.6.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6"
   }
 }

@@ -6,7 +6,7 @@ export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useC
 
 export const a = htmlAttributes;
 
-export const h = m;
+export const h = m || {};
 const trust = h.trust;
 h.trust = (html, wrapper) =>
   wrapper
