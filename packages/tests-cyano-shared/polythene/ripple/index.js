@@ -1,7 +1,7 @@
-import { pointerEndEvent, filterSupportedAttributes, isServer } from "polythene-core";
+import { pointerEndEvent, filterSupportedAttributes } from "polythene-core";
 import animation from "./animation";
 import classes from "polythene-css-classes/ripple";
-import { cast, h, a, getDom, useState, useEffect } from "cyano"
+import { cast, h, a, getDom, useState, useEffect } from "cyano";
 
 const useAnimationsState = () => {
   const [animations, setAnimations] = useState({});
@@ -25,7 +25,6 @@ const _Ripple = props => {
   const [animations, addAnimation, removeAnimation] = useAnimationsState();
   const isAnimating = Object.keys(animations).length > 0;
   const triggerEl = props.target || (domElement ? domElement.parentElement : undefined);
-  console.log("props.target", props.target, "triggerEl", triggerEl);
   
   const tap = e => {
     if (props.disabled || (!props.multi && isAnimating)) {
@@ -61,11 +60,11 @@ const _Ripple = props => {
     [triggerEl]
   );
 
-  return h(props.element || "div",
+  const componentProps = Object.assign({}, 
+    filterSupportedAttributes(props),
+    getDom(dom => dom && !domElement && setDomElement(dom)),
+    props.testId && { "data-test-id": props.testId },
     {
-      ...filterSupportedAttributes(props),
-      ...getDom(dom => dom && !domElement && setDomElement(dom)),
-      ...(props.testId && { "data-test-id": props.testId }),
       className: [
         classes.component,
         props.unconstrained ? classes.unconstrained : null,
@@ -74,6 +73,10 @@ const _Ripple = props => {
         props.className || props[a.class],
       ].join(" ")
     }
+  );
+
+  return h(props.element || "div",
+    componentProps
   );
 };
 

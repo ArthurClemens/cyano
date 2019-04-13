@@ -7138,6 +7138,30 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../../tests-cyano-shared/node_modules/polythene-css-classes/icon.js":
+/*!******************************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/node_modules/polythene-css-classes/icon.js ***!
+  \******************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  component: "pe-icon",
+
+  // states
+  avatar:    "pe-icon--avatar",
+  large:     "pe-icon--large",
+  medium:    "pe-icon--medium",
+  regular:   "pe-icon--regular",
+  small:     "pe-icon--small",
+});
+
+
+/***/ }),
+
 /***/ "../../tests-cyano-shared/node_modules/polythene-css-classes/ripple.js":
 /*!********************************************************************************************************************************!*\
   !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/node_modules/polythene-css-classes/ripple.js ***!
@@ -7160,6 +7184,46 @@ __webpack_require__.r(__webpack_exports__);
   wavesAnimating: "pe-ripple__waves--animating",
 });
 
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/node_modules/polythene-css-classes/shadow.js":
+/*!********************************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/node_modules/polythene-css-classes/shadow.js ***!
+  \********************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  component:    "pe-shadow",
+
+  // elements
+  bottomShadow: "pe-shadow__bottom",
+  topShadow:    "pe-shadow__top",
+
+  // states
+  animated:     "pe-shadow--animated",
+  depth_n:      "pe-shadow--depth-",
+});
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/node_modules/polythene-css-classes/svg.js":
+/*!*****************************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/node_modules/polythene-css-classes/svg.js ***!
+  \*****************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  component: "pe-svg"
+});
 
 /***/ }),
 
@@ -9552,6 +9616,154 @@ function symbolObservablePonyfill(root) {
 
 /***/ }),
 
+/***/ "../../tests-cyano-shared/polythene/Button/index.js":
+/*!*************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/Button/index.js ***!
+  \*************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var polythene_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! polythene-core */ "../../tests-cyano-shared/node_modules/polythene-core/dist/polythene-core.mjs");
+/* harmony import */ var polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! polythene-css-classes/button */ "../../tests-cyano-shared/node_modules/polythene-css-classes/button.js");
+/* harmony import */ var polythene_css_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! polythene-css-button */ "../../tests-cyano-shared/node_modules/polythene-css-button/dist/polythene-css-button.mjs");
+/* harmony import */ var _Ripple__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Ripple */ "../../tests-cyano-shared/polythene/Ripple/index.js");
+/* harmony import */ var _Shadow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Shadow */ "../../tests-cyano-shared/polythene/Shadow/index.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Icon */ "../../tests-cyano-shared/polythene/Icon/index.js");
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+var _Button = function _Button(props) {
+  var _ref, _h;
+
+  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_6__["useState"])(props.inactive),
+      _useState2 = _slicedToArray(_useState, 1),
+      isInactive = _useState2[0];
+
+  var _useState3 = Object(cyano__WEBPACK_IMPORTED_MODULE_6__["useState"])(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      domElement = _useState4[0],
+      setDomElement = _useState4[1];
+
+  var disabled = props.disabled;
+  var inactive = props.inactive || isInactive;
+  var onClickHandler = props.events && props.events[cyano__WEBPACK_IMPORTED_MODULE_6__["a"].onclick];
+  var onKeyUpHandler = props.events && props.events[cyano__WEBPACK_IMPORTED_MODULE_6__["a"].onkeyup] || onClickHandler;
+
+  var componentProps = _extends({}, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["filterSupportedAttributes"])(props, {
+    add: [cyano__WEBPACK_IMPORTED_MODULE_6__["a"].formaction, "type"],
+    remove: ["style"]
+  }), // Set style on content, not on component
+  Object(cyano__WEBPACK_IMPORTED_MODULE_6__["getDom"])(function (dom) {
+    return dom && !domElement && setDomElement(dom);
+  }), props.testId && {
+    "data-test-id": props.testId
+  }, {
+    className: [polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].super, props.parentClassName || polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].component, props.contained ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].contained : null, props.raised ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].contained : null, props.raised ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].raised : null, props.selected ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].selected : null, props.highLabel ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].highLabel : null, props.extraWide ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].extraWide : null, disabled ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].disabled : null, inactive ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].inactive : null, props.separatorAtStart ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].separatorAtStart : null, props.border || props.borders ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].border : null, props.dropdown ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].hasDropdown : null, props.dropdown ? props.dropdown.open ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].dropdownOpen : polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].dropdownClosed : null, props.tone === "dark" ? "pe-dark-tone" : null, props.tone === "light" ? "pe-light-tone" : null, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_6__["a"].class]].join(" ")
+  }, props.events, inactive ? null : (_ref = {}, _defineProperty(_ref, cyano__WEBPACK_IMPORTED_MODULE_6__["a"].tabindex, disabled || inactive ? -1 : props[cyano__WEBPACK_IMPORTED_MODULE_6__["a"].tabindex] || 0), _defineProperty(_ref, cyano__WEBPACK_IMPORTED_MODULE_6__["a"].onclick, onClickHandler), _defineProperty(_ref, cyano__WEBPACK_IMPORTED_MODULE_6__["a"].onkeyup, function (e) {
+    if (e.keyCode === 13 && state.focus()) {
+      state.focus(false);
+
+      if (onKeyUpHandler) {
+        onKeyUpHandler(e);
+      }
+    }
+  }), _ref), props.url, disabled ? {
+    disabled: true
+  } : null);
+
+  var noink = props.ink !== undefined && props.ink === false;
+  var children = props.children;
+  var label = props.content ? props.content : props.label !== undefined ? _typeof(props.label) === "object" ? props.label : Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])("div", {
+    className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].label
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])("div", {
+    className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].textLabel,
+    style: props.textStyle
+  }, props.label)) : children ? children : null;
+  var noWash = disabled || props.wash !== undefined && !props.wash;
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])(props.element || "div", componentProps, Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])("div", (_h = {}, _defineProperty(_h, cyano__WEBPACK_IMPORTED_MODULE_6__["a"].className, polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].content), _defineProperty(_h, "style", props.style), _h), [Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])(_Shadow__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    key: "shadow",
+    shadowDepth: props.shadowDepth !== undefined ? props.shadowDepth : 0,
+    animated: true
+  }), disabled || noink ? null : Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])(props.Ripple, _extends({}, {
+    key: "ripple",
+    target: domElement
+  }, props.ripple)), noWash ? null : Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])("div", {
+    key: "wash",
+    className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].wash
+  }), label, props.dropdown ? Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])(_Icon__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].dropdown,
+    key: "dropdown",
+    svg: {
+      content: cyano__WEBPACK_IMPORTED_MODULE_6__["h"].trust(polythene_core__WEBPACK_IMPORTED_MODULE_0__["iconDropdownDown"])
+    }
+  }) : null]));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_6__["cast"])(_Button, {
+  Ripple: _Ripple__WEBPACK_IMPORTED_MODULE_3__["default"]
+}));
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/polythene/Icon/index.js":
+/*!***********************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/Icon/index.js ***!
+  \***********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var polythene_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! polythene-core */ "../../tests-cyano-shared/node_modules/polythene-core/dist/polythene-core.mjs");
+/* harmony import */ var polythene_css_classes_icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! polythene-css-classes/icon */ "../../tests-cyano-shared/node_modules/polythene-css-classes/icon.js");
+/* harmony import */ var _SVG__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../SVG */ "../../tests-cyano-shared/polythene/SVG/index.js");
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+
+
+
+var _Icon = function _Icon(props) {
+  var componentProps = _extends({}, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["filterSupportedAttributes"])(props), props.testId && {
+    "data-test-id": props.testId
+  }, {
+    className: [polythene_css_classes_icon__WEBPACK_IMPORTED_MODULE_1__["default"].component, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["classForSize"])(polythene_css_classes_icon__WEBPACK_IMPORTED_MODULE_1__["default"], props.size), props.avatar ? polythene_css_classes_icon__WEBPACK_IMPORTED_MODULE_1__["default"].avatar : null, props.tone === "dark" ? "pe-dark-tone" : null, props.tone === "light" ? "pe-light-tone" : null, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_3__["a"].class]].join(" ")
+  }, props.events);
+
+  var content = props.content ? props.content : props.svg ? Object(cyano__WEBPACK_IMPORTED_MODULE_3__["h"])(_SVG__WEBPACK_IMPORTED_MODULE_2__["default"], props.svg) : props.src ? Object(cyano__WEBPACK_IMPORTED_MODULE_3__["h"])("img", {
+    src: props.src
+  }) : props.children;
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_3__["h"])(props.element || "div", componentProps, content);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_3__["cast"])(_Icon));
+
+/***/ }),
+
 /***/ "../../tests-cyano-shared/polythene/Ripple/animation.js":
 /*!*****************************************************************************************************************!*\
   !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/Ripple/animation.js ***!
@@ -9668,8 +9880,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animation */ "../../tests-cyano-shared/polythene/Ripple/animation.js");
 /* harmony import */ var polythene_css_classes_ripple__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! polythene-css-classes/ripple */ "../../tests-cyano-shared/node_modules/polythene-css-classes/ripple.js");
 /* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -9717,7 +9927,6 @@ var _Ripple = function _Ripple(props) {
 
   var isAnimating = Object.keys(animations).length > 0;
   var triggerEl = props.target || (domElement ? domElement.parentElement : undefined);
-  console.log("props.target", props.target, "triggerEl", triggerEl);
 
   var tap = function tap(e) {
     if (props.disabled || !props.multi && isAnimating) {
@@ -9760,40 +9969,35 @@ var _Ripple = function _Ripple(props) {
       }
     };
   }, [triggerEl]);
-  return Object(cyano__WEBPACK_IMPORTED_MODULE_3__["h"])(props.element || "div", _objectSpread({}, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["filterSupportedAttributes"])(props), Object(cyano__WEBPACK_IMPORTED_MODULE_3__["getDom"])(function (dom) {
+
+  var componentProps = _extends({}, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["filterSupportedAttributes"])(props), Object(cyano__WEBPACK_IMPORTED_MODULE_3__["getDom"])(function (dom) {
     return dom && !domElement && setDomElement(dom);
   }), props.testId && {
     "data-test-id": props.testId
   }, {
     className: [polythene_css_classes_ripple__WEBPACK_IMPORTED_MODULE_2__["default"].component, props.unconstrained ? polythene_css_classes_ripple__WEBPACK_IMPORTED_MODULE_2__["default"].unconstrained : null, props.tone === "dark" ? "pe-dark-tone" : null, props.tone === "light" ? "pe-light-tone" : null, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_3__["a"].class]].join(" ")
-  }));
+  });
+
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_3__["h"])(props.element || "div", componentProps);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_3__["cast"])(_Ripple));
 
 /***/ }),
 
-/***/ "../../tests-cyano-shared/polythene/button/index.js":
-/*!*************************************************************************************************************!*\
-  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/button/index.js ***!
-  \*************************************************************************************************************/
+/***/ "../../tests-cyano-shared/polythene/SVG/index.js":
+/*!**********************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/SVG/index.js ***!
+  \**********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var polythene_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! polythene-core */ "../../tests-cyano-shared/node_modules/polythene-core/dist/polythene-core.mjs");
-/* harmony import */ var polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! polythene-css-classes/button */ "../../tests-cyano-shared/node_modules/polythene-css-classes/button.js");
-/* harmony import */ var polythene_css_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! polythene-css-button */ "../../tests-cyano-shared/node_modules/polythene-css-button/dist/polythene-css-button.mjs");
-/* harmony import */ var _Ripple__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Ripple */ "../../tests-cyano-shared/polythene/Ripple/index.js");
-/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
+/* harmony import */ var polythene_css_classes_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! polythene-css-classes/svg */ "../../tests-cyano-shared/node_modules/polythene-css-classes/svg.js");
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -9807,86 +10011,77 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
-var _Button = function _Button(props) {
-  var _ref, _h;
-
-  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_4__["useState"])(props.inactive),
+var _SVG = function _SVG(props) {
+  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_2__["useState"])(),
       _useState2 = _slicedToArray(_useState, 2),
-      isInactive = _useState2[0],
-      setIsInactive = _useState2[1];
+      domElement = _useState2[0],
+      setDomElement = _useState2[1];
 
-  var _useState3 = Object(cyano__WEBPACK_IMPORTED_MODULE_4__["useState"])(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      domElement = _useState4[0],
-      setDomElement = _useState4[1];
+  Object(cyano__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    if (!domElement) return; // Prevent that SVG gets keyboard focus
 
-  var disabled = props.disabled;
-  var inactive = props.inactive || isInactive;
-  var onClickHandler = props.events && props.events[cyano__WEBPACK_IMPORTED_MODULE_4__["a"].onclick];
-  var onKeyUpHandler = props.events && props.events[cyano__WEBPACK_IMPORTED_MODULE_4__["a"].onkeyup] || onClickHandler;
+    var elem = domElement.querySelector("svg");
 
-  var componentProps = _objectSpread({}, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["filterSupportedAttributes"])(props, {
-    add: [cyano__WEBPACK_IMPORTED_MODULE_4__["a"].formaction, "type"],
-    remove: ["style"]
-  }), Object(cyano__WEBPACK_IMPORTED_MODULE_4__["getDom"])(function (dom) {
+    if (elem) {
+      elem.setAttribute("focusable", "false");
+    }
+  }, [domElement]);
+
+  var componentProps = _extends({}, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["filterSupportedAttributes"])(props), Object(cyano__WEBPACK_IMPORTED_MODULE_2__["getDom"])(function (dom) {
     return dom && !domElement && setDomElement(dom);
   }), props.testId && {
     "data-test-id": props.testId
   }, {
-    className: [polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].super, props.parentClassName || polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].component, props.contained ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].contained : null, props.raised ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].contained : null, props.raised ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].raised : null, props.selected ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].selected : null, props.highLabel ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].highLabel : null, props.extraWide ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].extraWide : null, disabled ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].disabled : null, inactive ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].inactive : null, props.separatorAtStart ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].separatorAtStart : null, props.border || props.borders ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].border : null, props.dropdown ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].hasDropdown : null, props.dropdown ? props.dropdown.open ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].dropdownOpen : polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].dropdownClosed : null, props.tone === "dark" ? "pe-dark-tone" : null, props.tone === "light" ? "pe-light-tone" : null, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_4__["a"].class]].join(" ")
-  }, props.events, inactive ? null : (_ref = {}, _defineProperty(_ref, cyano__WEBPACK_IMPORTED_MODULE_4__["a"].tabindex, disabled || inactive ? -1 : props[cyano__WEBPACK_IMPORTED_MODULE_4__["a"].tabindex] || 0), _defineProperty(_ref, cyano__WEBPACK_IMPORTED_MODULE_4__["a"].onclick, onClickHandler), _defineProperty(_ref, cyano__WEBPACK_IMPORTED_MODULE_4__["a"].onkeyup, function (e) {
-    if (e.keyCode === 13 && state.focus()) {
-      state.focus(false);
+    className: [polythene_css_classes_svg__WEBPACK_IMPORTED_MODULE_1__["default"].component, props.tone === "dark" ? "pe-dark-tone" : null, props.tone === "light" ? "pe-light-tone" : null, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_2__["a"].class]].join(" ")
+  });
 
-      if (onKeyUpHandler) {
-        onKeyUpHandler(e);
-      }
-    }
-  }), _ref), props.url, disabled ? {
-    disabled: true
-  } : null);
-
-  var noink = props.ink !== undefined && props.ink === false;
-  var children = props.children;
-  var label = props.content ? props.content : props.label !== undefined ? _typeof(props.label) === "object" ? props.label : Object(cyano__WEBPACK_IMPORTED_MODULE_4__["h"])("div", {
-    className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].label
-  }, Object(cyano__WEBPACK_IMPORTED_MODULE_4__["h"])("div", {
-    className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].textLabel,
-    style: props.textStyle
-  }, props.label)) : children ? children : null;
-  var noWash = disabled || props.wash !== undefined && !props.wash;
-  return Object(cyano__WEBPACK_IMPORTED_MODULE_4__["h"])(props.element || "div", componentProps, Object(cyano__WEBPACK_IMPORTED_MODULE_4__["h"])("div", (_h = {}, _defineProperty(_h, cyano__WEBPACK_IMPORTED_MODULE_4__["a"].className, polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].content), _defineProperty(_h, "style", props.style), _h), [// h(Shadow, {
-  //   key: "shadow",
-  //   shadowDepth: props.shadowDepth !== undefined
-  //     ? props.shadowDepth
-  //     : 0,
-  //   animated: true
-  // }),
-  // Ripple
-  disabled || noink
-  /* || !props.Ripple */
-
-  /*  || (h["displayName"] === "react" ? domElement : false) */
-  // somehow Mithril does not update when the domElement stream is updated
-  ? null : Object(cyano__WEBPACK_IMPORTED_MODULE_4__["h"])(props.Ripple, _extends({}, {
-    key: "ripple",
-    target: domElement
-  }, props.ripple)), // hover,
-  noWash ? null : Object(cyano__WEBPACK_IMPORTED_MODULE_4__["h"])("div", {
-    key: "wash",
-    className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].wash
-  }), label, props.dropdown ? Object(cyano__WEBPACK_IMPORTED_MODULE_4__["h"])(Icon, {
-    className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].dropdown,
-    key: "dropdown" // svg: { content: h.trust(iconDropdownDown) }
-
-  }) : null]));
+  var content = props.content ? props.content : props.children || props;
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_2__["h"])(props.element || "div", componentProps, content);
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_4__["cast"])(_Button, {
-  Ripple: _Ripple__WEBPACK_IMPORTED_MODULE_3__["default"]
-}));
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_2__["cast"])(_SVG));
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/polythene/Shadow/index.js":
+/*!*************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/Shadow/index.js ***!
+  \*************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var polythene_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! polythene-core */ "../../tests-cyano-shared/node_modules/polythene-core/dist/polythene-core.mjs");
+/* harmony import */ var polythene_css_classes_shadow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! polythene-css-classes/shadow */ "../../tests-cyano-shared/node_modules/polythene-css-classes/shadow.js");
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+
+
+var _Shadow = function _Shadow(props) {
+  var componentProps = _extends({}, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["filterSupportedAttributes"])(props), props.testId && {
+    "data-test-id": props.testId
+  }, {
+    className: [polythene_css_classes_shadow__WEBPACK_IMPORTED_MODULE_1__["default"].component, props.animated && polythene_css_classes_shadow__WEBPACK_IMPORTED_MODULE_1__["default"].animated, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_2__["a"].class]].join(" ")
+  });
+
+  var content = props.content ? props.content : props.children;
+  var shadowDepth = props.shadowDepth !== undefined ? props.shadowDepth : props.z; // deprecated
+
+  var depthClass = shadowDepth !== undefined ? "".concat(polythene_css_classes_shadow__WEBPACK_IMPORTED_MODULE_1__["default"].depth_n).concat(Math.min(5, shadowDepth)) : null;
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_2__["h"])(props.element || "div", componentProps, [content, Object(cyano__WEBPACK_IMPORTED_MODULE_2__["h"])("div", {
+    key: "bottom",
+    className: [polythene_css_classes_shadow__WEBPACK_IMPORTED_MODULE_1__["default"].bottomShadow, depthClass].join(" ")
+  }), Object(cyano__WEBPACK_IMPORTED_MODULE_2__["h"])("div", {
+    key: "top",
+    className: [polythene_css_classes_shadow__WEBPACK_IMPORTED_MODULE_1__["default"].topShadow, depthClass].join(" ")
+  })]);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_2__["cast"])(_Shadow));
 
 /***/ }),
 
@@ -9900,15 +10095,34 @@ var _Button = function _Button(props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
-/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./button */ "../../tests-cyano-shared/polythene/button/index.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button */ "../../tests-cyano-shared/polythene/Button/index.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Icon */ "../../tests-cyano-shared/polythene/Icon/index.js");
 
 
+
+var iconStars = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z\"/></svg>";
+var trustedIconStars = cyano__WEBPACK_IMPORTED_MODULE_0__["h"].trust(iconStars);
 
 var _Polythene = function _Polythene() {
-  return [Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_button__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    key: "button",
+  return [Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    key: "button 1"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
     label: "Polythene button"
-  })];
+  })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    key: "button 2"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    label: "Polythene button",
+    dropdown: true
+  })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    key: "button 3"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    label: "Polythene button",
+    shadowDepth: 1
+  })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    key: "icon 1"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Icon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    content: trustedIconStars
+  }))];
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Polythene));
