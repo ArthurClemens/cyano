@@ -1,48 +1,47 @@
+import { filterSupportedAttributes } from "polythene-core";
 import classes from "polythene-css-classes/button";
 import "polythene-css-button";
 import Ripple from "../Ripple";
-import { cast, h, a, useState } from "cyano";
+import { cast, h, a, getDom, useState } from "cyano";
 
 const _Button = props => {
   const [isInactive, setIsInactive] = useState(props.inactive);
-  const [dom, setDom] = useState(null);
+  const [domElement, setDomElement] = useState();
 
   const disabled = props.disabled;
   const inactive = props.inactive || isInactive;
   const onClickHandler = props.events && props.events[a.onclick];
   const onKeyUpHandler = (props.events && props.events[a.onkeyup]) || onClickHandler;
 
-  const componentProps = Object.assign(
-    {}, 
-    // filterSupportedAttributes(props, { add: [a.formaction, "type"], remove: ["style"] }), // Set style on content, not on component
-    props.testId && { "data-test-id": props.testId },
-    {
-      className: [
-        classes.super,
-        props.parentClassName || classes.component,
-        props.contained ? classes.contained : null,
-        props.raised ? classes.contained : null,
-        props.raised ? classes.raised : null,
-        props.selected ? classes.selected : null,
-        props.highLabel ? classes.highLabel : null,
-        props.extraWide ? classes.extraWide : null,
-        disabled ? classes.disabled : null,
-        inactive ? classes.inactive : null,
-        props.separatorAtStart ? classes.separatorAtStart : null,
-        (props.border || props.borders) ? classes.border : null,
-        props.dropdown ? classes.hasDropdown : null,
-        props.dropdown
-          ? props.dropdown.open
-            ? classes.dropdownOpen
-            : classes.dropdownClosed
-          : null,
-        props.tone === "dark" ? "pe-dark-tone" : null,
-        props.tone === "light" ? "pe-light-tone" : null,
-        props.className || props[a.class],
-      ].join(" ")
-    },
-    props.events,
-    inactive ? null : {
+  const componentProps = {
+    ...filterSupportedAttributes(props, { add: [a.formaction, "type"], remove: ["style"] }), // Set style on content, not on component
+    ...getDom(dom => dom && !domElement && setDomElement(dom)),
+    ...(props.testId && { "data-test-id": props.testId }),
+    className: [
+      classes.super,
+      props.parentClassName || classes.component,
+      props.contained ? classes.contained : null,
+      props.raised ? classes.contained : null,
+      props.raised ? classes.raised : null,
+      props.selected ? classes.selected : null,
+      props.highLabel ? classes.highLabel : null,
+      props.extraWide ? classes.extraWide : null,
+      disabled ? classes.disabled : null,
+      inactive ? classes.inactive : null,
+      props.separatorAtStart ? classes.separatorAtStart : null,
+      (props.border || props.borders) ? classes.border : null,
+      props.dropdown ? classes.hasDropdown : null,
+      props.dropdown
+        ? props.dropdown.open
+          ? classes.dropdownOpen
+          : classes.dropdownClosed
+        : null,
+      props.tone === "dark" ? "pe-dark-tone" : null,
+      props.tone === "light" ? "pe-light-tone" : null,
+      props.className || props[a.class],
+    ].join(" "),
+    ...props.events,
+    ...(inactive ? null : {
       [a.tabindex]: disabled || inactive
         ? -1
         : props[a.tabindex] || 0,
@@ -55,10 +54,10 @@ const _Button = props => {
           }
         }
       }
-    },
-    props.url,
-    disabled ? { disabled: true } : null
-  );
+    }),
+    ...props.url,
+    ...(disabled ? { disabled: true } : null)
+  };
 
   const noink = props.ink !== undefined && props.ink === false;
   const children = props.children;
@@ -98,13 +97,13 @@ const _Button = props => {
         //   animated: true
         // }),
         // Ripple
-        disabled || noink || !props.Ripple || (h["displayName"] === "react" ? dom : false)
-          // somehow Mithril does not update when the dom stream is updated
+        disabled || noink /* || !props.Ripple *//*  || (h["displayName"] === "react" ? domElement : false) */
+          // somehow Mithril does not update when the domElement stream is updated
           ? null
           : h(props.Ripple, Object.assign({},
             {
               key: "ripple",
-              target: dom
+              target: domElement
             },
             props.ripple
           )),

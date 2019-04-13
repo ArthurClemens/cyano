@@ -7,13 +7,11 @@ const mountNode = document.querySelector("#root");
 import { addLayoutStyles, addTypography } from "polythene-css";
 addTypography();
 addLayoutStyles();
-import Button from "tests-cyano-shared/polythene/button";
+import Polythene from "tests-cyano-shared/polythene";
 
 const setContent = ({ AppLayout, ...props }) => {
   ReactDOM.render(
-    h(Button, { 
-      label: "React button"
-    }),
+    h(Polythene),
     // h(AppLayout, props),
     mountNode
   );

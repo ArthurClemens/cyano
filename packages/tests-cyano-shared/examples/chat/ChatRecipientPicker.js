@@ -1,13 +1,4 @@
 import { cast, useState, h, a } from "cyano";
-/*
-To make this component library agnostic, use:
-
-import { cast, useState, h, a } from "cyano";
-
-and create an alias from "cyano" => "cyano" / "cyano-react" 
-in your bundler configuration.
-*/
-
 import FriendStatus from "./FriendStatus";
 import friendsData from "./friends-data";
 

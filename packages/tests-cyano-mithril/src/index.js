@@ -7,14 +7,12 @@ const mountNode = document.querySelector("#root");
 import { addLayoutStyles, addTypography } from "polythene-css";
 addTypography();
 addLayoutStyles();
-import Button from "tests-cyano-shared/polythene/button";
+import Polythene from "tests-cyano-shared/polythene";
 
 const setContent = ({ AppLayout, ...props }) => {
   m.mount(mountNode, {
     view: () =>
-      m(Button, { 
-        label: "Mithril button"
-      })
+      m(Polythene)
       // m(AppLayout, props)
   });
 };
