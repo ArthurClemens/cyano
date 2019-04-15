@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "cyano-react": "^0.4.2",
+    "polythene-react-ripple": "^0.4.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "tests-cyano-shared": "^0.4.2"

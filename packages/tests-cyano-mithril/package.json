@@ -4,6 +4,7 @@
   "description": "Test Cyano with Mithril",
   "version": "0.4.2",
   "main": "dist/js/index",
+  "module": "dist/js/index.mjs",
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./src",
@@ -14,7 +15,8 @@
     "build": "npm run build:webpack",
     "build:webpack": "npm run clean && npm run webpack",
     "serve": "http-server -c-1 -p 8080 dist",
-    "build:rollup": "CYANO=cyano-mithril ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js",
+    "build:rollup:umd": "CYANO=cyano-mithril ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js",
+    "build:rollup:es": "CYANO=cyano-mithril ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
     "build:browserify": "CYANO=cyano-mithril node ../../scripts/browserify.js",
     "clean": "rimraf dist/js/*",
     "test": "npm run test:cypress",
@@ -26,6 +28,7 @@
   "dependencies": {
     "cyano-mithril": "^0.4.2",
     "mithril": "2.0.0-rc.4",
+    "polythene-mithril-ripple": "^0.4.2",
     "tests-cyano-shared": "^0.4.2"
   },
   "devDependencies": {

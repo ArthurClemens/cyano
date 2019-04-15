@@ -1,23 +1,62 @@
 import { filterSupportedAttributes, iconDropdownDown } from "polythene-core";
 import classes from "polythene-css-classes/button";
 import "polythene-css-button";
-import Ripple from "../Ripple";
+import _Ripple from "polythene-core-ripple";
 import Shadow from "../Shadow";
 import Icon from "../Icon";
-import { cast, h, a, getDom, useState } from "cyano";
+import { cast, h, a, getDom, useState, useEffect } from "cyano";
+
+const Ripple = cast(_Ripple);
 
 const _Button = props => {
-  const [isInactive] = useState(props.inactive);
   const [domElement, setDomElement] = useState();
-
+  const [isInactive, setIsInactive] = useState(props.inactive);
+  const [hasFocus, setHasFocus] = useState(false);
+  const [hasMouseOver, setHasMouseOver] = useState(false);
   const disabled = props.disabled;
   const inactive = props.inactive || isInactive;
   const onClickHandler = props.events && props.events[a.onclick];
   const onKeyUpHandler = (props.events && props.events[a.onkeyup]) || onClickHandler;
 
+  const handleInactivate = () => (
+    setIsInactive(true),
+    setTimeout(() => (
+      setIsInactive(false)
+    ), props.inactivate * 1000)
+  );
+
+  useEffect(
+    () => {
+      if (!domElement) return;
+      const onFocus = () => setHasFocus(!hasMouseOver);
+      const onBlur = () => setHasFocus(false);
+      const onMouseOver = () => setHasMouseOver(true);
+      const onMouseOut = () => setHasMouseOver(false);
+      const onClick = handleInactivate;
+
+      domElement.addEventListener("focus", onFocus, false);
+      domElement.addEventListener("blur", onBlur, false);
+      domElement.addEventListener("mouseover", onMouseOver, false);
+      domElement.addEventListener("mouseout", onMouseOut, false);
+      domElement.addEventListener("click", onClick, false);
+
+      return () => {
+        domElement.removeEventListener("focus", onFocus, false),
+        domElement.removeEventListener("blur", onBlur, false),
+        domElement.removeEventListener("mouseover", onBlur, false),
+        domElement.removeEventListener("mouseout", onMouseOut, false),
+        domElement.removeEventListener("click", onClick, false)
+      }
+    },
+    [domElement]
+  );
+
   const componentProps = Object.assign({},
     filterSupportedAttributes(props, { add: [a.formaction, "type"], remove: ["style"] }), // Set style on content, not on component
-    getDom(dom => dom && !domElement && setDomElement(dom)),
+    getDom(dom => dom && !domElement && (
+      setDomElement(dom),
+      props.getDom && props.getDom(dom)
+    )),
     props.testId && { "data-test-id": props.testId },
     {
       className: [
@@ -51,8 +90,8 @@ const _Button = props => {
         : props[a.tabindex] || 0,
       [a.onclick]: onClickHandler,
       [a.onkeyup]: e => {
-        if (e.keyCode === 13 && state.focus()) {
-          state.focus(false);
+        if (e.keyCode === 13 && hasFocus) {
+          setHasFocus(false);
           if (onKeyUpHandler) {
             onKeyUpHandler(e);
           }
@@ -62,9 +101,7 @@ const _Button = props => {
     props.url,
     disabled ? { disabled: true } : null
   );
-
   const noink = props.ink !== undefined && props.ink === false;
-  const children = props.children;
   const label = props.content
     ? props.content
     : props.label !== undefined
@@ -80,9 +117,7 @@ const _Button = props => {
             props.label
           )
         )
-      : children
-        ? children
-        : null;
+      : props.children;
   const noWash = disabled || (props.wash !== undefined && !props.wash);
   
   return h(props.element || "div",
@@ -102,7 +137,7 @@ const _Button = props => {
         }),
         disabled || noink
           ? null
-          : h(props.Ripple, Object.assign({},
+          : h(Ripple, Object.assign({},
             {
               key: "ripple",
               target: domElement
@@ -125,4 +160,4 @@ const _Button = props => {
   );
 };
 
-export default cast(_Button, { Ripple });
+export default cast(_Button);

@@ -7,7 +7,8 @@ const presets = [
         "esmodules": true
       }
     }
-  ]
+  ],
+  "@babel/preset-react"
 ];
 
 module.exports = {

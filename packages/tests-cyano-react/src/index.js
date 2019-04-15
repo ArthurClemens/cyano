@@ -8,10 +8,24 @@ import { addLayoutStyles, addTypography } from "polythene-css";
 addTypography();
 addLayoutStyles();
 import Polythene from "tests-cyano-shared/polythene";
+import Ripple from "polythene-react-ripple";
 
 const setContent = ({ AppLayout, ...props }) => {
   ReactDOM.render(
-    h(Polythene),
+    h("div", [
+      h(Polythene),
+      h("div",
+        {
+          style: {
+            position: "relative",
+            background: "#eee",
+            width: "100px",
+            height: "100px",
+          }
+        },
+        h(Ripple)
+      )
+    ]),
     // h(AppLayout, props),
     mountNode
   );

@@ -8,11 +8,24 @@ import { addLayoutStyles, addTypography } from "polythene-css";
 addTypography();
 addLayoutStyles();
 import Polythene from "tests-cyano-shared/polythene";
+import Ripple from "polythene-mithril-ripple";
 
 const setContent = ({ AppLayout, ...props }) => {
   m.mount(mountNode, {
-    view: () =>
-      m(Polythene)
+    view: () => [
+      m(Polythene),
+      m("div",
+        {
+          style: {
+            position: "relative",
+            background: "#eee",
+            width: "100px",
+            height: "100px",
+          }
+        },
+        m(Ripple)
+      )
+    ]
       // m(AppLayout, props)
   });
 };

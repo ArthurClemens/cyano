@@ -7138,6 +7138,30 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../../tests-cyano-shared/node_modules/polythene-css-classes/icon-button.js":
+/*!*************************************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/node_modules/polythene-css-classes/icon-button.js ***!
+  \*************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  component: "pe-button pe-icon-button",
+
+  // elements
+  content:   "pe-icon-button__content",
+  label:     "pe-icon-button__label",
+
+  // states
+  compact:   "pe-icon-button--compact",
+});
+
+
+/***/ }),
+
 /***/ "../../tests-cyano-shared/node_modules/polythene-css-classes/icon.js":
 /*!******************************************************************************************************************************!*\
   !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/node_modules/polythene-css-classes/icon.js ***!
@@ -7157,31 +7181,6 @@ __webpack_require__.r(__webpack_exports__);
   medium:    "pe-icon--medium",
   regular:   "pe-icon--regular",
   small:     "pe-icon--small",
-});
-
-
-/***/ }),
-
-/***/ "../../tests-cyano-shared/node_modules/polythene-css-classes/ripple.js":
-/*!********************************************************************************************************************************!*\
-  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/node_modules/polythene-css-classes/ripple.js ***!
-  \********************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  component:      "pe-ripple",
-
-  // elements
-  mask:           "pe-ripple__mask",
-  waves:          "pe-ripple__waves",
-
-  // states
-  unconstrained:  "pe-ripple--unconstrained",
-  wavesAnimating: "pe-ripple__waves--animating",
 });
 
 
@@ -9628,7 +9627,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var polythene_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! polythene-core */ "../../tests-cyano-shared/node_modules/polythene-core/dist/polythene-core.mjs");
 /* harmony import */ var polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! polythene-css-classes/button */ "../../tests-cyano-shared/node_modules/polythene-css-classes/button.js");
 /* harmony import */ var polythene_css_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! polythene-css-button */ "../../tests-cyano-shared/node_modules/polythene-css-button/dist/polythene-css-button.mjs");
-/* harmony import */ var _Ripple__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Ripple */ "../../tests-cyano-shared/polythene/Ripple/index.js");
+/* harmony import */ var polythene_core_ripple__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! polythene-core-ripple */ "../../tests-polythene-core-ripple/dist/polythene-core-ripple.mjs");
 /* harmony import */ var _Shadow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Shadow */ "../../tests-cyano-shared/polythene/Shadow/index.js");
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Icon */ "../../tests-cyano-shared/polythene/Icon/index.js");
 /* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
@@ -9653,37 +9652,85 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var Ripple = Object(cyano__WEBPACK_IMPORTED_MODULE_6__["cast"])(polythene_core_ripple__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
 var _Button = function _Button(props) {
   var _ref, _h;
 
-  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_6__["useState"])(props.inactive),
-      _useState2 = _slicedToArray(_useState, 1),
-      isInactive = _useState2[0];
+  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_6__["useState"])(),
+      _useState2 = _slicedToArray(_useState, 2),
+      domElement = _useState2[0],
+      setDomElement = _useState2[1];
 
-  var _useState3 = Object(cyano__WEBPACK_IMPORTED_MODULE_6__["useState"])(),
+  var _useState3 = Object(cyano__WEBPACK_IMPORTED_MODULE_6__["useState"])(props.inactive),
       _useState4 = _slicedToArray(_useState3, 2),
-      domElement = _useState4[0],
-      setDomElement = _useState4[1];
+      isInactive = _useState4[0],
+      setIsInactive = _useState4[1];
+
+  var _useState5 = Object(cyano__WEBPACK_IMPORTED_MODULE_6__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      hasFocus = _useState6[0],
+      setHasFocus = _useState6[1];
+
+  var _useState7 = Object(cyano__WEBPACK_IMPORTED_MODULE_6__["useState"])(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      hasMouseOver = _useState8[0],
+      setHasMouseOver = _useState8[1];
 
   var disabled = props.disabled;
   var inactive = props.inactive || isInactive;
   var onClickHandler = props.events && props.events[cyano__WEBPACK_IMPORTED_MODULE_6__["a"].onclick];
   var onKeyUpHandler = props.events && props.events[cyano__WEBPACK_IMPORTED_MODULE_6__["a"].onkeyup] || onClickHandler;
 
+  var handleInactivate = function handleInactivate() {
+    return setIsInactive(true), setTimeout(function () {
+      return setIsInactive(false);
+    }, props.inactivate * 1000);
+  };
+
+  Object(cyano__WEBPACK_IMPORTED_MODULE_6__["useEffect"])(function () {
+    if (!domElement) return;
+
+    var onFocus = function onFocus() {
+      return setHasFocus(!hasMouseOver);
+    };
+
+    var onBlur = function onBlur() {
+      return setHasFocus(false);
+    };
+
+    var onMouseOver = function onMouseOver() {
+      return setHasMouseOver(true);
+    };
+
+    var onMouseOut = function onMouseOut() {
+      return setHasMouseOver(false);
+    };
+
+    var onClick = handleInactivate;
+    domElement.addEventListener("focus", onFocus, false);
+    domElement.addEventListener("blur", onBlur, false);
+    domElement.addEventListener("mouseover", onMouseOver, false);
+    domElement.addEventListener("mouseout", onMouseOut, false);
+    domElement.addEventListener("click", onClick, false);
+    return function () {
+      domElement.removeEventListener("focus", onFocus, false), domElement.removeEventListener("blur", onBlur, false), domElement.removeEventListener("mouseover", onBlur, false), domElement.removeEventListener("mouseout", onMouseOut, false), domElement.removeEventListener("click", onClick, false);
+    };
+  }, [domElement]);
+
   var componentProps = _extends({}, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["filterSupportedAttributes"])(props, {
     add: [cyano__WEBPACK_IMPORTED_MODULE_6__["a"].formaction, "type"],
     remove: ["style"]
   }), // Set style on content, not on component
   Object(cyano__WEBPACK_IMPORTED_MODULE_6__["getDom"])(function (dom) {
-    return dom && !domElement && setDomElement(dom);
+    return dom && !domElement && (setDomElement(dom), props.getDom && props.getDom(dom));
   }), props.testId && {
     "data-test-id": props.testId
   }, {
     className: [polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].super, props.parentClassName || polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].component, props.contained ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].contained : null, props.raised ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].contained : null, props.raised ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].raised : null, props.selected ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].selected : null, props.highLabel ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].highLabel : null, props.extraWide ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].extraWide : null, disabled ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].disabled : null, inactive ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].inactive : null, props.separatorAtStart ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].separatorAtStart : null, props.border || props.borders ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].border : null, props.dropdown ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].hasDropdown : null, props.dropdown ? props.dropdown.open ? polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].dropdownOpen : polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].dropdownClosed : null, props.tone === "dark" ? "pe-dark-tone" : null, props.tone === "light" ? "pe-light-tone" : null, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_6__["a"].class]].join(" ")
   }, props.events, inactive ? null : (_ref = {}, _defineProperty(_ref, cyano__WEBPACK_IMPORTED_MODULE_6__["a"].tabindex, disabled || inactive ? -1 : props[cyano__WEBPACK_IMPORTED_MODULE_6__["a"].tabindex] || 0), _defineProperty(_ref, cyano__WEBPACK_IMPORTED_MODULE_6__["a"].onclick, onClickHandler), _defineProperty(_ref, cyano__WEBPACK_IMPORTED_MODULE_6__["a"].onkeyup, function (e) {
-    if (e.keyCode === 13 && state.focus()) {
-      state.focus(false);
+    if (e.keyCode === 13 && hasFocus) {
+      setHasFocus(false);
 
       if (onKeyUpHandler) {
         onKeyUpHandler(e);
@@ -9694,19 +9741,18 @@ var _Button = function _Button(props) {
   } : null);
 
   var noink = props.ink !== undefined && props.ink === false;
-  var children = props.children;
   var label = props.content ? props.content : props.label !== undefined ? _typeof(props.label) === "object" ? props.label : Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])("div", {
     className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].label
   }, Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])("div", {
     className: polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].textLabel,
     style: props.textStyle
-  }, props.label)) : children ? children : null;
+  }, props.label)) : props.children;
   var noWash = disabled || props.wash !== undefined && !props.wash;
   return Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])(props.element || "div", componentProps, Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])("div", (_h = {}, _defineProperty(_h, cyano__WEBPACK_IMPORTED_MODULE_6__["a"].className, polythene_css_classes_button__WEBPACK_IMPORTED_MODULE_1__["default"].content), _defineProperty(_h, "style", props.style), _h), [Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])(_Shadow__WEBPACK_IMPORTED_MODULE_4__["default"], {
     key: "shadow",
     shadowDepth: props.shadowDepth !== undefined ? props.shadowDepth : 0,
     animated: true
-  }), disabled || noink ? null : Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])(props.Ripple, _extends({}, {
+  }), disabled || noink ? null : Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])(Ripple, _extends({}, {
     key: "ripple",
     target: domElement
   }, props.ripple)), noWash ? null : Object(cyano__WEBPACK_IMPORTED_MODULE_6__["h"])("div", {
@@ -9721,9 +9767,165 @@ var _Button = function _Button(props) {
   }) : null]));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_6__["cast"])(_Button, {
-  Ripple: _Ripple__WEBPACK_IMPORTED_MODULE_3__["default"]
-}));
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_6__["cast"])(_Button));
+
+/***/ }),
+
+/***/ "../../tests-cyano-shared/polythene/Button/raised-button.js":
+/*!*********************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/Button/raised-button.js ***!
+  \*********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var polythene_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! polythene-core */ "../../tests-cyano-shared/node_modules/polythene-core/dist/polythene-core.mjs");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Button */ "../../tests-cyano-shared/polythene/Button/index.js");
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var DEFAULT_SHADOW_DEPTH = 1;
+var DEFAULT_SHADOW_DEPTH_INCREASE = 1;
+var MAX_SHADOW_DEPTH = 5;
+var downButtons = [];
+/*
+useRef combined with useState to enforce re-render.
+*/
+
+var useStateWithRef = function useStateWithRef(initialValue) {
+  var value = Object(cyano__WEBPACK_IMPORTED_MODULE_2__["useRef"])(initialValue);
+
+  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_2__["useState"])(value.current),
+      _useState2 = _slicedToArray(_useState, 2),
+      _ = _useState2[0],
+      setValue = _useState2[1];
+
+  return [value, function (newValue) {
+    return value.current = newValue, setValue(value.current);
+  }];
+};
+
+var animateZ = function animateZ(which, getButtonProps) {
+  var _getButtonProps = getButtonProps(),
+      shadowDepthBase = _getButtonProps.shadowDepthBase,
+      shadowDepthRef = _getButtonProps.shadowDepthRef,
+      setShadowDepth = _getButtonProps.setShadowDepth,
+      increase = _getButtonProps.increase;
+
+  var newShadowDepth = which === "down" && shadowDepthBase < MAX_SHADOW_DEPTH ? Math.min(shadowDepthBase + increase, MAX_SHADOW_DEPTH) : which === "up" ? Math.max(shadowDepthRef.current - increase, shadowDepthBase) : shadowDepthRef.current;
+
+  if (newShadowDepth !== shadowDepthRef.current) {
+    setShadowDepth(newShadowDepth);
+  }
+};
+
+var tapHandler = function tapHandler(_ref) {
+  var which = _ref.which,
+      getButtonProps = _ref.getButtonProps;
+
+  if (which === "down") {
+    downButtons.push(getButtonProps);
+  }
+
+  animateZ(which, getButtonProps);
+};
+
+var _RaisedButton = function _RaisedButton(props) {
+  var _useState3 = Object(cyano__WEBPACK_IMPORTED_MODULE_2__["useState"])(props.shadowDepth !== undefined ? props.shadowDepth : DEFAULT_SHADOW_DEPTH),
+      _useState4 = _slicedToArray(_useState3, 1),
+      shadowDepthBase = _useState4[0];
+
+  var _useStateWithRef = useStateWithRef(shadowDepthBase),
+      _useStateWithRef2 = _slicedToArray(_useStateWithRef, 2),
+      shadowDepthRef = _useStateWithRef2[0],
+      setShadowDepth = _useStateWithRef2[1];
+
+  var _useState5 = Object(cyano__WEBPACK_IMPORTED_MODULE_2__["useState"])(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      domElement = _useState6[0],
+      setDomElement = _useState6[1];
+
+  var increase = props.increase || DEFAULT_SHADOW_DEPTH_INCREASE;
+  var animateOnTap = props.animateOnTap !== false ? true : false;
+
+  var getButtonProps = function getButtonProps() {
+    return {
+      shadowDepthBase: shadowDepthBase,
+      shadowDepthRef: shadowDepthRef,
+      setShadowDepth: setShadowDepth,
+      increase: increase
+    };
+  };
+
+  Object(cyano__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    // Init tap events
+    if (polythene_core__WEBPACK_IMPORTED_MODULE_0__["isServer"] || !domElement || !animateOnTap) return;
+
+    var tapStart = function tapStart() {
+      return tapHandler({
+        which: "down",
+        getButtonProps: getButtonProps
+      });
+    };
+
+    var tapEndAll = function tapEndAll() {
+      downButtons.map(function (getButtonProps) {
+        return tapHandler({
+          which: "up",
+          getButtonProps: getButtonProps
+        });
+      });
+      downButtons.length = 0;
+    };
+
+    polythene_core__WEBPACK_IMPORTED_MODULE_0__["pointerStartMoveEvent"].forEach(function (evt) {
+      return domElement.addEventListener(evt, tapStart);
+    });
+    polythene_core__WEBPACK_IMPORTED_MODULE_0__["pointerEndMoveEvent"].forEach(function (evt) {
+      return document.addEventListener(evt, tapEndAll);
+    }); // Clear tap events
+
+    return function () {
+      polythene_core__WEBPACK_IMPORTED_MODULE_0__["pointerStartMoveEvent"].forEach(function (evt) {
+        return domElement.removeEventListener(evt, tapStart);
+      });
+      polythene_core__WEBPACK_IMPORTED_MODULE_0__["pointerEndMoveEvent"].forEach(function (evt) {
+        return document.removeEventListener(evt, tapEndAll);
+      });
+    };
+  }, [domElement]);
+
+  var componentProps = _extends({}, _objectSpread({
+    raised: true,
+    animateOnTap: false,
+    wash: props.wash !== undefined ? props.wash : false
+  }, props, {
+    shadowDepth: props.disabled ? 0 : shadowDepthRef.current,
+    getDom: function getDom(dom) {
+      return dom && !domElement && setDomElement(dom);
+    }
+  }));
+
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_2__["h"])(_Button__WEBPACK_IMPORTED_MODULE_1__["default"], componentProps, props.children);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_2__["cast"])(_RaisedButton));
 
 /***/ }),
 
@@ -9764,224 +9966,48 @@ var _Icon = function _Icon(props) {
 
 /***/ }),
 
-/***/ "../../tests-cyano-shared/polythene/Ripple/animation.js":
+/***/ "../../tests-cyano-shared/polythene/IconButton/index.js":
 /*!*****************************************************************************************************************!*\
-  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/Ripple/animation.js ***!
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/IconButton/index.js ***!
   \*****************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var polythene_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! polythene-core */ "../../tests-cyano-shared/node_modules/polythene-core/dist/polythene-core.mjs");
-/* harmony import */ var polythene_theme__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! polythene-theme */ "../../tests-cyano-shared/node_modules/polythene-theme/dist/polythene-theme.mjs");
-
-
-var ANIMATION_END_EVENT = Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["getAnimationEndEvent"])();
-var DEFAULT_START_OPACITY = 0.2;
-var DEFAULT_END_OPACITY = 0.0;
-var DEFAULT_START_SCALE = 0.1;
-var DEFAULT_END_SCALE = 2.0;
-var OPACITY_DECAY_VELOCITY = 0.35;
-
-var addStyleToHead = function addStyleToHead(id, stylesheet) {
-  if (polythene_core__WEBPACK_IMPORTED_MODULE_0__["isServer"]) return;
-  var documentRef = window.document;
-  var styleEl = documentRef.createElement("style");
-  styleEl.setAttribute("id", id);
-  styleEl.appendChild(documentRef.createTextNode(stylesheet));
-  documentRef.head.appendChild(styleEl);
-};
-
-var removeStyleFromHead = function removeStyleFromHead(id) {
-  if (polythene_core__WEBPACK_IMPORTED_MODULE_0__["isServer"]) return;
-  var el = document.getElementById(id);
-
-  if (el && el.parentNode) {
-    el.parentNode.removeChild(el);
-  }
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
-  var e = _ref.e,
-      id = _ref.id,
-      el = _ref.el,
-      props = _ref.props,
-      classes = _ref.classes;
-  return new Promise(function (resolve) {
-    var container = document.createElement("div");
-    container.setAttribute("class", classes.mask);
-    el.appendChild(container);
-    var waves = document.createElement("div");
-    waves.setAttribute("class", classes.waves);
-    container.appendChild(waves);
-    var rect = el.getBoundingClientRect();
-    var x = polythene_core__WEBPACK_IMPORTED_MODULE_0__["isTouch"] && e.touches ? e.touches[0].pageX : e.clientX;
-    var y = polythene_core__WEBPACK_IMPORTED_MODULE_0__["isTouch"] && e.touches ? e.touches[0].pageY : e.clientY;
-    var w = el.offsetWidth;
-    var h = el.offsetHeight;
-    var waveRadius = Math.sqrt(w * w + h * h);
-    var mx = props.center ? rect.left + rect.width / 2 : x;
-    var my = props.center ? rect.top + rect.height / 2 : y;
-    var rx = mx - rect.left - waveRadius / 2;
-    var ry = my - rect.top - waveRadius / 2;
-    var startOpacity = props.startOpacity !== undefined ? props.startOpacity : DEFAULT_START_OPACITY;
-    var opacityDecayVelocity = props.opacityDecayVelocity !== undefined ? props.opacityDecayVelocity : OPACITY_DECAY_VELOCITY;
-    var endOpacity = props.endOpacity || DEFAULT_END_OPACITY;
-    var startScale = props.startScale || DEFAULT_START_SCALE;
-    var endScale = props.endScale || DEFAULT_END_SCALE;
-    var duration = props.duration ? props.duration : 1 / opacityDecayVelocity * 0.2;
-    var color = window.getComputedStyle(el).color;
-    var style = waves.style;
-    style.width = style.height = waveRadius + "px";
-    style.top = ry + "px";
-    style.left = rx + "px";
-    style["animation-duration"] = style["-webkit-animation-duration"] = style["-moz-animation-duration"] = style["-o-animation-duration"] = duration + "s";
-    style.backgroundColor = color;
-    style.opacity = startOpacity;
-    style.animationName = id;
-    style.animationTimingFunction = props.animationTimingFunction || polythene_theme__WEBPACK_IMPORTED_MODULE_1__["vars"].animation_curve_default;
-    var rippleStyleSheet = "@keyframes ".concat(id, " {\n      0% {\n        transform:scale(").concat(startScale, ");\n        opacity: ").concat(startOpacity, "\n      }\n      100% {\n        transform:scale(").concat(endScale, ");\n        opacity: ").concat(endOpacity, ";\n      }\n    }");
-    addStyleToHead(id, rippleStyleSheet);
-
-    var animationDone = function animationDone(evt) {
-      removeStyleFromHead(id);
-      waves.removeEventListener(ANIMATION_END_EVENT, animationDone, false);
-
-      if (props.persistent) {
-        style.opacity = endOpacity;
-        style.transform = "scale(" + endScale + ")";
-      } else {
-        waves.classList.remove(classes.wavesAnimating);
-        container.removeChild(waves);
-        el.removeChild(container);
-      }
-
-      resolve(evt);
-    };
-
-    waves.addEventListener(ANIMATION_END_EVENT, animationDone, false);
-    waves.classList.add(classes.wavesAnimating);
-  });
-});
-
-/***/ }),
-
-/***/ "../../tests-cyano-shared/polythene/Ripple/index.js":
-/*!*************************************************************************************************************!*\
-  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-cyano-shared/polythene/Ripple/index.js ***!
-  \*************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var polythene_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! polythene-core */ "../../tests-cyano-shared/node_modules/polythene-core/dist/polythene-core.mjs");
-/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animation */ "../../tests-cyano-shared/polythene/Ripple/animation.js");
-/* harmony import */ var polythene_css_classes_ripple__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! polythene-css-classes/ripple */ "../../tests-cyano-shared/node_modules/polythene-css-classes/ripple.js");
-/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var polythene_css_classes_icon_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! polythene-css-classes/icon-button */ "../../tests-cyano-shared/node_modules/polythene-css-classes/icon-button.js");
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Icon */ "../../tests-cyano-shared/polythene/Icon/index.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Button */ "../../tests-cyano-shared/polythene/Button/index.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
 
+var _IconButton = function _IconButton(props) {
+  var content = props.content ? props.content : props.icon ? Object(cyano__WEBPACK_IMPORTED_MODULE_1__["h"])(_Icon__WEBPACK_IMPORTED_MODULE_2__["default"], props.icon) : props.children;
 
-var useAnimationsState = function useAnimationsState() {
-  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_3__["useState"])({}),
-      _useState2 = _slicedToArray(_useState, 2),
-      animations = _useState2[0],
-      setAnimations = _useState2[1];
-
-  return [animations, function (addId, animation) {
-    return setAnimations(_extends({}, animations, _defineProperty({}, addId, animation)));
-  }, function (removeId) {
-    var updated = _extends({}, animations);
-
-    delete updated[removeId];
-    setAnimations(updated);
-  }];
-};
-
-var _Ripple = function _Ripple(props) {
-  var _useState3 = Object(cyano__WEBPACK_IMPORTED_MODULE_3__["useState"])(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      domElement = _useState4[0],
-      setDomElement = _useState4[1];
-
-  var _useAnimationsState = useAnimationsState(),
-      _useAnimationsState2 = _slicedToArray(_useAnimationsState, 3),
-      animations = _useAnimationsState2[0],
-      addAnimation = _useAnimationsState2[1],
-      removeAnimation = _useAnimationsState2[2];
-
-  var isAnimating = Object.keys(animations).length > 0;
-  var triggerEl = props.target || (domElement ? domElement.parentElement : undefined);
-
-  var tap = function tap(e) {
-    if (props.disabled || !props.multi && isAnimating) {
-      return;
-    }
-
-    if (props.start) {
-      props.start(e);
-    }
-
-    var id = "ripple_animation_".concat(new Date().getTime());
-    var rippleAnimation = Object(_animation__WEBPACK_IMPORTED_MODULE_1__["default"])({
-      e: e,
-      id: id,
-      el: domElement,
-      props: props,
-      classes: polythene_css_classes_ripple__WEBPACK_IMPORTED_MODULE_2__["default"]
-    }).then(function (evt) {
-      if (props.end) {
-        props.end(evt);
-      }
-
-      removeAnimation(id);
-    });
-    addAnimation(id, rippleAnimation);
-  };
-
-  Object(cyano__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
-    if (triggerEl) {
-      polythene_core__WEBPACK_IMPORTED_MODULE_0__["pointerEndEvent"].forEach(function (evt) {
-        return triggerEl.addEventListener(evt, tap, false);
-      });
-    }
-
-    return function () {
-      if (triggerEl) {
-        polythene_core__WEBPACK_IMPORTED_MODULE_0__["pointerEndEvent"].forEach(function (evt) {
-          return triggerEl.removeEventListener(evt, tap, false);
-        });
-      }
-    };
-  }, [triggerEl]);
-
-  var componentProps = _extends({}, Object(polythene_core__WEBPACK_IMPORTED_MODULE_0__["filterSupportedAttributes"])(props), Object(cyano__WEBPACK_IMPORTED_MODULE_3__["getDom"])(function (dom) {
-    return dom && !domElement && setDomElement(dom);
-  }), props.testId && {
+  var componentProps = _extends({}, props.testId && {
     "data-test-id": props.testId
   }, {
-    className: [polythene_css_classes_ripple__WEBPACK_IMPORTED_MODULE_2__["default"].component, props.unconstrained ? polythene_css_classes_ripple__WEBPACK_IMPORTED_MODULE_2__["default"].unconstrained : null, props.tone === "dark" ? "pe-dark-tone" : null, props.tone === "light" ? "pe-light-tone" : null, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_3__["a"].class]].join(" ")
-  });
+    content: Object(cyano__WEBPACK_IMPORTED_MODULE_1__["h"])("div", {
+      className: polythene_css_classes_icon_button__WEBPACK_IMPORTED_MODULE_0__["default"].content
+    }, content),
+    after: props.label && Object(cyano__WEBPACK_IMPORTED_MODULE_1__["h"])("div", {
+      className: polythene_css_classes_icon_button__WEBPACK_IMPORTED_MODULE_0__["default"].label
+    }, props.label),
+    parentClassName: [props.parentClassName || polythene_css_classes_icon_button__WEBPACK_IMPORTED_MODULE_0__["default"].component, props.compact ? polythene_css_classes_icon_button__WEBPACK_IMPORTED_MODULE_0__["default"].compact : null].join(" "),
+    // defaults
+    wash: false,
+    animateOnTap: false
+  }, props);
 
-  return Object(cyano__WEBPACK_IMPORTED_MODULE_3__["h"])(props.element || "div", componentProps);
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_1__["h"])(_Button__WEBPACK_IMPORTED_MODULE_3__["default"], componentProps);
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_3__["cast"])(_Ripple));
+/* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_1__["cast"])(_IconButton));
 
 /***/ }),
 
@@ -10096,7 +10122,11 @@ var _Shadow = function _Shadow(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button */ "../../tests-cyano-shared/polythene/Button/index.js");
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Icon */ "../../tests-cyano-shared/polythene/Icon/index.js");
+/* harmony import */ var _Button_raised_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button/raised-button */ "../../tests-cyano-shared/polythene/Button/raised-button.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Icon */ "../../tests-cyano-shared/polythene/Icon/index.js");
+/* harmony import */ var _IconButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./IconButton */ "../../tests-cyano-shared/polythene/IconButton/index.js");
+
+
 
 
 
@@ -10107,25 +10137,1055 @@ var _Polythene = function _Polythene() {
   return [Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
     key: "button 1"
   }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    label: "Polythene button"
+    label: "Button"
   })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
     key: "button 2"
   }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    label: "Polythene button",
+    label: "Dropdown button",
     dropdown: true
   })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
     key: "button 3"
   }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    label: "Polythene button",
+    label: "Shadow button",
     shadowDepth: 1
   })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    key: "raised button 1"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button_raised_button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    label: "Raised button"
+  })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    key: "raised button 2"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button_raised_button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    label: "Raised button",
+    animateOnTap: false
+  })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    key: "raised button 3"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button_raised_button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    label: "Raised button",
+    shadowDepth: 0,
+    inactivate: 2
+  })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    key: "raised button 4"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Button_raised_button__WEBPACK_IMPORTED_MODULE_2__["default"], null, "Children")), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
     key: "icon 1"
-  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Icon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
     content: trustedIconStars
+  })), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+    key: "icon button 1"
+  }, Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(_IconButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    icon: {
+      svg: {
+        content: trustedIconStars
+      }
+    }
   }))];
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Polythene));
+
+/***/ }),
+
+/***/ "../../tests-polythene-core-ripple/dist/polythene-core-ripple.mjs":
+/*!***************************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-polythene-core-ripple/dist/polythene-core-ripple.mjs ***!
+  \***************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+/**
+ * Reducer helper function.
+ * @param {object} acc 
+ * @param {string} p 
+ * @returns {object}
+ */
+
+
+var r = function r(acc, p) {
+  return acc[p] = 1, acc;
+};
+/**
+ * List of default attributes.
+ * Separately handled:
+ * - class
+ * - element
+ * @type Array<string> defaultAttrs
+ */
+
+
+var defaultAttrs = [// Universal
+"key", "style", "href", "id", // React
+"tabIndex", // Mithril
+"tabindex", "oninit", "oncreate", "onupdate", "onbeforeremove", "onremove", "onbeforeupdate"];
+/**
+ * 
+ * @param {{[s: string]: string}} attrs 
+ * @param {object} [modifications] 
+ * @param {Array<string>} [modifications.add]
+ * @param {Array<string>} [modifications.remove]
+ * @returns {object}
+ */
+
+var filterSupportedAttributes = function filterSupportedAttributes(attrs) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      add = _ref.add,
+      remove = _ref.remove;
+  /**
+   * @type {{[s: string]: string}} removeLookup 
+   */
+
+
+  var removeLookup = remove ? remove.reduce(r, {}) : {};
+  /**
+   * @type {Array<string>} attrsList 
+   */
+
+  var attrsList = add ? defaultAttrs.concat(add) : defaultAttrs;
+  var supported = attrsList.filter(function (item) {
+    return !removeLookup[item];
+  }).reduce(r, {});
+  return Object.keys(attrs).reduce(
+  /**
+   * @param {object} acc
+   * @param {string} key
+   */
+  function (acc, key) {
+    return supported[key] ? acc[key] = attrs[key] : null, acc;
+  }, {});
+};
+
+var isClient = typeof document !== "undefined";
+var isServer = !isClient; // @ts-check
+
+/**
+ * @type {{[s: string]: string}} evts
+ */
+
+var evts = {
+  "animation": "animationend",
+  "OAnimation": "oAnimationEnd",
+  "MozAnimation": "animationend",
+  "WebkitAnimation": "webkitAnimationEnd"
+};
+
+var getAnimationEndEvent = function getAnimationEndEvent() {
+  if (isClient) {
+    var el = document.createElement("fakeelement");
+    /**
+     * @type {string} a
+     */
+
+    for (var a in evts) {
+      /**
+       * @type {object} style
+       */
+      var style = el.style;
+
+      if (style[a] !== undefined) {
+        return evts[a];
+      }
+    }
+  }
+}; // @ts-check
+
+
+var isTouch = isServer ? false : "ontouchstart" in document.documentElement;
+var pointerEndEvent = isTouch ? ["click", "mouseup"] : ["mouseup"];
+
+if (isClient) {
+  var htmlElement = document.querySelector("html");
+
+  if (htmlElement) {
+    htmlElement.classList.add(isTouch ? "pe-touch" : "pe-no-touch");
+  }
+} // @ts-check
+
+/**
+ * @type {{[s: string]: Array<function>}} listeners
+ */
+
+
+var listeners = {};
+/**
+ * 
+ * @param {string} eventName 
+ * @param {object} event 
+ */
+
+var emit = function emit(eventName, event) {
+  if (!listeners[eventName]) {
+    return;
+  }
+
+  listeners[eventName].forEach(function (listener) {
+    return listener(event);
+  });
+};
+
+if (isClient) {
+  window.addEventListener("resize", function (e) {
+    return emit("resize", e);
+  });
+  window.addEventListener("scroll", function (e) {
+    return emit("scroll", e);
+  });
+  window.addEventListener("keydown", function (e) {
+    return emit("keydown", e);
+  });
+  pointerEndEvent.forEach(function (eventName) {
+    return window.addEventListener(eventName, function (e) {
+      return emit(eventName, e);
+    });
+  });
+} // @ts-check
+// Global style variables
+
+
+var grid_unit = 4;
+var grid_unit_component = 8;
+var increment = 7 * grid_unit_component; // 7 * 8 = 56
+
+var increment_large = 8 * grid_unit_component; // 8 * 8 = 64
+
+var vars = {
+  // grid
+  grid_unit: grid_unit,
+  grid_unit_component: grid_unit_component,
+  increment: increment,
+  increment_large: increment_large,
+  grid_unit_menu: 56,
+  grid_unit_icon_button: 6 * grid_unit_component,
+  // 48
+  // common sizes
+  unit_block_border_radius: 4,
+  unit_item_border_radius: 4,
+  unit_indent: 72,
+  unit_indent_large: 80,
+  unit_side_padding: 16,
+  // buttons
+  unit_touch_height: 48,
+  unit_icon_size_small: 2 * grid_unit_component,
+  // 16
+  unit_icon_size: 3 * grid_unit_component,
+  // 24
+  unit_icon_size_medium: 4 * grid_unit_component,
+  // 32
+  unit_icon_size_large: 5 * grid_unit_component,
+  // 40
+  // screen dimensions
+  unit_screen_size_extra_large: 1280,
+  unit_screen_size_large: 960,
+  unit_screen_size_medium: 480,
+  unit_screen_size_small: 320,
+  // transitions
+  animation_duration: ".18s",
+  animation_curve_slow_in_fast_out: "cubic-bezier(.4, 0, .2, 1)",
+  animation_curve_slow_in_linear_out: "cubic-bezier(0, 0, .2, 1)",
+  animation_curve_linear_in_fast_out: "cubic-bezier(.4, 0, 1, 1)",
+  animation_curve_default: "ease-out",
+  // font
+  font_weight_light: 300,
+  font_weight_normal: 400,
+  font_weight_medium: 500,
+  font_weight_bold: 700,
+  font_size_title: 20,
+  line_height: 1.5,
+  // base colors
+  color_primary: "33, 150, 243",
+  // blue 500
+  color_primary_active: "30, 136, 229",
+  // blue 600
+  color_primary_dark: "25, 118, 210",
+  // blue 700
+  color_primary_faded: "100, 181, 249",
+  // blue 300
+  color_primary_foreground: "255, 255, 255",
+  color_light_background: "255, 255, 255",
+  color_light_foreground: "0, 0, 0",
+  color_dark_background: "34, 34, 34",
+  color_dark_foreground: "255, 255, 255",
+  // blends
+  blend_light_text_primary: .87,
+  blend_light_text_regular: .73,
+  blend_light_text_secondary: .54,
+  blend_light_text_tertiary: .40,
+  blend_light_text_disabled: .26,
+  blend_light_border_medium: .24,
+  blend_light_border_light: .11,
+  blend_light_background_active: .14,
+  blend_light_background_hover: .06,
+  blend_light_background_hover_medium: .12,
+  // for the lighter tinted icon buttons
+  blend_light_background_disabled: .09,
+  blend_light_overlay_background: .3,
+  blend_dark_text_primary: 1,
+  blend_dark_text_regular: .87,
+  blend_dark_text_secondary: .70,
+  blend_dark_text_tertiary: .40,
+  blend_dark_text_disabled: .26,
+  blend_dark_border_medium: .22,
+  blend_dark_border_light: .10,
+  blend_dark_background_active: .14,
+  blend_dark_background_hover: .08,
+  blend_dark_background_hoverMedium: .12,
+  // for the lighter tinted icon buttons
+  blend_dark_background_disabled: .12,
+  blend_dark_overlay_background: .3,
+
+  /*
+  Breakpoints
+  Specs: https://material.io/guidelines/layout/responsive-ui.html#responsive-ui-breakpoints
+  Breakbpoint naming: inspiration from
+  https://medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862
+  */
+  breakpoint_for_phone_only: 599,
+  // set max-width  cols: 4,  gutter: 16
+  breakpoint_for_tablet_portrait_up: 600,
+  // set min-width  cols: 8,  gutter: 24
+  breakpoint_for_tablet_landscape_up: 840,
+  // etc.           cols: 12, gutter: 24
+  breakpoint_for_desktop_up: 1280,
+  breakpoint_for_big_desktop_up: 1600,
+  breakpoint_for_tv_up: 1920,
+  // z-index
+  z_toolbar: 100,
+  z_menu: 1000,
+  z_app_bar: 2000,
+  z_drawer: 3000,
+  z_notification: 5000,
+  z_dialog: 7000
+}; // @ts-check
+
+var ANIMATION_END_EVENT = getAnimationEndEvent();
+var DEFAULT_START_OPACITY = 0.2;
+var DEFAULT_END_OPACITY = 0.0;
+var DEFAULT_START_SCALE = 0.1;
+var DEFAULT_END_SCALE = 2.0;
+var OPACITY_DECAY_VELOCITY = 0.35;
+
+var addStyleToHead = function addStyleToHead(id, stylesheet) {
+  if (isServer) return;
+  var documentRef = window.document;
+  var styleEl = documentRef.createElement("style");
+  styleEl.setAttribute("id", id);
+  styleEl.appendChild(documentRef.createTextNode(stylesheet));
+  documentRef.head.appendChild(styleEl);
+};
+
+var removeStyleFromHead = function removeStyleFromHead(id) {
+  if (isServer) return;
+  var el = document.getElementById(id);
+
+  if (el && el.parentNode) {
+    el.parentNode.removeChild(el);
+  }
+};
+
+var animation = function animation(_ref) {
+  var e = _ref.e,
+      id = _ref.id,
+      el = _ref.el,
+      props = _ref.props,
+      classes = _ref.classes;
+  return new Promise(function (resolve) {
+    var container = document.createElement("div");
+    container.setAttribute("class", classes.mask);
+    el.appendChild(container);
+    var waves = document.createElement("div");
+    waves.setAttribute("class", classes.waves);
+    container.appendChild(waves);
+    var rect = el.getBoundingClientRect();
+    var x = isTouch && e.touches ? e.touches[0].pageX : e.clientX;
+    var y = isTouch && e.touches ? e.touches[0].pageY : e.clientY;
+    var w = el.offsetWidth;
+    var h = el.offsetHeight;
+    var waveRadius = Math.sqrt(w * w + h * h);
+    var mx = props.center ? rect.left + rect.width / 2 : x;
+    var my = props.center ? rect.top + rect.height / 2 : y;
+    var rx = mx - rect.left - waveRadius / 2;
+    var ry = my - rect.top - waveRadius / 2;
+    var startOpacity = props.startOpacity !== undefined ? props.startOpacity : DEFAULT_START_OPACITY;
+    var opacityDecayVelocity = props.opacityDecayVelocity !== undefined ? props.opacityDecayVelocity : OPACITY_DECAY_VELOCITY;
+    var endOpacity = props.endOpacity || DEFAULT_END_OPACITY;
+    var startScale = props.startScale || DEFAULT_START_SCALE;
+    var endScale = props.endScale || DEFAULT_END_SCALE;
+    var duration = props.duration ? props.duration : 1 / opacityDecayVelocity * 0.2;
+    var color = window.getComputedStyle(el).color;
+    var style = waves.style;
+    style.width = style.height = waveRadius + "px";
+    style.top = ry + "px";
+    style.left = rx + "px";
+    style["animation-duration"] = style["-webkit-animation-duration"] = style["-moz-animation-duration"] = style["-o-animation-duration"] = duration + "s";
+    style.backgroundColor = color;
+    style.opacity = startOpacity;
+    style.animationName = id;
+    style.animationTimingFunction = props.animationTimingFunction || vars.animation_curve_default;
+    var rippleStyleSheet = "@keyframes ".concat(id, " {\n      0% {\n        transform:scale(").concat(startScale, ");\n        opacity: ").concat(startOpacity, "\n      }\n      100% {\n        transform:scale(").concat(endScale, ");\n        opacity: ").concat(endOpacity, ";\n      }\n    }");
+    addStyleToHead(id, rippleStyleSheet);
+
+    var animationDone = function animationDone(evt) {
+      removeStyleFromHead(id);
+      waves.removeEventListener(ANIMATION_END_EVENT, animationDone, false);
+
+      if (props.persistent) {
+        style.opacity = endOpacity;
+        style.transform = "scale(" + endScale + ")";
+      } else {
+        waves.classList.remove(classes.wavesAnimating);
+        container.removeChild(waves);
+        el.removeChild(container);
+      }
+
+      resolve(evt);
+    };
+
+    waves.addEventListener(ANIMATION_END_EVENT, animationDone, false);
+    waves.classList.add(classes.wavesAnimating);
+  });
+};
+
+var classes = {
+  component: "pe-ripple",
+  // elements
+  mask: "pe-ripple__mask",
+  waves: "pe-ripple__waves",
+  // states
+  unconstrained: "pe-ripple--unconstrained",
+  wavesAnimating: "pe-ripple__waves--animating"
+};
+
+var useAnimationsState = function useAnimationsState() {
+  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
+      _useState2 = _slicedToArray(_useState, 2),
+      animations = _useState2[0],
+      setAnimations = _useState2[1];
+
+  return [animations, function (addId, animation) {
+    return setAnimations(_extends({}, animations, _defineProperty({}, addId, animation)));
+  }, function (removeId) {
+    var updated = _extends({}, animations);
+
+    delete updated[removeId];
+    setAnimations(updated);
+  }];
+};
+
+var _Ripple = function _Ripple(props) {
+  var _useState3 = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["useState"])(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      domElement = _useState4[0],
+      setDomElement = _useState4[1];
+
+  var _useAnimationsState = useAnimationsState(),
+      _useAnimationsState2 = _slicedToArray(_useAnimationsState, 3),
+      animations = _useAnimationsState2[0],
+      addAnimation = _useAnimationsState2[1],
+      removeAnimation = _useAnimationsState2[2];
+
+  var isAnimating = Object.keys(animations).length > 0;
+  var triggerEl = props.target || (domElement ? domElement.parentElement : undefined);
+
+  var tap = function tap(e) {
+    if (props.disabled || !props.multi && isAnimating) {
+      return;
+    }
+
+    if (props.start) {
+      props.start(e);
+    }
+
+    var id = "ripple_animation_".concat(new Date().getTime());
+    var rippleAnimation = animation({
+      e: e,
+      id: id,
+      el: domElement,
+      props: props,
+      classes: classes
+    }).then(function (evt) {
+      if (props.end) {
+        props.end(evt);
+      }
+
+      removeAnimation(id);
+    });
+    addAnimation(id, rippleAnimation);
+  };
+
+  Object(cyano__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (triggerEl) {
+      pointerEndEvent.forEach(function (evt) {
+        return triggerEl.addEventListener(evt, tap, false);
+      });
+    }
+
+    return function () {
+      if (triggerEl) {
+        pointerEndEvent.forEach(function (evt) {
+          return triggerEl.removeEventListener(evt, tap, false);
+        });
+      }
+    };
+  }, [triggerEl]);
+
+  var componentProps = _extends({}, filterSupportedAttributes(props), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["getDom"])(function (dom) {
+    return dom && !domElement && setDomElement(dom);
+  }), props.testId && {
+    "data-test-id": props.testId
+  }, {
+    className: [classes.component, props.unconstrained ? classes.unconstrained : null, props.tone === "dark" ? "pe-dark-tone" : null, props.tone === "light" ? "pe-light-tone" : null, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_0__["a"].class]].join(" ")
+  });
+
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(props.element || "div", componentProps);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (_Ripple);
+
+/***/ }),
+
+/***/ "../../tests-polythene-mithril-ripple/dist/polythene-mithril-ripple.mjs":
+/*!*********************************************************************************************************************************!*\
+  !*** /Users/arthur/code/Github Projects/cyano/master/packages/tests-polythene-mithril-ripple/dist/polythene-mithril-ripple.mjs ***!
+  \*********************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var cyano__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cyano */ "../../cyano-mithril/dist/cyano-mithril.mjs");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+/**
+ * Reducer helper function.
+ * @param {object} acc 
+ * @param {string} p 
+ * @returns {object}
+ */
+
+
+var r = function r(acc, p) {
+  return acc[p] = 1, acc;
+};
+/**
+ * List of default attributes.
+ * Separately handled:
+ * - class
+ * - element
+ * @type Array<string> defaultAttrs
+ */
+
+
+var defaultAttrs = [// Universal
+"key", "style", "href", "id", // React
+"tabIndex", // Mithril
+"tabindex", "oninit", "oncreate", "onupdate", "onbeforeremove", "onremove", "onbeforeupdate"];
+/**
+ * 
+ * @param {{[s: string]: string}} attrs 
+ * @param {object} [modifications] 
+ * @param {Array<string>} [modifications.add]
+ * @param {Array<string>} [modifications.remove]
+ * @returns {object}
+ */
+
+var filterSupportedAttributes = function filterSupportedAttributes(attrs) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      add = _ref.add,
+      remove = _ref.remove;
+  /**
+   * @type {{[s: string]: string}} removeLookup 
+   */
+
+
+  var removeLookup = remove ? remove.reduce(r, {}) : {};
+  /**
+   * @type {Array<string>} attrsList 
+   */
+
+  var attrsList = add ? defaultAttrs.concat(add) : defaultAttrs;
+  var supported = attrsList.filter(function (item) {
+    return !removeLookup[item];
+  }).reduce(r, {});
+  return Object.keys(attrs).reduce(
+  /**
+   * @param {object} acc
+   * @param {string} key
+   */
+  function (acc, key) {
+    return supported[key] ? acc[key] = attrs[key] : null, acc;
+  }, {});
+};
+
+var isClient = typeof document !== "undefined";
+var isServer = !isClient; // @ts-check
+
+/**
+ * @type {{[s: string]: string}} evts
+ */
+
+var evts = {
+  "animation": "animationend",
+  "OAnimation": "oAnimationEnd",
+  "MozAnimation": "animationend",
+  "WebkitAnimation": "webkitAnimationEnd"
+};
+
+var getAnimationEndEvent = function getAnimationEndEvent() {
+  if (isClient) {
+    var el = document.createElement("fakeelement");
+    /**
+     * @type {string} a
+     */
+
+    for (var a in evts) {
+      /**
+       * @type {object} style
+       */
+      var style = el.style;
+
+      if (style[a] !== undefined) {
+        return evts[a];
+      }
+    }
+  }
+}; // @ts-check
+
+
+var isTouch = isServer ? false : "ontouchstart" in document.documentElement;
+var pointerEndEvent = isTouch ? ["click", "mouseup"] : ["mouseup"];
+
+if (isClient) {
+  var htmlElement = document.querySelector("html");
+
+  if (htmlElement) {
+    htmlElement.classList.add(isTouch ? "pe-touch" : "pe-no-touch");
+  }
+} // @ts-check
+
+/**
+ * @type {{[s: string]: Array<function>}} listeners
+ */
+
+
+var listeners = {};
+/**
+ * 
+ * @param {string} eventName 
+ * @param {object} event 
+ */
+
+var emit = function emit(eventName, event) {
+  if (!listeners[eventName]) {
+    return;
+  }
+
+  listeners[eventName].forEach(function (listener) {
+    return listener(event);
+  });
+};
+
+if (isClient) {
+  window.addEventListener("resize", function (e) {
+    return emit("resize", e);
+  });
+  window.addEventListener("scroll", function (e) {
+    return emit("scroll", e);
+  });
+  window.addEventListener("keydown", function (e) {
+    return emit("keydown", e);
+  });
+  pointerEndEvent.forEach(function (eventName) {
+    return window.addEventListener(eventName, function (e) {
+      return emit(eventName, e);
+    });
+  });
+} // @ts-check
+// Global style variables
+
+
+var grid_unit = 4;
+var grid_unit_component = 8;
+var increment = 7 * grid_unit_component; // 7 * 8 = 56
+
+var increment_large = 8 * grid_unit_component; // 8 * 8 = 64
+
+var vars = {
+  // grid
+  grid_unit: grid_unit,
+  grid_unit_component: grid_unit_component,
+  increment: increment,
+  increment_large: increment_large,
+  grid_unit_menu: 56,
+  grid_unit_icon_button: 6 * grid_unit_component,
+  // 48
+  // common sizes
+  unit_block_border_radius: 4,
+  unit_item_border_radius: 4,
+  unit_indent: 72,
+  unit_indent_large: 80,
+  unit_side_padding: 16,
+  // buttons
+  unit_touch_height: 48,
+  unit_icon_size_small: 2 * grid_unit_component,
+  // 16
+  unit_icon_size: 3 * grid_unit_component,
+  // 24
+  unit_icon_size_medium: 4 * grid_unit_component,
+  // 32
+  unit_icon_size_large: 5 * grid_unit_component,
+  // 40
+  // screen dimensions
+  unit_screen_size_extra_large: 1280,
+  unit_screen_size_large: 960,
+  unit_screen_size_medium: 480,
+  unit_screen_size_small: 320,
+  // transitions
+  animation_duration: ".18s",
+  animation_curve_slow_in_fast_out: "cubic-bezier(.4, 0, .2, 1)",
+  animation_curve_slow_in_linear_out: "cubic-bezier(0, 0, .2, 1)",
+  animation_curve_linear_in_fast_out: "cubic-bezier(.4, 0, 1, 1)",
+  animation_curve_default: "ease-out",
+  // font
+  font_weight_light: 300,
+  font_weight_normal: 400,
+  font_weight_medium: 500,
+  font_weight_bold: 700,
+  font_size_title: 20,
+  line_height: 1.5,
+  // base colors
+  color_primary: "33, 150, 243",
+  // blue 500
+  color_primary_active: "30, 136, 229",
+  // blue 600
+  color_primary_dark: "25, 118, 210",
+  // blue 700
+  color_primary_faded: "100, 181, 249",
+  // blue 300
+  color_primary_foreground: "255, 255, 255",
+  color_light_background: "255, 255, 255",
+  color_light_foreground: "0, 0, 0",
+  color_dark_background: "34, 34, 34",
+  color_dark_foreground: "255, 255, 255",
+  // blends
+  blend_light_text_primary: .87,
+  blend_light_text_regular: .73,
+  blend_light_text_secondary: .54,
+  blend_light_text_tertiary: .40,
+  blend_light_text_disabled: .26,
+  blend_light_border_medium: .24,
+  blend_light_border_light: .11,
+  blend_light_background_active: .14,
+  blend_light_background_hover: .06,
+  blend_light_background_hover_medium: .12,
+  // for the lighter tinted icon buttons
+  blend_light_background_disabled: .09,
+  blend_light_overlay_background: .3,
+  blend_dark_text_primary: 1,
+  blend_dark_text_regular: .87,
+  blend_dark_text_secondary: .70,
+  blend_dark_text_tertiary: .40,
+  blend_dark_text_disabled: .26,
+  blend_dark_border_medium: .22,
+  blend_dark_border_light: .10,
+  blend_dark_background_active: .14,
+  blend_dark_background_hover: .08,
+  blend_dark_background_hoverMedium: .12,
+  // for the lighter tinted icon buttons
+  blend_dark_background_disabled: .12,
+  blend_dark_overlay_background: .3,
+
+  /*
+  Breakpoints
+  Specs: https://material.io/guidelines/layout/responsive-ui.html#responsive-ui-breakpoints
+  Breakbpoint naming: inspiration from
+  https://medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862
+  */
+  breakpoint_for_phone_only: 599,
+  // set max-width  cols: 4,  gutter: 16
+  breakpoint_for_tablet_portrait_up: 600,
+  // set min-width  cols: 8,  gutter: 24
+  breakpoint_for_tablet_landscape_up: 840,
+  // etc.           cols: 12, gutter: 24
+  breakpoint_for_desktop_up: 1280,
+  breakpoint_for_big_desktop_up: 1600,
+  breakpoint_for_tv_up: 1920,
+  // z-index
+  z_toolbar: 100,
+  z_menu: 1000,
+  z_app_bar: 2000,
+  z_drawer: 3000,
+  z_notification: 5000,
+  z_dialog: 7000
+}; // @ts-check
+
+var ANIMATION_END_EVENT = getAnimationEndEvent();
+var DEFAULT_START_OPACITY = 0.2;
+var DEFAULT_END_OPACITY = 0.0;
+var DEFAULT_START_SCALE = 0.1;
+var DEFAULT_END_SCALE = 2.0;
+var OPACITY_DECAY_VELOCITY = 0.35;
+
+var addStyleToHead = function addStyleToHead(id, stylesheet) {
+  if (isServer) return;
+  var documentRef = window.document;
+  var styleEl = documentRef.createElement("style");
+  styleEl.setAttribute("id", id);
+  styleEl.appendChild(documentRef.createTextNode(stylesheet));
+  documentRef.head.appendChild(styleEl);
+};
+
+var removeStyleFromHead = function removeStyleFromHead(id) {
+  if (isServer) return;
+  var el = document.getElementById(id);
+
+  if (el && el.parentNode) {
+    el.parentNode.removeChild(el);
+  }
+};
+
+var animation = function animation(_ref) {
+  var e = _ref.e,
+      id = _ref.id,
+      el = _ref.el,
+      props = _ref.props,
+      classes = _ref.classes;
+  return new Promise(function (resolve) {
+    var container = document.createElement("div");
+    container.setAttribute("class", classes.mask);
+    el.appendChild(container);
+    var waves = document.createElement("div");
+    waves.setAttribute("class", classes.waves);
+    container.appendChild(waves);
+    var rect = el.getBoundingClientRect();
+    var x = isTouch && e.touches ? e.touches[0].pageX : e.clientX;
+    var y = isTouch && e.touches ? e.touches[0].pageY : e.clientY;
+    var w = el.offsetWidth;
+    var h = el.offsetHeight;
+    var waveRadius = Math.sqrt(w * w + h * h);
+    var mx = props.center ? rect.left + rect.width / 2 : x;
+    var my = props.center ? rect.top + rect.height / 2 : y;
+    var rx = mx - rect.left - waveRadius / 2;
+    var ry = my - rect.top - waveRadius / 2;
+    var startOpacity = props.startOpacity !== undefined ? props.startOpacity : DEFAULT_START_OPACITY;
+    var opacityDecayVelocity = props.opacityDecayVelocity !== undefined ? props.opacityDecayVelocity : OPACITY_DECAY_VELOCITY;
+    var endOpacity = props.endOpacity || DEFAULT_END_OPACITY;
+    var startScale = props.startScale || DEFAULT_START_SCALE;
+    var endScale = props.endScale || DEFAULT_END_SCALE;
+    var duration = props.duration ? props.duration : 1 / opacityDecayVelocity * 0.2;
+    var color = window.getComputedStyle(el).color;
+    var style = waves.style;
+    style.width = style.height = waveRadius + "px";
+    style.top = ry + "px";
+    style.left = rx + "px";
+    style["animation-duration"] = style["-webkit-animation-duration"] = style["-moz-animation-duration"] = style["-o-animation-duration"] = duration + "s";
+    style.backgroundColor = color;
+    style.opacity = startOpacity;
+    style.animationName = id;
+    style.animationTimingFunction = props.animationTimingFunction || vars.animation_curve_default;
+    var rippleStyleSheet = "@keyframes ".concat(id, " {\n      0% {\n        transform:scale(").concat(startScale, ");\n        opacity: ").concat(startOpacity, "\n      }\n      100% {\n        transform:scale(").concat(endScale, ");\n        opacity: ").concat(endOpacity, ";\n      }\n    }");
+    addStyleToHead(id, rippleStyleSheet);
+
+    var animationDone = function animationDone(evt) {
+      removeStyleFromHead(id);
+      waves.removeEventListener(ANIMATION_END_EVENT, animationDone, false);
+
+      if (props.persistent) {
+        style.opacity = endOpacity;
+        style.transform = "scale(" + endScale + ")";
+      } else {
+        waves.classList.remove(classes.wavesAnimating);
+        container.removeChild(waves);
+        el.removeChild(container);
+      }
+
+      resolve(evt);
+    };
+
+    waves.addEventListener(ANIMATION_END_EVENT, animationDone, false);
+    waves.classList.add(classes.wavesAnimating);
+  });
+};
+
+var classes = {
+  component: "pe-ripple",
+  // elements
+  mask: "pe-ripple__mask",
+  waves: "pe-ripple__waves",
+  // states
+  unconstrained: "pe-ripple--unconstrained",
+  wavesAnimating: "pe-ripple__waves--animating"
+};
+
+var useAnimationsState = function useAnimationsState() {
+  var _useState = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
+      _useState2 = _slicedToArray(_useState, 2),
+      animations = _useState2[0],
+      setAnimations = _useState2[1];
+
+  return [animations, function (addId, animation) {
+    return setAnimations(_extends({}, animations, _defineProperty({}, addId, animation)));
+  }, function (removeId) {
+    var updated = _extends({}, animations);
+
+    delete updated[removeId];
+    setAnimations(updated);
+  }];
+};
+
+var _Ripple = function _Ripple(props) {
+  var _useState3 = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["useState"])(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      domElement = _useState4[0],
+      setDomElement = _useState4[1];
+
+  var _useAnimationsState = useAnimationsState(),
+      _useAnimationsState2 = _slicedToArray(_useAnimationsState, 3),
+      animations = _useAnimationsState2[0],
+      addAnimation = _useAnimationsState2[1],
+      removeAnimation = _useAnimationsState2[2];
+
+  var isAnimating = Object.keys(animations).length > 0;
+  var triggerEl = props.target || (domElement ? domElement.parentElement : undefined);
+
+  var tap = function tap(e) {
+    if (props.disabled || !props.multi && isAnimating) {
+      return;
+    }
+
+    if (props.start) {
+      props.start(e);
+    }
+
+    var id = "ripple_animation_".concat(new Date().getTime());
+    var rippleAnimation = animation({
+      e: e,
+      id: id,
+      el: domElement,
+      props: props,
+      classes: classes
+    }).then(function (evt) {
+      if (props.end) {
+        props.end(evt);
+      }
+
+      removeAnimation(id);
+    });
+    addAnimation(id, rippleAnimation);
+  };
+
+  Object(cyano__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (triggerEl) {
+      pointerEndEvent.forEach(function (evt) {
+        return triggerEl.addEventListener(evt, tap, false);
+      });
+    }
+
+    return function () {
+      if (triggerEl) {
+        pointerEndEvent.forEach(function (evt) {
+          return triggerEl.removeEventListener(evt, tap, false);
+        });
+      }
+    };
+  }, [triggerEl]);
+
+  var componentProps = _extends({}, filterSupportedAttributes(props), Object(cyano__WEBPACK_IMPORTED_MODULE_0__["getDom"])(function (dom) {
+    return dom && !domElement && setDomElement(dom);
+  }), props.testId && {
+    "data-test-id": props.testId
+  }, {
+    className: [classes.component, props.unconstrained ? classes.unconstrained : null, props.tone === "dark" ? "pe-dark-tone" : null, props.tone === "light" ? "pe-light-tone" : null, props.className || props[cyano__WEBPACK_IMPORTED_MODULE_0__["a"].class]].join(" ")
+  });
+
+  return Object(cyano__WEBPACK_IMPORTED_MODULE_0__["h"])(props.element || "div", componentProps);
+};
+
+var index = Object(cyano__WEBPACK_IMPORTED_MODULE_0__["cast"])(_Ripple);
+/* harmony default export */ __webpack_exports__["default"] = (index);
 
 /***/ }),
 
@@ -27738,6 +28798,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tests_cyano_shared_app_createApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tests-cyano-shared/app/createApp */ "../../tests-cyano-shared/app/createApp.js");
 /* harmony import */ var polythene_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! polythene-css */ "../node_modules/polythene-css/dist/polythene-css.mjs");
 /* harmony import */ var tests_cyano_shared_polythene__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tests-cyano-shared/polythene */ "../../tests-cyano-shared/polythene/index.js");
+/* harmony import */ var polythene_mithril_ripple__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! polythene-mithril-ripple */ "../../tests-polythene-mithril-ripple/dist/polythene-mithril-ripple.mjs");
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
@@ -27751,13 +28812,21 @@ Object(polythene_css__WEBPACK_IMPORTED_MODULE_3__["addTypography"])();
 Object(polythene_css__WEBPACK_IMPORTED_MODULE_3__["addLayoutStyles"])();
 
 
+
 var setContent = function setContent(_ref) {
   var AppLayout = _ref.AppLayout,
       props = _objectWithoutProperties(_ref, ["AppLayout"]);
 
   mithril__WEBPACK_IMPORTED_MODULE_0___default.a.mount(mountNode, {
     view: function view() {
-      return mithril__WEBPACK_IMPORTED_MODULE_0___default()(tests_cyano_shared_polythene__WEBPACK_IMPORTED_MODULE_4__["default"]);
+      return [mithril__WEBPACK_IMPORTED_MODULE_0___default()(tests_cyano_shared_polythene__WEBPACK_IMPORTED_MODULE_4__["default"]), mithril__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+        style: {
+          position: "relative",
+          background: "#eee",
+          width: "100px",
+          height: "100px"
+        }
+      }, mithril__WEBPACK_IMPORTED_MODULE_0___default()(polythene_mithril_ripple__WEBPACK_IMPORTED_MODULE_5__["default"]))];
     } // m(AppLayout, props)
 
   });

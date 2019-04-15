@@ -50,7 +50,7 @@ export const createConfig = () => {
     },
     plugins: [
       resolve(),
-      pathmodify({
+      whichCyano && pathmodify({
         aliases: [
           {
             id: "cyano",

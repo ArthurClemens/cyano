@@ -13,12 +13,12 @@ const targetConfig = Object.assign({}, baseConfig, {
     {},
     baseConfig.output,
     {
+      format: "es",
       file: `${env.DEST || pkg.main}.mjs`,
-      format: "es"
     }
   )
 });
-targetConfig.plugins.push(
+targetConfig.plugins.unshift(
   babel({
     configFile: "../../babel.config.es.js"
   })

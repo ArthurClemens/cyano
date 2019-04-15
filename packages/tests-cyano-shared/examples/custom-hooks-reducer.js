@@ -21,7 +21,7 @@ const useArray = (initialValue = []) => {
     arr,
     add => setArr(arr.concat(add)),
     remove => setArr(arr.filter(item => item !== remove))
-  ]
+  ];
 };
 
 const counterReducer = (state, action) => {
