@@ -16,7 +16,7 @@
     "build:browserify": "CYANO=cyano-react node ../../scripts/browserify.js",
     "serve": "http-server -c-1 -p 8080 dist",
     "build:rollup": "CYANO=cyano-react ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js",
-    "clean": "rimraf dist/js/*",
+    "clean": "rm -rf dist/js/*",
     "test": "npm run test:cypress",
     "test:cypress": "npm run build && start-server-and-test serve 8080 cypress:run",
     "test:cypress:i": "npm run build && npm-run-all --parallel serve cypress:open",
@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "cyano-react": "^0.4.2",
-    "polythene-react-ripple": "^0.4.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "tests-cyano-shared": "^0.4.2"
@@ -34,7 +33,6 @@
     "cypress": "^3.2.0",
     "http-server": "^0.11.1",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^2.6.3",
     "start-server-and-test": "^1.7.12"
   }
 }

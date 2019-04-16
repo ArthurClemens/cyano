@@ -1,2 +1,0 @@
-!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t(require("polythene-core-utton"),require("cyano")):"function"==typeof define&&define.amd?define(["polythene-core-utton","cyano"],t):(e=e||self).polytheneReactButton=t(e._Button,e.cyano)}(this,function(e,t){"use strict";return e=e&&e.hasOwnProperty("default")?e.default:e,t.cast(e)});
-//# sourceMappingURL=polythene-react-button.js.map

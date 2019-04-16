@@ -1,1 +1,0 @@
-{"version":3,"file":"polythene-mithril-ripple.js","sources":["../src/index.js"],"sourcesContent":["import _Ripple from \"polythene-core-ripple\";\nimport { cast } from \"cyano\";\n\nexport default cast(_Ripple);\n"],"names":["cast","_Ripple"],"mappings":"uWAGeA,OAAKC"}

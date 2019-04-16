@@ -1,2 +1,0 @@
-!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t(require("polythene-core-ripple"),require("cyano")):"function"==typeof define&&define.amd?define(["polythene-core-ripple","cyano"],t):(e=e||self).polytheneReactRipple=t(e._Ripple,e.cyano)}(this,function(e,t){"use strict";return e=e&&e.hasOwnProperty("default")?e.default:e,t.cast(e)});
-//# sourceMappingURL=polythene-react-ripple.js.map

@@ -6,8 +6,6 @@
   "license": "MIT",
   "dependencies": {
     "router5": "^7.0.2",
-    "router5-plugin-browser": "^7.0.2",
-    "polythene-core-button": "0.4.2",
-    "polythene-core-ripple": "0.4.2"
+    "router5-plugin-browser": "^7.0.2"
   }
 }

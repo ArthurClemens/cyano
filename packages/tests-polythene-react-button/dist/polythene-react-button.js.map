@@ -1,1 +1,0 @@
-{"version":3,"file":"polythene-react-button.js","sources":["../src/index.js"],"sourcesContent":["import _Button from \"polythene-core-utton\";\nimport { cast } from \"cyano\";\n\nexport default cast(_Button);\n"],"names":["cast","_Button"],"mappings":"mWAGeA,OAAKC"}
