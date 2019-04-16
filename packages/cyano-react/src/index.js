@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "react";
 import renderer from "react-hyperscript";
 import htmlAttributes from "./htmlAttributes";
 
-export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "react";
+export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback };
 
 export const a = htmlAttributes;
 

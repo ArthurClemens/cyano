@@ -1,8 +1,8 @@
 import m from "mithril";
-import { withHooks } from "mithril-hooks";
+import { withHooks, useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "mithril-hooks";
 import htmlAttributes from "./htmlAttributes";
 
-export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "mithril-hooks";
+export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback };
 
 export const a = htmlAttributes;
 
