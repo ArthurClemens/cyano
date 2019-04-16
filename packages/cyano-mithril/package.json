@@ -8,7 +8,7 @@
     "lint": "eslint ./src",
     "build": "npm run clean && npm run rollup",
     "rollup": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
-    "clean": "rimraf dist/*",
+    "clean": "rm -rf dist/*",
     "size": "gzip -c dist/cyano-mithril.js | wc -c"
   },
   "files": [
@@ -23,8 +23,5 @@
   },
   "peerDependencies": {
     "mithril": "2.0.0-rc.4"
-  },
-  "devDependencies": {
-    "rimraf": "^2.6.3"
   }
 }

@@ -9,6 +9,7 @@ addTypography();
 addLayoutStyles();
 import Polythene from "tests-cyano-shared/polythene";
 import Ripple from "polythene-mithril-ripple";
+import Button from "polythene-mithril-button";
 
 const setContent = ({ AppLayout, ...props }) => {
   m.mount(mountNode, {
@@ -24,7 +25,8 @@ const setContent = ({ AppLayout, ...props }) => {
           }
         },
         m(Ripple)
-      )
+      ),
+      m(Button, { label: "Mithril button" })
     ]
       // m(AppLayout, props)
   });

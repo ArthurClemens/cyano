@@ -8,10 +8,10 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./src",
-    "build": "npm run build:rollup:umd && npm run build:rollup:es",
+    "build": "npm run clean && npm run build:rollup:umd && npm run build:rollup:es",
     "build:rollup:umd": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js",
     "build:rollup:es": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
-    "clean": "rimraf dist/*"
+    "clean": "rm -rf dist/*"
   },
   "dependencies": {
     "cyano-react": "^0.4.2",

@@ -8,7 +8,7 @@
     "lint": "eslint ./src",
     "build": "npm run clean && npm run rollup",
     "rollup": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
-    "clean": "rimraf dist/*",
+    "clean": "rm -rf dist/*",
     "size": "gzip -c dist/cyano-react.js | wc -c"
   },
   "files": [
@@ -20,9 +20,6 @@
   "license": "MIT",
   "dependencies": {
     "react-hyperscript": "^3.2.0"
-  },
-  "devDependencies": {
-    "rimraf": "^2.6.3"
   },
   "peerDependencies": {
     "react": "^16.8.6"

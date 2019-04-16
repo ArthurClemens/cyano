@@ -1,0 +1,29 @@
+{
+  "name": "polythene-core-button",
+  "private": true,
+  "description": "Test Polythene Button",
+  "version": "0.4.2",
+  "main": "dist/polythene-core-button",
+  "module": "dist/polythene-core-button.mjs",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ./src",
+    "build": "npm run clean && npm run build:rollup:umd && npm run build:rollup:es",
+    "build:rollup:umd": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js",
+    "build:rollup:es": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
+    "clean": "rm -rf dist/*"
+  },
+  "dependencies": {
+    "polythene-css-button": "^1.5.4",
+    "polythene-core": "^1.5.4",
+    "polythene-core-icon": "0.4.2",
+    "polythene-core-ripple": "0.4.2",
+    "polythene-core-shadow": "0.4.2",
+    "polythene-css-classes": "^1.5.4",
+    "polythene-theme": "^1.5.4"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^2.6.3"
+  }
+}
