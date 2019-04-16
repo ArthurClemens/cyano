@@ -1,5 +1,21 @@
 {
   "name": "cyano",
-  "private": true,
-  "version": "0.4.0"
+  "version": "0.4.2",
+  "description": "Stub functions for cyano-mithril and cyano-react",
+  "main": "dist/cyano",
+  "module": "dist/cyano.mjs",
+  "scripts": {
+    "lint": "eslint ./src",
+    "build": "npm run clean && npm run rollup",
+    "rollup": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
+    "clean": "rm -rf dist/*",
+    "size": "gzip -c dist/cyano.js | wc -c"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "author": "Arthur Clemens <arthurclemens@gmail.com> (http://visiblearea.com)",
+  "homepage": "https://github.com/ArthurClemens/cyano",
+  "license": "MIT"
 }
