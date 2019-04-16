@@ -1,6 +1,6 @@
 {
   "name": "cyano-mithril",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Takes a base component and returns a Mithril component",
   "main": "dist/cyano-mithril",
   "module": "dist/cyano-mithril.mjs",
