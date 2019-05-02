@@ -10,7 +10,8 @@ import Trust from "../cypress-tests/trust";
 import Children from "../cypress-tests/children";
 import InitialProps from "../cypress-tests/initial-props";
 import ToggleJSX from "../cypress-tests/toggle-jsx";
-import GetDom from "../cypress-tests/getDom";
+import GetRef from "../cypress-tests/getRef";
+import ForwardRef from "../cypress-tests/forwardRef";
 
 const toLinkData = ([label, path, component]) => ({
   name: label.toLowerCase().replace(" ", "_"),
@@ -30,9 +31,10 @@ export const createRoutes = cast => {
   const tests = [
     ["Test custom hooks", "/TestCustomHooks", CustomHooks],
     ["Test initial props", "/TestInitialProps", InitialProps],
-    ["Test getDom", "/GetDom", GetDom],
+    ["Test getRef", "/GetRef", GetRef],
     ["Test trust", "/TestTrust", Trust],
     ["Test children", "/TestChildren", Children],
+    ["Test forward ref", "/ForwardRef", ForwardRef],
     ["Test toggle JSX", "/ToggleJSX", ToggleJSX],
   ].map(toLinkData);
 

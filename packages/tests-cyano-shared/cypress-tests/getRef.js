@@ -1,6 +1,6 @@
-import { cast, h, a, getDom, useRef, useState } from "cyano";
+import { cast, h, getRef, useRef, useState } from "cyano";
 
-const _GetDom = () => {
+const _GetRef = () => {
   const domRef = useRef();
   const [render, forceRerender] = useState(0);
 
@@ -12,7 +12,7 @@ const _GetDom = () => {
       h("span", "Element to get a reference of: "),
       h("span", 
         {
-          ...getDom(dom => {
+          ...getRef(dom => {
             const shouldRerender = !domRef.current;
             domRef.current = domRef.current || dom;
             shouldRerender && forceRerender(render + 1);
@@ -33,4 +33,4 @@ const _GetDom = () => {
   );
 };
 
-export default cast(_GetDom);
+export default cast(_GetRef);

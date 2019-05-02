@@ -1,4 +1,4 @@
-import { cast, useState, useEffect, useRef, useReducer, h, a, getDom } from "cyano";
+import { cast, useState, useEffect, useRef, useReducer, h, a, getRef } from "cyano";
 
 const useCounter = () => {
   // A custom hook that uses another custom hook.
@@ -59,7 +59,7 @@ const _Counter = ({ id, initialCount, removeCounter }) => {
     h("div",
       {
         className: `counter ${inited ? "active" : ""}`,
-        ...getDom(dom => domRef.current = domRef.current || dom)
+        ...getRef(dom => domRef.current = domRef.current || dom)
       },
       h("div",
         {

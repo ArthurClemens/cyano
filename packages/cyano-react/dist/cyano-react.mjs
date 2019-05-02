@@ -1,4 +1,4 @@
-import react from 'react';
+import react, { forwardRef } from 'react';
 export { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState } from 'react';
 
 function _defineProperty(obj, key, value) {
@@ -295,12 +295,15 @@ h$1.trust = function (html) {
 
 h$1.displayName = "react";
 const jsx = react.createElement;
-const getDom = fn => ({
+const getRef = fn => ({
   ref: dom => fn(dom)
 });
-const cast = (component, initialProps) => function () {
+const cast = (component, initialProps) => forwardRef(function () {
   let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return component(_objectSpread({}, initialProps, props));
-};
+  let ref = arguments.length > 1 ? arguments[1] : undefined;
+  return component(_objectSpread({}, initialProps, props, {
+    ref
+  }));
+});
 
-export { a, cast, getDom, h$1 as h, jsx };
+export { a, cast, getRef, h$1 as h, jsx };

@@ -1,9 +1,9 @@
 /* global cy, describe, before, it */
 
-describe("getDom", () => {
+describe("getRef", () => {
 
   before(() => {
-    cy.visit("/GetDom");
+    cy.visit("/GetRef");
   });
 
   it("should fetch the dom contents", () => {

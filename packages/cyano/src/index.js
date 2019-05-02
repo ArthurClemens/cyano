@@ -17,6 +17,6 @@ h.displayName = "cyano";
 
 export const jsx = stub;
 
-export const getDom = stub
+export const getRef = stub
 
 export const cast = stub

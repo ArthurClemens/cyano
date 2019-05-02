@@ -408,9 +408,9 @@ h.trust = (html, wrapper) => wrapper ? m(wrapper, trust(html)) : trust(html);
 
 h.displayName = "mithril";
 const jsx = m;
-const getDom = fn => ({
+const getRef = fn => ({
   oncreate: vnode => fn(vnode.dom)
 });
-const cast = (component, initialProps) => withHooks(component, initialProps);
+const cast = withHooks;
 
-export { a, cast, getDom, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState };
+export { a, cast, getRef, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState };

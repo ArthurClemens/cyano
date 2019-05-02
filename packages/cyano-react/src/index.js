@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "react";
+import React, { forwardRef, useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "react";
 import renderer from "react-hyperscript";
 import htmlAttributes from "./htmlAttributes";
 
@@ -15,11 +15,13 @@ h.displayName = "react";
 
 export const jsx = React.createElement;
 
-export const getDom = fn => ({ ref: dom => fn(dom) });
+export const getRef = fn => ({ ref: dom => fn(dom) });
 
 export const cast = (component, initialProps) =>
-  (props = {}) =>
+  forwardRef((props = {}, ref) =>
     component({
       ...initialProps,
       ...props,
-    });
+      ref
+    })
+  );

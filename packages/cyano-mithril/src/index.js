@@ -16,7 +16,6 @@ h.displayName = "mithril";
 
 export const jsx = m;
 
-export const getDom = fn => ({ oncreate: vnode => fn(vnode.dom) });
+export const getRef = fn => ({ oncreate: vnode => fn(vnode.dom) });
 
-export const cast = (component, initialProps) =>
-  withHooks(component, initialProps);
+export const cast = withHooks;

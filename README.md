@@ -25,7 +25,7 @@ Takes a base component and returns a Mithril or React component. This is useful 
   - [h (render function)](#h-render-function)
     - [Inserting trusted content](#inserting-trusted-content)
   - [a (HTML attributes)](#a-html-attributes)
-  - [getDom](#getdom)
+  - [getRef](#getref)
   - [Children](#children)
   - [jsx](#jsx)
 - [Additional setup when aliasing "cyano"](#additional-setup-when-aliasing-cyano)
@@ -132,7 +132,7 @@ For example:
 | ----------------- | --------------- | ----------- |
 | `cast`            | Takes a base component and returns a Mithril or React component. | [cast](#cast) | 
 | `h`               | The render function for hyperscript. | [h (render function)](#h-render-function) |
-| `getDom`          | Callback function that gets a reference to the DOM element. | [getDom](#getdom) |
+| `getRef`          | Callback function that gets a reference to the DOM element. | [getRef](#getref) |
 | `a`               | Dictionary of accepted HTML attributes. | [a (Accepted HTML attributes)](#a-accepted-html-attributes) |
 | `jsx`             | Babel pragma, import this when writing JSX. | [jsx](#jsx) |
 
@@ -338,15 +338,15 @@ Mithril and React components are created in separate files, which pass Cyano met
 
 import { _Button } from "core-button"
 import { Icon } from "react-icon"
-import { cast, h, a, useState, useEffect, useRef, getDom } from "cyano-react"
+import { cast, h, a, useState, useEffect, useRef, getRef } from "cyano-react"
 
-export const Button = cast(_Button, { h, a, getDom, useState, useEffect, useRef, Icon })
+export const Button = cast(_Button, { h, a, getRef, useState, useEffect, useRef, Icon })
 ```
 
 ```javascript
 // core-button
 
-export const _Button = ({ h, a, getDom, useState, useEffect, useRef, Icon, ...props }) => {
+export const _Button = ({ h, a, getRef, useState, useEffect, useRef, Icon, ...props }) => {
   // etcetera
 }
 ```
@@ -457,25 +457,25 @@ Complete list of included html attributes:
 * [for Mithril](https://github.com/ArthurClemens/cyano/blob/master/packages/cyano-mithril/src/htmlAttributes.js)
 * [for React](https://github.com/ArthurClemens/cyano/blob/master/packages/cyano-react/src/htmlAttributes.js)
 
-### getDom
+### getRef
 
-Callback function `getDom` gets a reference to the DOM element.
+Callback function `getRef` gets a reference to the DOM element.
 
 **Signature**
 
-`getDom(fn)`
+`getRef(fn)`
 
 | **Argument**    | **Type**  | **Required** | **Description** |
 | --- | --- | --- | --- | --- | 
 | `fn` | `Function` | Yes | Function that receives the DOM reference. |
-| **Returns** | `function(dom) { /* use dom */}` |||
+| **Returns** | `function ref(dom) { /* use dom */}` |||
 
-`getDom` accepts a function that receives the DOM reference.
+`getRef` accepts a function that receives the DOM reference.
 
 DOM reference are commonly stored in a `useRef` object, with property `current` to store the data. Note that setting or updating `useRef` will not cause a re-render.
 
 ```javascript
-import { useRef, h, a, getDom } from "cyano"
+import { useRef, h, a, getRef } from "cyano"
 
 const _Component = () => {
   const domRef = useRef()
@@ -483,7 +483,7 @@ const _Component = () => {
   return (
     h("div", 
       {
-        ...getDom(dom => domRef.current = domRef.current || dom) // React will call this each render
+        ...getRef(dom => domRef.current = domRef.current || dom) // React will call this each render
       },
       "My component"
     )
@@ -493,12 +493,37 @@ const _Component = () => {
 
 The example above contains a check to prevent superfluous updates to the variable `domRef`.
 
+**Forward refs**
+
+When `getRef` is passed to a component, the component props will contain the function `ref`. This can be used from the parent:
+
+```javascript
+// Input.js
+
+h("input",
+  {
+    ...getRef(dom => dom && !domElement && (
+      setDomElement(dom),
+      // pass back to parent
+      props.ref && props.ref(dom)
+    ))
+  }
+)
+ 
+// parent that uses Input
+h(Input, {
+  ref: dom => (
+    setDomElement(dom)
+  )
+})
+```
+
 **Under the hood**
 
-* `cyano-mithril`: `getDom` uses Mithril's lifecycle method `oncreate` to access the DOM element. This method will be called once.
+* `cyano-mithril`:
+  * `getRef` uses Mithril's lifecycle method `oncreate` to access the DOM element. This method will be called once.
 * `cyano-react`:
-  * `getDom` uses React's `ref` method to access the DOM element. This method will be called on each render. When the element is removed from the DOM, `getDom` will receive `null`. Using an update check as shown above will prevent that the reference will be lost.
-  * React will complain when `getDom` is passed to a subcomponent, because the resulting code will be identical to forwarding a `ref`.
+  * `getRef` uses React's `ref` method to access the DOM element. This method will be called on each render. When the element is removed from the DOM, `getRef` will receive `null`. Using an update check as shown above will prevent that the reference will be lost.
 
 ### Children
 
