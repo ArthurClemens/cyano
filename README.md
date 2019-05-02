@@ -465,8 +465,8 @@ Callback function `getRef` gets a reference to the DOM element.
 
 `getRef(fn)`
 
-| **Argument**    | **Type**  | **Required** | **Description** |
-| --- | --- | --- | --- | --- | 
+| **Argument** | **Type** | **Required** | **Description** |
+| --- | --- | --- | --- |
 | `fn` | `Function` | Yes | Function that receives the DOM reference. |
 | **Returns** | `function ref(dom) { /* use dom */}` |||
 
