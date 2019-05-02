@@ -2,7 +2,7 @@
   "name": "tests-cyano-shared",
   "description": "Shared test scripts",
   "private": true,
-  "version": "0.4.3",
+  "version": "0.5.0",
   "license": "MIT",
   "dependencies": {
     "router5": "^7.0.2",
