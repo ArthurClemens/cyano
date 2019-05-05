@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ArthurClemens/cyano",
   "license": "MIT",
   "dependencies": {
-    "mithril-hooks": "^0.5.1"
+    "mithril-hooks": "^0.5.2"
   },
   "peerDependencies": {
     "mithril": "2.0.0-rc.4"
