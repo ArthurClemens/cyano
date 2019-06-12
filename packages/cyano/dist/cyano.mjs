@@ -12,7 +12,7 @@ const h = {};
 h.trust = stub;
 h.displayName = "cyano";
 const jsx = stub;
-const getDom = stub;
+const getRef = stub;
 const cast = stub;
 
-export { a, cast, getDom, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState };
+export { a, cast, getRef, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState };
