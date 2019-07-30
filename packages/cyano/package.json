@@ -1,6 +1,6 @@
 {
   "name": "cyano",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Stub functions for cyano-mithril and cyano-react",
   "main": "dist/cyano",
   "module": "dist/cyano.mjs",
