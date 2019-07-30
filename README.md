@@ -20,10 +20,13 @@ Takes a base component and returns a Mithril or React component. This is useful 
       - [Code example](#code-example)
       - [Passing or nesting components](#passing-or-nesting-components)
     - [Import for libraries (passing Cyano methods)](#import-for-libraries-passing-cyano-methods)
+  - [Solving issues](#solving-issues)
+    - [Issues with keys](#issues-with-keys)
 - [API](#api)
   - [cast](#cast)
   - [h (render function)](#h-render-function)
     - [Inserting trusted content](#inserting-trusted-content)
+    - [Wrapping fragments](#wrapping-fragments)
   - [a (HTML attributes)](#a-html-attributes)
   - [getRef](#getref)
   - [Children](#children)
@@ -132,6 +135,8 @@ For example:
 | ----------------- | --------------- | ----------- |
 | `cast`            | Takes a base component and returns a Mithril or React component. | [cast](#cast) | 
 | `h`               | The render function for hyperscript. | [h (render function)](#h-render-function) |
+| `h.trust`         | Function to insert HTML | [Inserting trusted content](#inserting-trusted-content) |
+| `h.fragment`      | (React, Mithril 2.0) Function to wrap elements in a fragment | [Inserting trusted content](#inserting-trusted-content) |
 | `getRef`          | Callback function that gets a reference to the DOM element. | [getRef](#getref) |
 | `a`               | Dictionary of accepted HTML attributes. | [a (Accepted HTML attributes)](#a-accepted-html-attributes) |
 | `jsx`             | Babel pragma, import this when writing JSX. | [jsx](#jsx) |
@@ -351,6 +356,81 @@ export const _Button = ({ h, a, getRef, useState, useEffect, useRef, Icon, ...pr
 }
 ```
 
+### Solving issues
+
+#### Issues with keys
+
+This case may trip you up:
+
+```javascript
+[
+  h("div",
+    { key: 1 }
+  ),
+  [2,3,4].map(n => // Error when Mithril runs this code
+    h("div",
+      { key: n },
+      n
+    )
+  )
+]
+```
+
+Mithril will throw an error because not all children in the array have a key.
+
+The reason is that React and Mithril handle arrays differently: React flattens inner arrays, but Mithril doesn't.
+
+This code ends up processed this way for each:
+
+```javascript
+[
+  h("div", { key: 1 }),
+  [
+    h("div", { key: 2 })
+  ]
+]
+```
+
+In React:
+
+```javascript
+// Everything's flattened, so everything's keyed as expected
+[
+  h("div", { key: 1 }),
+  h("div", { key: 2 }),
+]
+```
+
+In Mithril:
+
+```javascript
+h.fragment([
+  h("div", { key: 1 }),
+  h.fragment([ // Lacks a key, so an error is thrown
+    h("div", { key: 2 }),
+  ]),
+])
+```
+
+To solve this in a cross-platform way, rewrite the tripping-up code with a keyed wrapper fragment:
+
+```javascript
+[
+  h("div",
+    { key: 1 }
+  ),
+  h.fragment(
+    { key: "numbers" },
+    [2,3,4].map(n =>
+      h("div",
+        { key: n },
+        n
+      )
+    )
+  )
+]
+```
+
 
 ## API
 
@@ -433,6 +513,33 @@ For consistency, `cyano-mithril` function `h.trust` is enhanced with this second
 | `html` | `String` | Yes | | A string containing HTML or SVG text. |
 | `wrapper` | Element tag name | No | `cyano-react`: "div"; `cyano-mithril`: undefined | Wrapper element |
 | **Returns** | `Vnode` (for Mithril); `ReactElement` for React |||
+
+
+#### Wrapping fragments
+
+Both Mithril (2.0) and React have a concept called "fragments" to group children in a list:
+
+* Mitril: [m.fragment](https://mithril.js.org/fragment.html) (since Mithril 2.0)
+* React: [Fragment](https://reactjs.org/docs/fragments.html)
+
+There are key differences between both libraries:
+
+* React's `Fragment` only supports property `key`, but does some smart handling of inserting extra HTML elements (see the doc example for table rows)
+* Mithrils `m.fragment` supports lifecycle methods in properties, but does not do any magic with HTML elements
+
+Cyano's bridge function `h.fragment` is oblivious to either library, so you could make use of either implementation, but for cross-platform code you'd need to stick to property `key` and make no assumptions on handling HTML elements around the fragment.
+
+**Signature**
+
+`h.fragment(properties?, children) => Element`
+
+| **Argument**    | **Type**  | **Required** | **Default** | **Description** |
+| --- | --- | --- | --- | --- | 
+| `properties` | `object` | No | | For cross-library code: only use `key` |
+| `children` | `Array<Vnode|ReactElement>|String|Number|Boolean` | No | Child nodes |
+| **Returns** | `Vnode` (for Mithril); `ReactElement` for React |||
+
+
 
 ### a (HTML attributes)
 
@@ -532,7 +639,7 @@ Child elements are accessed through the component prop `children`:
 ```javascript
 const _Component = ({ children }) => {
   return [
-    m("h2", "My title"),
+    h("h2", "My title"),
     children
   ]
 }

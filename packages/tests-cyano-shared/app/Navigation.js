@@ -2,9 +2,7 @@ import { cast, h, a } from "cyano";
 
 const _Link = ({ router, name, label, path, currentPath }) => (
   h("li",
-    {
-      key: path
-    },  
+    {},  
     h("a", {
       href: path,
       className: path === currentPath ? "is-active" : "",
@@ -43,7 +41,6 @@ const MenuList = cast(_MenuList);
 const _Navigation = ({ router, currentPath, parts }) => (
   h("aside",
     {
-      key: "menu",
       className: "menu"
     },
     parts.map(([title, links]) =>

@@ -69,13 +69,11 @@ const _Counter = ({ id, initialCount, removeCounter }) => {
           h("div",
             {
               className: "count",
-              key: "count",
             },
             count
           ),
           h("button",
             {
-              key: "button-decrement",
               className: "button",
               disabled: count === 0,
               [a.onclick]: () => dispatch({ type: "decrement" })
@@ -93,7 +91,6 @@ const _Counter = ({ id, initialCount, removeCounter }) => {
           ),
           h("button",
             {
-              key: "button-increment",
               className: "button",
               [a.onclick]: () => dispatch({ type: "increment" })
             },
@@ -110,10 +107,8 @@ const _Counter = ({ id, initialCount, removeCounter }) => {
           ),
           h("div", {
             className: "spacer",
-            key: "spacer"
           }),
           h("button", {
-            key: "button-remove",
             className: "delete is-large",
             [a.onclick]: () => remove()
           }, "Remove me"),
@@ -134,7 +129,6 @@ const _CounterController = ({ Counter }) => {
       [
         h("button",
           {
-            key: "button",
             className: "button is-info",
             [a.onclick]: () => addCounter()
           },
@@ -143,13 +137,11 @@ const _CounterController = ({ Counter }) => {
         h("div",
           {
             className: "spacer",
-            key: "spacer"
           }
         ),
         h("span",
           {
             className: "info",
-            key: "info"
           },
           h("span",
             {
@@ -160,14 +152,17 @@ const _CounterController = ({ Counter }) => {
         )
       ]
     ),
-    counters.map(c => (
-      h(Counter, {
-        key: c.id,
-        id: c.id,
-        initialCount: c.initialCount,
-        removeCounter: () => removeCounter(c),
-      })
-    ))
+    h.fragment(
+      { key: "counters" },
+      counters.map(c => (
+        h(Counter, {
+          key: c.id,
+          id: c.id,
+          initialCount: c.initialCount,
+          removeCounter: () => removeCounter(c),
+        })
+      ))
+    )
   ];
 };
 

@@ -8,9 +8,14 @@ const _ChatRecipientPicker = () => {
   return h("div",
     { className: "controls" },
     [
-      h(FriendStatus, { key: recipientId, friendId: recipientId }),
+      h(FriendStatus,
+        { key: recipientId, friendId: recipientId }
+      ),
       h("div",
-        { className: "select" },
+        {
+          className: "select",
+          key: "select",
+        },
         h("select",
           {
             [a.onchange]: e => setRecipientId(e.target.value),
@@ -20,6 +25,7 @@ const _ChatRecipientPicker = () => {
             h("option",
               {
                 value: friend.id,
+                key: friend.id,
               },
               friend.name
             )

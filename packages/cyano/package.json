@@ -1,10 +1,11 @@
 {
   "name": "cyano",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Stub functions for cyano-mithril and cyano-react",
   "main": "dist/cyano",
   "module": "dist/cyano.mjs",
   "scripts": {
+    "npm-check-updates": "../../node_modules/npm-check-updates/bin/ncu -u",
     "lint": "eslint ./src",
     "build": "npm run clean && npm run rollup",
     "rollup": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",

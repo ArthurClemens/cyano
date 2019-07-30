@@ -2,8 +2,11 @@
   "name": "tests-cyano-shared",
   "description": "Shared test scripts",
   "private": true,
-  "version": "0.5.2",
+  "version": "0.6.0",
   "license": "MIT",
+  "scripts": {
+    "npm-caheck-updates": "../../node_modules/npm-check-updates/bin/ncu -u"
+  },
   "dependencies": {
     "router5": "^7.0.2",
     "router5-plugin-browser": "^7.0.2"

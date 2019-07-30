@@ -7,12 +7,15 @@ export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useC
 export const a = htmlAttributes;
 
 export const h = m || {};
+
 const trust = h.trust;
 h.trust = (html, wrapper) =>
   wrapper
     ? m(wrapper, trust(html))
     : trust(html);
 h.displayName = "mithril";
+
+h.fragment = m.fragment;
 
 export const jsx = m;
 

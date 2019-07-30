@@ -12,6 +12,7 @@ import InitialProps from "../cypress-tests/initial-props";
 import ToggleJSX from "../cypress-tests/toggle-jsx";
 import GetRef from "../cypress-tests/getRef";
 import ForwardRef from "../cypress-tests/forwardRef";
+import Fragment from "../cypress-tests/Fragment";
 
 const toLinkData = ([label, path, component]) => ({
   name: label.toLowerCase().replace(" ", "_"),
@@ -36,6 +37,7 @@ export const createRoutes = cast => {
     ["Test children", "/TestChildren", Children],
     ["Test forward ref", "/ForwardRef", ForwardRef],
     ["Test toggle JSX", "/ToggleJSX", ToggleJSX],
+    ["Test fragment", "/Fragment", Fragment],
   ].map(toLinkData);
 
   return {

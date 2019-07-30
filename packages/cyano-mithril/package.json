@@ -1,10 +1,11 @@
 {
   "name": "cyano-mithril",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Takes a base component and returns a Mithril component",
   "main": "dist/cyano-mithril",
   "module": "dist/cyano-mithril.mjs",
   "scripts": {
+    "npm-check-updates": "../../node_modules/npm-check-updates/bin/ncu -u",
     "lint": "eslint ./src",
     "build": "npm run clean && npm run rollup",
     "rollup": "../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.es.js",
@@ -19,9 +20,9 @@
   "homepage": "https://github.com/ArthurClemens/cyano",
   "license": "MIT",
   "dependencies": {
-    "mithril-hooks": "^0.5.3"
+    "mithril-hooks": "^0.5.4"
   },
   "peerDependencies": {
-    "mithril": "2.0.0-rc.6"
+    "mithril": "2.0.3"
   }
 }

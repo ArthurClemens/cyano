@@ -13,6 +13,9 @@ h.trust = (html, wrapper = "") =>
   });
 h.displayName = "react";
 
+h.fragment = (props, children) =>
+  <React.Fragment {...props}>{children}</React.Fragment>;
+
 export const jsx = React.createElement;
 
 export const getRef = fn => ({ ref: dom => fn(dom) });

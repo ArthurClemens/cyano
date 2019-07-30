@@ -1,4 +1,4 @@
-import react, { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 export { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState } from 'react';
 
 function _defineProperty(obj, key, value) {
@@ -16,20 +16,35 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function _objectSpread(target) {
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i] != null ? arguments[i] : {};
-    var ownKeys = Object.keys(source);
 
-    if (typeof Object.getOwnPropertySymbols === 'function') {
-      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
     }
-
-    ownKeys.forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    });
   }
 
   return target;
@@ -94,7 +109,7 @@ var reactHyperscript = h;
 function h(componentOrTag, properties, children) {
   // if only one argument which is an array, wrap items with React.Fragment
   if (arguments.length === 1 && Array.isArray(componentOrTag)) {
-    return h(react.Fragment, null, componentOrTag);
+    return h(React.Fragment, null, componentOrTag);
   } else if (!children && isChildren(properties)) {
     // If a child array or text node are passed as the second argument, shift them
     children = properties;
@@ -132,7 +147,7 @@ function h(componentOrTag, properties, children) {
 
 
   var args = [componentOrTag, properties].concat(children);
-  return react.createElement.apply(react, args);
+  return React.createElement.apply(React, args);
 }
 
 function isChildren(x) {
@@ -281,11 +296,11 @@ var htmlAttributes = {
   wrap: "wrap"
 };
 
-const a = htmlAttributes;
-const h$1 = reactHyperscript || {};
+var a = htmlAttributes;
+var h$1 = reactHyperscript || {};
 
 h$1.trust = function (html) {
-  let wrapper = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+  var wrapper = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
   return reactHyperscript(wrapper, {
     dangerouslySetInnerHTML: {
       __html: html
@@ -294,14 +309,17 @@ h$1.trust = function (html) {
 };
 
 h$1.displayName = "react";
-const jsx = react.createElement;
-const getRef = fn => ({
+
+h$1.fragment = (props, children) => React.createElement(React.Fragment, props, children);
+
+var jsx = React.createElement;
+var getRef = fn => ({
   ref: dom => fn(dom)
 });
-const cast = (component, initialProps) => forwardRef(function () {
-  let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let ref = arguments.length > 1 ? arguments[1] : undefined;
-  return component(_objectSpread({}, initialProps, props, {
+var cast = (component, initialProps) => forwardRef(function () {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var ref = arguments.length > 1 ? arguments[1] : undefined;
+  return component(_objectSpread2({}, initialProps, {}, props, {
     ref
   }));
 });

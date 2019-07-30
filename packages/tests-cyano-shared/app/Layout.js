@@ -9,7 +9,7 @@ const _Layout = ({ navigation, children }) => (
       navigation,
       h("div",
         {
-          key: "component",
+          // key: "component",
           className: "component"
         },
         children
