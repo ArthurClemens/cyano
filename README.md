@@ -136,7 +136,7 @@ For example:
 | `cast`            | Takes a base component and returns a Mithril or React component. | [cast](#cast) | 
 | `h`               | The render function for hyperscript. | [h (render function)](#h-render-function) |
 | `h.trust`         | Function to insert HTML | [Inserting trusted content](#inserting-trusted-content) |
-| `h.fragment`      | (React, Mithril 2.0) Function to wrap elements in a fragment | [Inserting trusted content](#inserting-trusted-content) |
+| `h.fragment`      | Function to wrap elements in a fragment | [Inserting trusted content](#inserting-trusted-content) |
 | `getRef`          | Callback function that gets a reference to the DOM element. | [getRef](#getref) |
 | `a`               | Dictionary of accepted HTML attributes. | [a (Accepted HTML attributes)](#a-accepted-html-attributes) |
 | `jsx`             | Babel pragma, import this when writing JSX. | [jsx](#jsx) |
@@ -517,9 +517,9 @@ For consistency, `cyano-mithril` function `h.trust` is enhanced with this second
 
 #### Wrapping fragments
 
-Both Mithril (2.0) and React have a concept called "fragments" to group children in a list:
+Both Mithril and React have a concept called "fragments" to group children in a list:
 
-* Mitril: [m.fragment](https://mithril.js.org/fragment.html) (since Mithril 2.0)
+* Mitril: [m.fragment](https://mithril.js.org/fragment.html)
 * React: [Fragment](https://reactjs.org/docs/fragments.html)
 
 There are key differences between both libraries:
