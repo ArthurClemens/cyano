@@ -1,6 +1,6 @@
 {
   "name": "cyano-mithril",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Takes a base component and returns a Mithril component",
   "main": "dist/cyano-mithril",
   "module": "dist/cyano-mithril.mjs",
@@ -20,9 +20,9 @@
   "homepage": "https://github.com/ArthurClemens/cyano",
   "license": "MIT",
   "dependencies": {
-    "mithril-hooks": "^0.5.4"
+    "mithril-hooks": "^0.5.5"
   },
   "peerDependencies": {
-    "mithril": "2.0.3"
+    "mithril": ">=1.1.6"
   }
 }
