@@ -16,7 +16,7 @@
     "build:webpack": "npm run clean && npm run webpack",
     "build:browserify": "CYANO=cyano-react node ../../scripts/browserify.js",
     "serve": "http-server -c-1 -p 8080 dist",
-    "build:rollup": "CYANO=cyano-react ../../node_modules/rollup/bin/rollup -c ../../scripts/rollup.umd.js",
+    "build:rollup": "CYANO=cyano-react ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.umd.js",
     "clean": "rm -rf dist/js/*",
     "test": "npm run test:cypress",
     "test:cypress": "npm run build && start-server-and-test serve 8080 cypress:run",
@@ -26,13 +26,13 @@
   },
   "dependencies": {
     "cyano-react": "^0.6.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "tests-cyano-shared": "^0.6.0"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "tests-cyano-shared": "^0.6.2"
   },
   "devDependencies": {
     "http-server": "^0.11.1",
     "npm-run-all": "^4.1.5",
-    "start-server-and-test": "^1.9.1"
+    "start-server-and-test": "^1.10.0"
   }
 }
