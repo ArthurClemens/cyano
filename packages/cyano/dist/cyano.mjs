@@ -1,18 +1,18 @@
-const stub = () => {};
+var stub = function stub() {};
 
-const useState = stub;
-const useEffect = stub;
-const useLayoutEffect = stub;
-const useReducer = stub;
-const useRef = stub;
-const useMemo = stub;
-const useCallback = stub;
-const a = {};
-const h = {};
+var useState = stub;
+var useEffect = stub;
+var useLayoutEffect = stub;
+var useReducer = stub;
+var useRef = stub;
+var useMemo = stub;
+var useCallback = stub;
+var a = {};
+var h = {};
 h.trust = stub;
 h.displayName = "cyano";
-const jsx = stub;
-const getRef = stub;
-const cast = stub;
+var jsx = stub;
+var getRef = stub;
+var cast = stub;
 
 export { a, cast, getRef, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState };

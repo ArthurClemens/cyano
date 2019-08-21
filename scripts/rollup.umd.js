@@ -4,7 +4,6 @@ Build to an Universal Module Definition
 */
 import { pkg, createConfig } from "./rollup.base";
 import { terser } from "rollup-plugin-terser";
-import babel from "rollup-plugin-babel";
 
 const env = process.env;
 const baseConfig = createConfig();
@@ -20,11 +19,6 @@ const targetConfig = Object.assign({}, baseConfig, {
     }
   )
 });
-targetConfig.plugins.unshift(
-  babel({
-    configFile: "../../babel.config.umd.js"
-  })
-);
 targetConfig.plugins.push(terser());
 
 export default targetConfig;

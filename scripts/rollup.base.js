@@ -4,6 +4,7 @@ import commonjs from "rollup-plugin-commonjs";
 import resolve from "rollup-plugin-node-resolve";
 import pathmodify from "rollup-plugin-pathmodify";
 import path from "path";
+import babel from "rollup-plugin-babel";
 
 function toCamelCase(string) {
   string = string.toLowerCase().replace(/(?:(^.)|([-_\s]+.))/g, function(match) {
@@ -57,6 +58,9 @@ export const createConfig = () => {
             resolveTo: path.resolve(baseDir, `node_modules/${whichCyano}/dist/${whichCyano}.mjs`),
           },
         ]
+      }),
+      babel({
+        configFile: "../../babel.config.js"
       }),
       commonjs({
         // namedExports: {

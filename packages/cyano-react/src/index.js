@@ -1,5 +1,5 @@
 import React, { forwardRef, useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback } from "react";
-import renderer from "react-hyperscript";
+const renderer = require("react-hyperscript");
 import htmlAttributes from "./htmlAttributes";
 
 export { useState, useEffect, useLayoutEffect, useReducer, useRef, useMemo, useCallback };

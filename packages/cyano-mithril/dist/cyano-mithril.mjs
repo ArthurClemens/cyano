@@ -1,5 +1,81 @@
 import m from 'mithril';
 
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -52,15 +128,20 @@ function _objectSpread2(target) {
 var currentState;
 var call = Function.prototype.call.bind(Function.prototype.call);
 
-var scheduleRender = () => // Call m within the function body so environments with a global instance of m (like flems.io) don't complain
-m.redraw();
+var scheduleRender = function scheduleRender() {
+  return (// Call m within the function body so environments with a global instance of m (like flems.io) don't complain
+    m.redraw()
+  );
+};
 
-var updateDeps = deps => {
+var updateDeps = function updateDeps(deps) {
   var state = currentState;
   var depsIndex = state.depsIndex++;
   var prevDeps = state.depsStates[depsIndex] || [];
   var shouldRecompute = deps === undefined ? true // Always compute
-  : Array.isArray(deps) ? deps.length > 0 ? !deps.every((x, i) => x === prevDeps[i]) // Only compute when one of the deps has changed
+  : Array.isArray(deps) ? deps.length > 0 ? !deps.every(function (x, i) {
+    return x === prevDeps[i];
+  }) // Only compute when one of the deps has changed
   : !state.setup // Empty array: only compute at mount
   : false; // Invalid value, do nothing
 
@@ -70,14 +151,14 @@ var updateDeps = deps => {
 
 var effect = function effect() {
   var isAsync = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  return (fn, deps) => {
+  return function (fn, deps) {
     var state = currentState;
     var shouldRecompute = updateDeps(deps);
 
     if (shouldRecompute) {
       var depsIndex = state.depsIndex;
 
-      var runCallbackFn = () => {
+      var runCallbackFn = function runCallbackFn() {
         var teardown = fn(); // A callback may return a function. If any, add it to the teardowns:
 
         if (typeof teardown === "function") {
@@ -96,16 +177,22 @@ var effect = function effect() {
           teardown();
         }
       } finally {
-        state.teardowns.delete(depsIndex);
+        state.teardowns["delete"](depsIndex);
       }
 
-      state.updates.push(isAsync ? () => new Promise(resolve => requestAnimationFrame(resolve)).then(runCallbackFn) : runCallbackFn);
+      state.updates.push(isAsync ? function () {
+        return new Promise(function (resolve) {
+          return requestAnimationFrame(resolve);
+        }).then(runCallbackFn);
+      } : runCallbackFn);
     }
   };
 };
 
 var updateState = function updateState(initialValue) {
-  var newValueFn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : value => value;
+  var newValueFn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (value) {
+    return value;
+  };
   var state = currentState;
   var index = state.statesIndex++;
 
@@ -113,7 +200,7 @@ var updateState = function updateState(initialValue) {
     state.states[index] = initialValue;
   }
 
-  return [state.states[index], value => {
+  return [state.states[index], function (value) {
     var previousValue = state.states[index];
     var newValue = newValueFn(value, index);
     state.states[index] = newValue;
@@ -124,10 +211,12 @@ var updateState = function updateState(initialValue) {
   }, index];
 };
 
-var useState = initialValue => {
+var useState = function useState(initialValue) {
   var state = currentState;
 
-  var newValueFn = (value, index) => typeof value === "function" ? value(state.states[index]) : value;
+  var newValueFn = function newValueFn(value, index) {
+    return typeof value === "function" ? value(state.states[index]) : value;
+  };
 
   return updateState(initialValue, newValueFn);
 };
@@ -135,15 +224,19 @@ var useState = initialValue => {
 var useEffect = effect(true);
 var useLayoutEffect = effect();
 
-var useReducer = (reducer, initialArg, initFn) => {
+var useReducer = function useReducer(reducer, initialArg, initFn) {
   var state = currentState; // From the React docs: You can also create the initial state lazily. To do this, you can pass an init function as the third argument. The initial state will be set to init(initialArg).
 
   var initialValue = !state.setup && initFn ? initFn(initialArg) : initialArg;
 
-  var getValueDispatch = () => {
-    var [value, setValue, index] = updateState(initialValue);
+  var getValueDispatch = function getValueDispatch() {
+    var _updateState = updateState(initialValue),
+        _updateState2 = _slicedToArray(_updateState, 3),
+        value = _updateState2[0],
+        setValue = _updateState2[1],
+        index = _updateState2[2];
 
-    var dispatch = action => {
+    var dispatch = function dispatch(action) {
       var previousValue = state.states[index];
       return setValue( // Next state:
       reducer(previousValue, action));
@@ -155,18 +248,25 @@ var useReducer = (reducer, initialArg, initFn) => {
   return getValueDispatch();
 };
 
-var useRef = initialValue => {
+var useRef = function useRef(initialValue) {
   // A ref is a persisted object that will not be updated, so it has no setter
-  var [value] = updateState({
+  var _updateState3 = updateState({
     current: initialValue
-  });
+  }),
+      _updateState4 = _slicedToArray(_updateState3, 1),
+      value = _updateState4[0];
+
   return value;
 };
 
-var useMemo = (fn, deps) => {
+var useMemo = function useMemo(fn, deps) {
   var state = currentState;
   var shouldRecompute = updateDeps(deps);
-  var [memoized, setMemoized] = !state.setup ? updateState(fn()) : updateState();
+
+  var _ref = !state.setup ? updateState(fn()) : updateState(),
+      _ref2 = _slicedToArray(_ref, 2),
+      memoized = _ref2[0],
+      setMemoized = _ref2[1];
 
   if (state.setup && shouldRecompute) {
     setMemoized(fn());
@@ -175,11 +275,15 @@ var useMemo = (fn, deps) => {
   return memoized;
 };
 
-var useCallback = (fn, deps) => useMemo(() => fn, deps);
+var useCallback = function useCallback(fn, deps) {
+  return useMemo(function () {
+    return fn;
+  }, deps);
+};
 
-var withHooks = (component, initialProps) => {
-  var init = vnode => {
-    Object.assign(vnode.state, {
+var withHooks = function withHooks(component, initialProps) {
+  var init = function init(vnode) {
+    _extends(vnode.state, {
       setup: false,
       states: [],
       statesIndex: 0,
@@ -192,30 +296,31 @@ var withHooks = (component, initialProps) => {
     });
   };
 
-  var update = vnode => {
+  var update = function update(vnode) {
     var prevState = currentState;
     currentState = vnode.state;
 
     try {
       vnode.state.updates.forEach(call);
     } finally {
-      Object.assign(vnode.state, {
+      _extends(vnode.state, {
         setup: true,
         updates: [],
         depsIndex: 0,
         statesIndex: 0
       });
+
       currentState = prevState;
     }
   };
 
-  var render = vnode => {
+  var render = function render(vnode) {
     var prevState = currentState;
     currentState = vnode.state;
 
     try {
       return component(_objectSpread2({}, initialProps, {}, vnode.attrs, {
-        vnode,
+        vnode: vnode,
         children: vnode.children
       }));
     } catch (e) {
@@ -225,12 +330,12 @@ var withHooks = (component, initialProps) => {
     }
   };
 
-  var teardown = vnode => {
+  var teardown = function teardown(vnode) {
     var prevState = currentState;
     currentState = vnode.state;
 
     try {
-      [...vnode.state.teardowns.values()].forEach(call);
+      _toConsumableArray(vnode.state.teardowns.values()).forEach(call);
     } finally {
       currentState = prevState;
     }
@@ -263,7 +368,7 @@ var htmlAttributes = {
   challenge: "challenge",
   charset: "charset",
   checked: "checked",
-  class: "className",
+  "class": "className",
   classid: "classid",
   classname: "className",
   // Special case:
@@ -278,7 +383,7 @@ var htmlAttributes = {
   crossorigin: "crossorigin",
   data: "data",
   datetime: "datetime",
-  default: "default",
+  "default": "default",
   defer: "defer",
   dir: "dir",
   disabled: "disabled",
@@ -392,14 +497,20 @@ var a = htmlAttributes;
 var h = m || {};
 var trust = h.trust;
 
-h.trust = (html, wrapper) => wrapper ? m(wrapper, trust(html)) : trust(html);
+h.trust = function (html, wrapper) {
+  return wrapper ? m(wrapper, trust(html)) : trust(html);
+};
 
 h.displayName = "mithril";
 h.fragment = m.fragment;
 var jsx = m;
-var getRef = fn => ({
-  oncreate: vnode => fn(vnode.dom)
-});
+var getRef = function getRef(fn) {
+  return {
+    oncreate: function oncreate(vnode) {
+      return fn(vnode.dom);
+    }
+  };
+};
 var cast = withHooks;
 
 export { a, cast, getRef, h, jsx, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState };

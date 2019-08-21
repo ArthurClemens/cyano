@@ -4,7 +4,6 @@ Build to a module that has ES2015 module syntax but otherwise only syntax featur
 https://github.com/rollup/rollup/wiki/jsnext:main
 */
 import { pkg, createConfig } from "./rollup.base.js";
-import babel from "rollup-plugin-babel";
 
 const env = process.env;
 const baseConfig = createConfig();
@@ -18,10 +17,5 @@ const targetConfig = Object.assign({}, baseConfig, {
     }
   )
 });
-targetConfig.plugins.unshift(
-  babel({
-    configFile: "../../babel.config.es.js"
-  })
-);
 export default targetConfig;
 

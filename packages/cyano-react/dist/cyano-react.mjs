@@ -50,110 +50,6 @@ function _objectSpread2(target) {
   return target;
 }
 
-/* eslint-disable complexity, max-statements */
-
-var classIdSplit = /([\.#]?[a-zA-Z0-9_:-]+)/;
-var notClassId = /^\.|#/;
-var parseTag_1 = parseTag;
-
-function parseTag(tag, props) {
-  if (!tag) {
-    return 'div';
-  }
-
-  var noId = !('id' in props);
-  var tagParts = tag.split(classIdSplit);
-  var tagName = null;
-
-  if (notClassId.test(tagParts[1])) {
-    tagName = 'div';
-  }
-
-  var classes;
-  var part;
-  var type;
-  var i;
-
-  for (i = 0; i < tagParts.length; i++) {
-    part = tagParts[i];
-
-    if (!part) {
-      continue;
-    }
-
-    type = part.charAt(0);
-
-    if (!tagName) {
-      tagName = part;
-    } else if (type === '.') {
-      classes = classes || [];
-      classes.push(part.substring(1, part.length));
-    } else if (type === '#' && noId) {
-      props.id = part.substring(1, part.length);
-    }
-  }
-
-  if (classes) {
-    if (props.className) {
-      classes.push(props.className);
-    }
-
-    props.className = classes.join(' ');
-  }
-
-  return tagName ? tagName.toLowerCase() : 'div';
-}
-
-var reactHyperscript = h;
-
-function h(componentOrTag, properties, children) {
-  // if only one argument which is an array, wrap items with React.Fragment
-  if (arguments.length === 1 && Array.isArray(componentOrTag)) {
-    return h(React.Fragment, null, componentOrTag);
-  } else if (!children && isChildren(properties)) {
-    // If a child array or text node are passed as the second argument, shift them
-    children = properties;
-    properties = {};
-  } else if (arguments.length === 2) {
-    // If no children were passed, we don't want to pass "undefined"
-    // and potentially overwrite the `children` prop
-    children = [];
-  }
-
-  properties = properties ? Object.assign({}, properties) : {}; // Supported nested dataset attributes
-
-  if (properties.dataset) {
-    Object.keys(properties.dataset).forEach(function unnest(attrName) {
-      var dashedAttr = attrName.replace(/([a-z])([A-Z])/, function dash(match) {
-        return match[0] + '-' + match[1].toLowerCase();
-      });
-      properties['data-' + dashedAttr] = properties.dataset[attrName];
-    });
-    properties.dataset = undefined;
-  } // Support nested attributes
-
-
-  if (properties.attributes) {
-    Object.keys(properties.attributes).forEach(function unnest(attrName) {
-      properties[attrName] = properties.attributes[attrName];
-    });
-    properties.attributes = undefined;
-  } // When a selector, parse the tag name and fill out the properties object
-
-
-  if (typeof componentOrTag === 'string') {
-    componentOrTag = parseTag_1(componentOrTag, properties);
-  } // Create the element
-
-
-  var args = [componentOrTag, properties].concat(children);
-  return React.createElement.apply(React, args);
-}
-
-function isChildren(x) {
-  return typeof x === 'string' || typeof x === 'number' || Array.isArray(x);
-}
-
 var htmlAttributes = {
   accept: "accept",
   acceptcharset: "acceptCharset",
@@ -172,7 +68,7 @@ var htmlAttributes = {
   challenge: "challenge",
   charset: "charSet",
   checked: "checked",
-  class: "className",
+  "class": "className",
   classid: "classID",
   classname: "className",
   className: "className",
@@ -186,7 +82,7 @@ var htmlAttributes = {
   crossorigin: "crossOrigin",
   data: "data",
   datetime: "dateTime",
-  default: "default",
+  "default": "default",
   defer: "defer",
   dir: "dir",
   disabled: "disabled",
@@ -296,32 +192,41 @@ var htmlAttributes = {
   wrap: "wrap"
 };
 
+var renderer = require("react-hyperscript");
 var a = htmlAttributes;
-var h$1 = reactHyperscript || {};
+var h = renderer || {};
 
-h$1.trust = function (html) {
+h.trust = function (html) {
   var wrapper = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-  return reactHyperscript(wrapper, {
+  return renderer(wrapper, {
     dangerouslySetInnerHTML: {
       __html: html
     }
   });
 };
 
-h$1.displayName = "react";
+h.displayName = "react";
 
-h$1.fragment = (props, children) => React.createElement(React.Fragment, props, children);
+h.fragment = function (props, children) {
+  return jsx(React.Fragment, props, children);
+};
 
 var jsx = React.createElement;
-var getRef = fn => ({
-  ref: dom => fn(dom)
-});
-var cast = (component, initialProps) => forwardRef(function () {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var ref = arguments.length > 1 ? arguments[1] : undefined;
-  return component(_objectSpread2({}, initialProps, {}, props, {
-    ref
-  }));
-});
+var getRef = function getRef(fn) {
+  return {
+    ref: function ref(dom) {
+      return fn(dom);
+    }
+  };
+};
+var cast = function cast(component, initialProps) {
+  return forwardRef(function () {
+    var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var ref = arguments.length > 1 ? arguments[1] : undefined;
+    return component(_objectSpread2({}, initialProps, {}, props, {
+      ref: ref
+    }));
+  });
+};
 
-export { a, cast, getRef, h$1 as h, jsx };
+export { a, cast, getRef, h, jsx };
