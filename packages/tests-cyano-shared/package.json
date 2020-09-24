@@ -2,7 +2,7 @@
   "name": "tests-cyano-shared",
   "description": "Shared test scripts",
   "private": true,
-  "version": "0.6.3",
+  "version": "0.6.5",
   "license": "MIT",
   "scripts": {
     "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u"

@@ -1,6 +1,6 @@
 {
   "name": "cyano-react",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "Takes a base component and returns a React component",
   "main": "dist/cyano-react",
   "module": "dist/cyano-react.mjs",
