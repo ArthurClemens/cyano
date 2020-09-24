@@ -35,13 +35,13 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(source).forEach(function (key) {
+      ownKeys(Object(source)).forEach(function (key) {
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
     }
@@ -220,10 +220,10 @@ var getRef = function getRef(fn) {
   };
 };
 var cast = function cast(component, initialProps) {
-  return forwardRef(function () {
+  return /*#__PURE__*/forwardRef(function () {
     var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var ref = arguments.length > 1 ? arguments[1] : undefined;
-    return component(_objectSpread2({}, initialProps, {}, props, {
+    return component(_objectSpread2(_objectSpread2(_objectSpread2({}, initialProps), props), {}, {
       ref: ref
     }));
   });

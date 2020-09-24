@@ -1,5 +1,20 @@
 import m from 'mithril';
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function _extends() {
   _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -18,20 +33,50 @@ function _extends() {
   return _extends.apply(this, arguments);
 }
 
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
 function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
 
 function _arrayWithHoles(arr) {
@@ -39,10 +84,11 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -68,61 +114,29 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
 function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(source).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 var currentState;
@@ -145,7 +159,10 @@ var updateDeps = function updateDeps(deps) {
   : !state.setup // Empty array: only compute at mount
   : false; // Invalid value, do nothing
 
-  state.depsStates[depsIndex] = deps;
+  if (deps !== undefined) {
+    state.depsStates[depsIndex] = deps;
+  }
+
   return shouldRecompute;
 };
 
@@ -161,11 +178,11 @@ var effect = function effect() {
       var runCallbackFn = function runCallbackFn() {
         var teardown = fn(); // A callback may return a function. If any, add it to the teardowns:
 
-        if (typeof teardown === "function") {
+        if (typeof teardown === 'function') {
           // Store this this function to be called at cleanup and unmount
           state.teardowns.set(depsIndex, teardown); // At unmount, call re-render at least once
 
-          state.teardowns.set("_", scheduleRender);
+          state.teardowns.set('_', scheduleRender);
         }
       }; // First clean up any previous cleanup function
 
@@ -173,7 +190,7 @@ var effect = function effect() {
       var teardown = state.teardowns.get(depsIndex);
 
       try {
-        if (typeof teardown === "function") {
+        if (typeof teardown === 'function') {
           teardown();
         }
       } finally {
@@ -189,20 +206,17 @@ var effect = function effect() {
   };
 };
 
-var updateState = function updateState(initialValue) {
-  var newValueFn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (value) {
-    return value;
-  };
+var updateState = function updateState(initialState, newValueFn) {
   var state = currentState;
   var index = state.statesIndex++;
 
   if (!state.setup) {
-    state.states[index] = initialValue;
+    state.states[index] = initialState;
   }
 
   return [state.states[index], function (value) {
     var previousValue = state.states[index];
-    var newValue = newValueFn(value, index);
+    var newValue = newValueFn ? newValueFn(value, index) : value;
     state.states[index] = newValue;
 
     if (JSON.stringify(newValue) !== JSON.stringify(previousValue)) {
@@ -211,26 +225,26 @@ var updateState = function updateState(initialValue) {
   }, index];
 };
 
-var useState = function useState(initialValue) {
+var useState = function useState(initialState) {
   var state = currentState;
 
   var newValueFn = function newValueFn(value, index) {
-    return typeof value === "function" ? value(state.states[index]) : value;
+    return typeof value === 'function' ? value(state.states[index], index) : value;
   };
 
-  return updateState(initialValue, newValueFn);
+  return updateState(initialState, newValueFn);
 };
 
 var useEffect = effect(true);
 var useLayoutEffect = effect();
 
-var useReducer = function useReducer(reducer, initialArg, initFn) {
-  var state = currentState; // From the React docs: You can also create the initial state lazily. To do this, you can pass an init function as the third argument. The initial state will be set to init(initialArg).
+var useReducer = function useReducer(reducer, initialState, initFn) {
+  var state = currentState; // From the React docs: You can also create the initial state lazily. To do this, you can pass an init function as the third argument. The initial state will be set to init(initialValue).
 
-  var initialValue = !state.setup && initFn ? initFn(initialArg) : initialArg;
+  var initValue = !state.setup && initFn ? initFn(initialState) : initialState;
 
   var getValueDispatch = function getValueDispatch() {
-    var _updateState = updateState(initialValue),
+    var _updateState = updateState(initValue),
         _updateState2 = _slicedToArray(_updateState, 3),
         value = _updateState2[0],
         setValue = _updateState2[1],
@@ -275,13 +289,13 @@ var useMemo = function useMemo(fn, deps) {
   return memoized;
 };
 
-var useCallback = function useCallback(fn, deps) {
+var useCallback = function useCallback(callback, deps) {
   return useMemo(function () {
-    return fn;
+    return callback;
   }, deps);
 };
 
-var withHooks = function withHooks(component, initialProps) {
+var withHooks = function withHooks(renderFunction, initialAttrs) {
   var init = function init(vnode) {
     _extends(vnode.state, {
       setup: false,
@@ -291,8 +305,7 @@ var withHooks = function withHooks(component, initialProps) {
       depsIndex: 0,
       updates: [],
       cleanups: new Map(),
-      teardowns: new Map() // Keep track of teardowns even when the update was run only once
-
+      teardowns: new Map()
     });
   };
 
@@ -319,7 +332,7 @@ var withHooks = function withHooks(component, initialProps) {
     currentState = vnode.state;
 
     try {
-      return component(_objectSpread2({}, initialProps, {}, vnode.attrs, {
+      return renderFunction(_objectSpread2(_objectSpread2(_objectSpread2({}, initialAttrs), vnode.attrs), {}, {
         vnode: vnode,
         children: vnode.children
       }));

@@ -5,10 +5,10 @@
   "version": "0.6.3",
   "license": "MIT",
   "scripts": {
-    "npm-caheck-updates": "../../node_modules/npm-check-updates/bin/ncu -u"
+    "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u"
   },
   "dependencies": {
-    "router5": "^7.0.2",
-    "router5-plugin-browser": "^7.0.2"
+    "router5": "^8.0.1",
+    "router5-plugin-browser": "^8.0.1"
   }
 }
