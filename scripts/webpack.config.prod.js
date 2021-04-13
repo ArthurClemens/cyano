@@ -9,9 +9,7 @@ const env = process.env;
 config.mode = "production";
 
 config.optimization = {
-  minimizer: [new TerserPlugin({
-    sourceMap: true
-  })]
+  minimizer: [new TerserPlugin()]
 };
 
 config.plugins.push(new CompressionPlugin());

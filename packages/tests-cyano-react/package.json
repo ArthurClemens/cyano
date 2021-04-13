@@ -26,13 +26,13 @@
   },
   "dependencies": {
     "cyano-react": "^0.6.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "tests-cyano-shared": "^0.6.5"
   },
   "devDependencies": {
     "http-server": "^0.12.3",
     "npm-run-all": "^4.1.5",
-    "start-server-and-test": "^1.11.4"
+    "start-server-and-test": "^1.12.1"
   }
 }

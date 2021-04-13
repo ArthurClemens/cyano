@@ -6,11 +6,11 @@
   "module": "dist/cyano.mjs",
   "scripts": {
     "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u",
+    "build": "node ../../node_modules/npm-run-all/bin/run-s/index.js build:*",
+    "build:clean": "rm -rf dist/*",
+    "build:rollup": "../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.es.js",
+    "build:size": "size-limit",
     "lint": "eslint ./src",
-    "build": "npm run clean && npm run rollup && npm run size",
-    "rollup": "../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.es.js",
-    "clean": "rm -rf dist/*",
-    "size": "size-limit",
     "size:why": "size-limit --why"
   },
   "files": [
@@ -18,8 +18,8 @@
     "README.md"
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.6.0",
-    "size-limit": "^4.6.0"
+    "@size-limit/preset-small-lib": "^4.10.2",
+    "size-limit": "^4.10.2"
   },
   "author": "Arthur Clemens <arthurclemens@gmail.com> (http://visiblearea.com)",
   "homepage": "https://github.com/ArthurClemens/cyano",

@@ -7,10 +7,10 @@
   "scripts": {
     "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u",
     "lint": "eslint ./src",
-    "build": "npm run clean && npm run rollup && npm run size",
-    "rollup": "../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.es.js",
-    "clean": "rm -rf dist/*",
-    "size": "size-limit",
+    "build": "node ../../node_modules/npm-run-all/bin/run-s/index.js build:*",
+    "build:clean": "rm -rf dist/*",
+    "build:rollup": "../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.es.js",
+    "build:size": "size-limit",
     "size:why": "size-limit --why"
   },
   "files": [
@@ -24,11 +24,11 @@
     "react-hyperscript": "^3.2.0"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.6.0",
-    "size-limit": "^4.6.0"
+    "@size-limit/preset-small-lib": "^4.10.2",
+    "size-limit": "^4.10.2"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
+    "react": "^17.0.2"
   },
   "size-limit": [
     {
