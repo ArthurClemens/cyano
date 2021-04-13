@@ -3,7 +3,7 @@
   "description": "Test Cyano with React",
   "private": true,
   "main": "dist/js/index",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "license": "MIT",
   "scripts": {
     "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u",
@@ -25,10 +25,10 @@
     "cypress:open": "../../node_modules/cypress/bin/cypress open"
   },
   "dependencies": {
-    "cyano-react": "^0.6.5",
+    "cyano-react": "^0.6.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "tests-cyano-shared": "^0.6.5"
+    "tests-cyano-shared": "^0.6.6"
   },
   "devDependencies": {
     "http-server": "^0.12.3",
