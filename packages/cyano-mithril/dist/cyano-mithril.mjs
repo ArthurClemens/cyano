@@ -1,5 +1,21 @@
 import m from 'mithril';
 
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -71,20 +87,8 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
@@ -131,13 +135,64 @@ function _arrayLikeToArray(arr, len) {
   return arr2;
 }
 
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
+
+/*! (c) 2020 Andrea Giammarchi */
+var $stringify = JSON.stringify;
+var Primitive = String; // it could be Number
+
+var primitive = 'string'; // it could be 'number'
+var object = 'object';
+
+var noop = function noop(_, value) {
+  return value;
+};
+
+var set = function set(known, input, value) {
+  var index = Primitive(input.push(value) - 1);
+  known.set(value, index);
+  return index;
+};
+var stringify = function stringify(value, replacer, space) {
+  var $ = replacer && _typeof(replacer) === object ? function (k, v) {
+    return k === '' || -1 < replacer.indexOf(k) ? v : void 0;
+  } : replacer || noop;
+  var known = new Map();
+  var input = [];
+  var output = [];
+  var i = +set(known, input, $.call({
+    '': value
+  }, '', value));
+  var firstRun = !i;
+
+  while (i < input.length) {
+    firstRun = true;
+    output[i] = $stringify(input[i++], replace, space);
+  }
+
+  return '[' + output.join(',') + ']';
+
+  function replace(key, value) {
+    if (firstRun) {
+      firstRun = !firstRun;
+      return value;
+    }
+
+    var after = $.call(this, key, value);
+
+    switch (_typeof(after)) {
+      case object:
+        if (after === null) return after;
+
+      case primitive:
+        return known.get(after) || set(known, input, after);
+    }
+
+    return after;
+  }
+};
 
 var currentState;
 var call = Function.prototype.call.bind(Function.prototype.call);
@@ -219,7 +274,7 @@ var updateState = function updateState(initialState, newValueFn) {
     var newValue = newValueFn ? newValueFn(value, index) : value;
     state.states[index] = newValue;
 
-    if (JSON.stringify(newValue) !== JSON.stringify(previousValue)) {
+    if (stringify(newValue) !== stringify(previousValue)) {
       scheduleRender(); // Calling redraw multiple times: Mithril will drop extraneous redraw calls, so performance should not be an issue
     }
   }, index];
@@ -349,7 +404,7 @@ var withHooks = function withHooks(renderFunction, initialAttrs) {
     currentState = vnode.state;
 
     try {
-      _toConsumableArray(vnode.state.teardowns.values()).forEach(call);
+      vnode.state.teardowns.forEach(call);
     } finally {
       currentState = prevState;
     }
