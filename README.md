@@ -1,6 +1,6 @@
 # Cyano
 
-Takes a base component and returns a Mithril or React component. This is useful if you want to support both libraries with a minimum of duplicate code.
+Takes a base component and returns a Mithril or React component. This is useful if you want to support both Mithril and React with a minimum of duplicate code.
 
 - [Online examples](#online-examples)
 - [Getting started](#getting-started)
