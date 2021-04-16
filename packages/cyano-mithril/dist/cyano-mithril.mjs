@@ -205,7 +205,8 @@ var scheduleRender = function scheduleRender() {
 
 var updateDeps = function updateDeps(deps) {
   var state = currentState;
-  var depsIndex = state.depsIndex++;
+  var depsIndex = state.depsIndex;
+  state.depsIndex += 1;
   var prevDeps = state.depsStates[depsIndex] || [];
   var shouldRecompute = deps === undefined ? true // Always compute
   : Array.isArray(deps) ? deps.length > 0 ? !deps.every(function (x, i) {
@@ -263,7 +264,8 @@ var effect = function effect() {
 
 var updateState = function updateState(initialState, newValueFn) {
   var state = currentState;
-  var index = state.statesIndex++;
+  var index = state.statesIndex;
+  state.statesIndex += 1;
 
   if (!state.setup) {
     state.states[index] = initialState;
@@ -293,7 +295,7 @@ var useState = function useState(initialState) {
 var useEffect = effect(true);
 var useLayoutEffect = effect();
 
-var useReducer = function useReducer(reducer, initialState, initFn) {
+function useReducer(reducer, initialState, initFn) {
   var state = currentState; // From the React docs: You can also create the initial state lazily. To do this, you can pass an init function as the third argument. The initial state will be set to init(initialValue).
 
   var initValue = !state.setup && initFn ? initFn(initialState) : initialState;
@@ -315,7 +317,7 @@ var useReducer = function useReducer(reducer, initialState, initFn) {
   };
 
   return getValueDispatch();
-};
+}
 
 var useRef = function useRef(initialValue) {
   // A ref is a persisted object that will not be updated, so it has no setter

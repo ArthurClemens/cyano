@@ -45,7 +45,7 @@
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "5.1.1",
     "tfilter": "^1.0.1",
-    "webpack": "^5.32.0",
+    "webpack": "^5.33.2",
     "webpack-bundle-analyzer": "^4.4.1",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2"
