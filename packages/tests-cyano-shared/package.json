@@ -8,6 +8,7 @@
     "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u"
   },
   "dependencies": {
+    "cyano": "^0.6.6",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1"
   }
