@@ -3,20 +3,25 @@
   "version": "0.6.6",
   "description": "Stub functions for cyano-mithril and cyano-react",
   "main": "dist/cyano",
-  "module": "dist/cyano.mjs",
+  "module": "dist/cyano.module.js",
   "scripts": {
-    "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u",
     "build": "node ../../node_modules/npm-run-all/bin/run-s/index.js build:*",
-    "build:clean": "rm -rf dist/*",
-    "build:rollup": "../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.es.js",
+    "build:clean": "rimraf dist/*",
+    "build:types": "../../node_modules/typescript/bin/tsc --p tsconfig.gen.json",
+    "build:module": "TYPESCRIPT=1 ENTRY=src/index.ts MODULE=1 MODULE_NAME=cyano ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.config.ts",
+    "build:umd": "TYPESCRIPT=1 ENTRY=src/index.ts MODULE=0 MODULE_NAME=cyano ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.config.ts",
+    "build:prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc.json --write \"./dist/*.{d.ts,module.js}\"",
     "build:size": "size-limit",
-    "lint": "eslint ./src",
-    "size:why": "size-limit --why"
+    "size:why": "size-limit --why",
+    "lint": "eslint --fix --ext .ts ./src",
+    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc.json --write \"./{src,scripts}/**/*.{js,jsx,ts,tsx,ejs}\"",
+    "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u"
   },
   "files": [
     "dist",
     "README.md"
   ],
+  "types": "dist",
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
     "size-limit": "^4.10.2"

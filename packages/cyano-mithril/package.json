@@ -3,28 +3,34 @@
   "version": "0.6.7",
   "description": "Takes a base component and returns a Mithril component",
   "main": "dist/cyano-mithril",
-  "module": "dist/cyano-mithril.mjs",
+  "module": "dist/cyano-mithril.module.js",
   "scripts": {
-    "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u",
     "build": "node ../../node_modules/npm-run-all/bin/run-s/index.js build:*",
-    "lint": "eslint ./src",
-    "build:clean": "rm -rf dist/*",
-    "build:rollup": "../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.umd.js && ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.es.js",
+    "build:clean": "rimraf dist/*",
+    "build:types": "../../node_modules/typescript/bin/tsc --p tsconfig.gen.json",
+    "build:module": "TYPESCRIPT=1 ENTRY=src/index.ts MODULE=1 MODULE_NAME=cyanoMithril ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.config.ts",
+    "build:umd": "TYPESCRIPT=1 ENTRY=src/index.ts MODULE=0 MODULE_NAME=cyanoMithril ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.config.ts",
+    "build:prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc.json --write \"./dist/*.{d.ts,module.js}\"",
     "build:size": "size-limit",
-    "size:why": "size-limit --why"
+    "size:why": "size-limit --why",
+    "lint": "eslint --fix --ext .ts ./src",
+    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc.json --write \"./{src,scripts}/**/*.{js,jsx,ts,tsx,ejs}\"",
+    "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u"
   },
   "files": [
     "dist",
     "README.md"
   ],
+  "types": "dist",
   "author": "Arthur Clemens <arthurclemens@gmail.com> (http://visiblearea.com)",
   "homepage": "https://github.com/ArthurClemens/cyano",
   "license": "MIT",
   "dependencies": {
-    "mithril-hooks": "^0.7.0"
+    "mithril-hooks": "^0.7.1"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
+    "@types/mithril": "2.0.7",
     "size-limit": "^4.10.2"
   },
   "peerDependencies": {
