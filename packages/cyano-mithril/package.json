@@ -21,7 +21,7 @@
   "homepage": "https://github.com/ArthurClemens/cyano",
   "license": "MIT",
   "dependencies": {
-    "mithril-hooks": "^0.7.0"
+    "mithril-hooks": "^0.7.1"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
