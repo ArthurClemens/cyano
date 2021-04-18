@@ -2,7 +2,7 @@
   "name": "tests-cyano-mithril",
   "private": true,
   "description": "Test Cyano with Mithril",
-  "version": "0.6.7",
+  "version": "0.6.8",
   "main": "dist/js/index",
   "module": "dist/js/index.module.js",
   "license": "MIT",
@@ -27,9 +27,9 @@
     "cypress:open": "../../node_modules/cypress/bin/cypress open"
   },
   "dependencies": {
-    "cyano-mithril": "^0.6.7",
+    "cyano-mithril": "^0.6.8",
     "mithril": "^2.0.4",
-    "tests-cyano-shared": "^0.6.6"
+    "tests-cyano-shared": "^0.6.8"
   },
   "devDependencies": {
     "http-server": "^0.12.3",

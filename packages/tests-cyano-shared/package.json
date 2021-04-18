@@ -2,13 +2,13 @@
   "name": "tests-cyano-shared",
   "description": "Shared test scripts",
   "private": true,
-  "version": "0.6.6",
+  "version": "0.6.8",
   "license": "MIT",
   "scripts": {
     "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u"
   },
   "dependencies": {
-    "cyano": "^0.6.6",
+    "cyano": "^0.6.8",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1"
   }
