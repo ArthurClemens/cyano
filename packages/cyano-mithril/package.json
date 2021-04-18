@@ -3,7 +3,7 @@
   "version": "0.6.7",
   "description": "Takes a base component and returns a Mithril component",
   "main": "dist/cyano-mithril",
-  "module": "dist/cyano-mithril.mjs",
+  "module": "dist/cyano-mithril.module.js",
   "scripts": {
     "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u",
     "build": "node ../../node_modules/npm-run-all/bin/run-s/index.js build:*",

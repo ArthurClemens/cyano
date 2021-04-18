@@ -131,15 +131,15 @@ For example:
 
 **Helper functions**
 
-| **Variable**      | **Description** | **API doc** |
-| ----------------- | --------------- | ----------- |
-| `cast`            | Takes a base component and returns a Mithril or React component. | [cast](#cast) | 
-| `h`               | The render function for hyperscript. | [h (render function)](#h-render-function) |
-| `h.trust`         | Function to insert HTML | [Inserting trusted content](#inserting-trusted-content) |
-| `h.fragment`      | Function to wrap elements in a fragment | [Inserting trusted content](#inserting-trusted-content) |
-| `getRef`          | Callback function that gets a reference to the DOM element. | [getRef](#getref) |
-| `a`               | Dictionary of accepted HTML attributes. | [a (Accepted HTML attributes)](#a-accepted-html-attributes) |
-| `jsx`             | Babel pragma, import this when writing JSX. | [jsx](#jsx) |
+| **Variable** | **Description**                                                  | **API doc**                                                 |
+| ------------ | ---------------------------------------------------------------- | ----------------------------------------------------------- |
+| `cast`       | Takes a base component and returns a Mithril or React component. | [cast](#cast)                                               |
+| `h`          | The render function for hyperscript.                             | [h (render function)](#h-render-function)                   |
+| `h.trust`    | Function to insert HTML                                          | [Inserting trusted content](#inserting-trusted-content)     |
+| `h.fragment` | Function to wrap elements in a fragment                          | [Inserting trusted content](#inserting-trusted-content)     |
+| `getRef`     | Callback function that gets a reference to the DOM element.      | [getRef](#getref)                                           |
+| `a`          | Dictionary of accepted HTML attributes.                          | [a (Accepted HTML attributes)](#a-accepted-html-attributes) |
+| `jsx`        | Babel pragma, import this when writing JSX.                      | [jsx](#jsx)                                                 |
 
 
 ### Using hooks
@@ -442,11 +442,11 @@ Takes a base component and returns a Mithril or React component.
 
 `cast(renderFunction, initialProps?) => Component`
 
-| **Argument**    | **Type**  | **Required** | **Description** |
-| --- | --- | --- | --- | 
-| `renderFunction` | Function component | Yes | The base/common/shared functional component to be converted for Mithril or React |
-| `initialProps`   | Object | No | Any variable to pass to `renderFunction`; see also [Passing or nesting components](#passing-or-nesting-components) | 
-| **Returns** | Component |||
+| **Argument**     | **Type**           | **Required** | **Description**                                                                                                    |
+| ---------------- | ------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `renderFunction` | Function component | Yes          | The base/common/shared functional component to be converted for Mithril or React                                   |
+| `initialProps`   | Object             | No           | Any variable to pass to `renderFunction`; see also [Passing or nesting components](#passing-or-nesting-components) |
+| **Returns**      | Component          |              |                                                                                                                    |
 
 The returned `Component` can be called as any component:
 
@@ -479,12 +479,12 @@ The render function for hyperscript.
 
 `h(selector, properties?, children?) => Element`
 
-| **Argument**    | **Type**  | **Required** | **Description** |
-| --- | --- | --- | --- | 
-| `selector` | `String|Object` | Yes | A CSS selector or a component |
-| `properties` | `Object` | No | HTML attributes or element properties |
-| `children` | `Array<Vnode|ReactElement>|String|Number|Boolean` | No | Child nodes |
-| **Returns** | `Vnode` (for Mithril); `ReactElement` for React |||
+| **Argument** | **Type**                                          | **Required** | **Description**                       |
+| ------------ | ------------------------------------------------- | ------------ | ------------------------------------- |
+| `selector`   | `String|Object`                                   | Yes          | A CSS selector or a component         |
+| `properties` | `Object`                                          | No           | HTML attributes or element properties |
+| `children`   | `Array<Vnode|ReactElement>|String|Number|Boolean` | No           | Child nodes                           |
+| **Returns**  | `Vnode` (for Mithril); `ReactElement` for React   |              |                                       |
 
 #### Inserting trusted content
 
@@ -508,11 +508,11 @@ For consistency, `cyano-mithril` function `h.trust` is enhanced with this second
 
 `h.trust(html, wrapper) => Element`
 
-| **Argument**    | **Type**  | **Required** | **Default** | **Description** |
-| --- | --- | --- | --- | --- | 
-| `html` | `String` | Yes | | A string containing HTML or SVG text. |
-| `wrapper` | Element tag name | No | `cyano-react`: "div"; `cyano-mithril`: undefined | Wrapper element |
-| **Returns** | `Vnode` (for Mithril); `ReactElement` for React |||
+| **Argument** | **Type**                                        | **Required** | **Default**                                      | **Description**                       |
+| ------------ | ----------------------------------------------- | ------------ | ------------------------------------------------ | ------------------------------------- |
+| `html`       | `String`                                        | Yes          |                                                  | A string containing HTML or SVG text. |
+| `wrapper`    | Element tag name                                | No           | `cyano-react`: "div"; `cyano-mithril`: undefined | Wrapper element                       |
+| **Returns**  | `Vnode` (for Mithril); `ReactElement` for React |              |                                                  |
 
 
 #### Wrapping fragments
@@ -533,11 +533,11 @@ Cyano's bridge function `h.fragment` is oblivious to either library, so you coul
 
 `h.fragment(properties?, children) => Element`
 
-| **Argument**    | **Type**  | **Required** | **Default** | **Description** |
-| --- | --- | --- | --- | --- | 
-| `properties` | `object` | No | | For cross-library code: only use `key` |
-| `children` | `Array<Vnode|ReactElement>|String|Number|Boolean` | No | Child nodes |
-| **Returns** | `Vnode` (for Mithril); `ReactElement` for React |||
+| **Argument** | **Type**                                          | **Required** | **Default** | **Description**                        |
+| ------------ | ------------------------------------------------- | ------------ | ----------- | -------------------------------------- |
+| `properties` | `object`                                          | No           |             | For cross-library code: only use `key` |
+| `children`   | `Array<Vnode|ReactElement>|String|Number|Boolean` | No           | Child nodes |
+| **Returns**  | `Vnode` (for Mithril); `ReactElement` for React   |              |             |
 
 
 
@@ -572,10 +572,10 @@ Callback function `getRef` gets a reference to the DOM element.
 
 `getRef(fn)`
 
-| **Argument** | **Type** | **Required** | **Description** |
-| --- | --- | --- | --- |
-| `fn` | `Function` | Yes | Function that receives the DOM reference. |
-| **Returns** | `function ref(dom) { /* use dom */}` |||
+| **Argument** | **Type**                             | **Required** | **Description**                           |
+| ------------ | ------------------------------------ | ------------ | ----------------------------------------- |
+| `fn`         | `Function`                           | Yes          | Function that receives the DOM reference. |
+| **Returns**  | `function ref(dom) { /* use dom */}` |              |                                           |
 
 `getRef` accepts a function that receives the DOM reference.
 
@@ -709,7 +709,7 @@ pathmodify({
   aliases: [
     {
       id: "cyano",
-      resolveTo: path.resolve(baseDir, "node_modules/cyano-mithril/dist/cyano-mithril.mjs"),
+      resolveTo: path.resolve(baseDir, "node_modules/cyano-mithril/dist/cyano-mithril.module.js"),
     },
   ]
 })
@@ -776,10 +776,10 @@ resolve: {
 ## Size
 
 * `cyano-mithril.js`:
-  * 2.88 KB with all dependencies, minified and gzipped
+  * 2.89 kB with all dependencies, minified and gzipped
   * Includes [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks)
 * `cyano-react.js`:
-  * 2.12 KB with all dependencies, minified and gzipped
+  * 2.12 kB with all dependencies, minified and gzipped
   * Includes [react-hyperscript](https://github.com/mlmorg/react-hyperscript)
 
 

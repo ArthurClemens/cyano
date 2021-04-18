@@ -1,13 +1,13 @@
 
 // examples
-import Toggle from "../examples/toggle";
+import Toggle from "../examples/Toggle";
 import CustomHooksUseReducer from "../examples/custom-hooks-reducer";
 import Chat from "../examples/chat";
 
 // Cypress tests
 import CustomHooks from "../cypress-tests/custom-hooks";
-import Trust from "../cypress-tests/trust";
-import Children from "../cypress-tests/children";
+import Trust from "../cypress-tests/Trust";
+import Children from "../cypress-tests/Children";
 import InitialProps from "../cypress-tests/initial-props";
 import ToggleJSX from "../cypress-tests/toggle-jsx";
 import GetRef from "../cypress-tests/getRef";

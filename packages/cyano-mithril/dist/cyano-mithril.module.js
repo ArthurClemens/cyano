@@ -383,7 +383,8 @@ var withHooks = function withHooks(renderFunction, initialAttrs) {
 
       currentState = prevState;
     }
-  };
+  }; // eslint-disable-next-line consistent-return
+
 
   var render = function render(vnode) {
     var prevState = currentState;

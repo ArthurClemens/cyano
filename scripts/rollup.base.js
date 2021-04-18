@@ -55,7 +55,7 @@ export const createConfig = () => {
         aliases: [
           {
             id: "cyano",
-            resolveTo: path.resolve(baseDir, `node_modules/${whichCyano}/dist/${whichCyano}.mjs`),
+            resolveTo: path.resolve(baseDir, `node_modules/${whichCyano}/dist/${whichCyano}.module.js`),
           },
         ]
       }),
