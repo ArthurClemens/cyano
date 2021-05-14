@@ -38,6 +38,7 @@ export default {
   download: "download",
   draggable: "draggable",
   enctype: "enctype",
+  for: "for",
   form: "form",
   formaction: "formaction",
   formenctype: "formenctype",
