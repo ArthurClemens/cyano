@@ -1,10 +1,18 @@
-import { cast } from 'cyano-mithril';
+import { Component } from 'cyano-mithril';
 import m from 'mithril';
-import { createApp } from 'tests-cyano-shared/app/createApp';
+import {
+  AppLayoutProps,
+  createApp,
+  SetContentProps,
+} from 'tests-cyano-shared/app';
 
 const mountNode = document.querySelector('#root');
 
-const setContent = ({ AppLayout, ...props }) => {
+type Props = {
+  AppLayout: Component<AppLayoutProps>;
+} & Omit<SetContentProps, 'AppLayout'>;
+
+const setContent = ({ AppLayout, ...props }: Props) => {
   if (mountNode) {
     m.mount(mountNode, {
       view: () => m(AppLayout, props),
@@ -14,5 +22,4 @@ const setContent = ({ AppLayout, ...props }) => {
 
 createApp({
   setContent,
-  cast,
 });

@@ -1,4 +1,4 @@
-import m, { Component, VnodeDOM } from 'mithril';
+import m, { VnodeDOM } from 'mithril';
 import {
   useCallback,
   useEffect,
@@ -56,6 +56,7 @@ export declare const a: {
   download: string;
   draggable: string;
   enctype: string;
+  for: string;
   form: string;
   formaction: string;
   formenctype: string;
@@ -158,60 +159,19 @@ export declare const a: {
   wmode: string;
   wrap: string;
 };
-export declare const h: {
-  displayName: string;
-  trust: (
-    html: string,
-    wrapper: Component,
-  ) => m.Vnode<any, any> | m.Vnode<{}, {}>;
-  route: m.Route;
-  mount: {
-    (element: Element, component: m.ComponentTypes<any, any>): void;
-    (element: Element, component: null): void;
-  };
-  render: (el: Element, vnodes: m.Children) => void;
-  redraw: m.Redraw;
-  request: {
-    <T>(
-      options: m.RequestOptions<T> & {
-        url: string;
-      },
-    ): Promise<T>;
-    <T_1>(
-      url: string,
-      options?: m.RequestOptions<T_1> | undefined,
-    ): Promise<T_1>;
-  };
-  jsonp: {
-    <T_2>(
-      options: m.JsonpOptions & {
-        url: string;
-      },
-    ): Promise<T_2>;
-    <T_3>(url: string, options?: m.JsonpOptions | undefined): Promise<T_3>;
-  };
-  parseQueryString(queryString: string): m.Params;
-  buildQueryString(values: m.Params): string;
-  parsePathname(
-    url: string,
-  ): {
-    path: string;
-    params: m.Params;
-  };
-  buildPathname(template: string, params?: m.Params | undefined): string;
-  fragment(
-    attrs: m.CommonAttributes<any, any> & {
-      [key: string]: any;
-    },
-    children: m.ChildArrayOrPrimitive,
-  ): m.Vnode<any, any>;
+export declare const h: m.Static & {
+  trust: (html: string, wrapper?: string) => m.Vnode<unknown, unknown>;
 };
+export declare type Children = m.Children;
+export declare type Component<Attrs = {}, State = {}> = m.Component<
+  Attrs,
+  State
+>;
 export declare const jsx: m.Static;
-export declare const getRef: (
-  fn: (dom: Element) => unknown,
-) => {
+export declare const getRef: (fn: (dom: Element) => unknown) => {
   oncreate: (vnode: VnodeDOM) => void;
 };
+export declare type ResultNode<T = unknown> = m.Vnode<T, unknown>;
 export declare const cast: <T = unknown>(
   renderFunction: (
     attrs: T & {
@@ -221,3 +181,4 @@ export declare const cast: <T = unknown>(
   ) => m.Children,
   initialAttrs?: T | undefined,
 ) => m.Component<T, import('mithril-hooks/dist/types/MithrilHooks').State>;
+export declare type Cast = typeof cast;

@@ -1,4 +1,4 @@
-import m, { Component, VnodeDOM } from "mithril";
+import m, { VnodeDOM } from 'mithril';
 import {
   useCallback,
   useEffect,
@@ -8,9 +8,9 @@ import {
   useRef,
   useState,
   withHooks,
-} from "mithril-hooks";
+} from 'mithril-hooks';
 
-import htmlAttributes from "./htmlAttributes";
+import htmlAttributes from './htmlAttributes';
 
 export {
   useCallback,
@@ -24,12 +24,17 @@ export {
 
 export const a = htmlAttributes;
 
-export const h = {
-  ...m,
-  displayName: "mithril",
-  trust: (html: string, wrapper: Component) =>
-    wrapper ? m(wrapper, m.trust(html)) : m.trust(html),
-};
+export const h: m.Static & {
+  trust: (html: string, wrapper?: string) => m.Vnode<unknown, unknown>;
+} = m;
+
+const { trust } = m;
+
+h.trust = (html: string, wrapper?: string) =>
+  wrapper ? h(wrapper, trust(html)) : trust(html);
+
+export type Children = m.Children;
+export type Component<Attrs = {}, State = {}> = m.Component<Attrs, State>;
 
 export const jsx = m;
 
@@ -39,4 +44,8 @@ export const getRef = (fn: (dom: Element) => unknown) => ({
   },
 });
 
+export type ResultNode<T = unknown> = m.Vnode<T, unknown>;
+
 export const cast = withHooks;
+
+export type Cast = typeof cast;

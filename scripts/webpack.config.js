@@ -4,6 +4,7 @@ const WebpackModules = require('webpack-modules');
 
 const baseDir = process.cwd();
 const { env } = process; // eslint-disable-line no-undef
+const whichCyano = env.CYANO;
 
 module.exports = {
   context: path.resolve(baseDir, './src'),
@@ -21,8 +22,11 @@ module.exports = {
     // Make sure that libs are included only once
     alias: {
       mithril$: path.resolve(baseDir, 'node_modules/mithril/mithril.js'), // Note the exact match
+      // Resolve "cyano" to the proper lib
+      cyano: path.resolve(baseDir, `node_modules/${whichCyano}`),
+      react: path.resolve(baseDir, `node_modules/react`),
     },
-    extensions: ['.mjs', '.js', '.ts'],
+    extensions: ['.mjs', '.js', '.ts', '.tsx'],
   },
 
   module: {

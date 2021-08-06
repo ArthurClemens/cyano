@@ -1,6 +1,7 @@
 import {
   a,
   cast,
+  Component,
   getRef,
   h,
   useEffect,
@@ -9,8 +10,10 @@ import {
   useState,
 } from 'cyano';
 
-const useArray = (initialValue = []) => {
-  const [arr, setArr] = useState(initialValue);
+const useArray = <T>(
+  initialValue: T[] = [],
+): [arr: T[], add: (item: T) => void, remove: (item: T) => void] => {
+  const [arr, setArr] = useState<T[]>(initialValue);
   return [
     arr,
     add => setArr(arr.concat(add)),
@@ -18,14 +21,26 @@ const useArray = (initialValue = []) => {
   ];
 };
 
-const useCounter = () => {
+type CounterData = {
+  id: number;
+  initialCount: number;
+};
+
+const useCounter = (): [
+  arr: CounterData[],
+  add: () => void,
+  remove: (item: CounterData) => void,
+] => {
   // A custom hook that uses another custom hook.
-  const createNewCounter = () => ({
-    id: new Date().getTime(),
-    initialCount: Math.round(Math.random() * 10),
-  });
+  const createNewCounter = () =>
+    ({
+      id: new Date().getTime(),
+      initialCount: Math.round(Math.random() * 10),
+    } as CounterData);
   const firstCounter = createNewCounter();
-  const [counters, addCounter, removeCounter] = useArray([firstCounter]);
+  const [counters, addCounter, removeCounter] = useArray<CounterData>([
+    firstCounter,
+  ]);
   return [
     counters,
     () => addCounter(createNewCounter()),
@@ -33,33 +48,52 @@ const useCounter = () => {
   ];
 };
 
-const counterReducer = (state, action) => {
+type TState = {
+  count: number;
+};
+
+type TAction = {
+  type: string;
+};
+
+const counterReducer = (state: TState, action: TAction) => {
   switch (action.type) {
     case 'increment':
       return { count: state.count + 1 };
     case 'decrement':
       return { count: state.count - 1 };
     default:
-      throw new Error('Unhandled action:', action);
+      throw new Error(`Unhandled action: ${action}`);
   }
 };
 
-const _Counter = ({ id, initialCount, removeCounter }) => {
+type CounterProps = {
+  id: number;
+  initialCount: number;
+  removeCounter: (item: number) => void;
+};
+
+const _Counter = ({ id, initialCount, removeCounter }: CounterProps) => {
   const [countState, dispatch] = useReducer(counterReducer, {
     count: initialCount,
   });
   const { count } = countState;
 
   const [inited, setInited] = useState(false);
-  const domRef = useRef();
+  const domRef = useRef<Element>();
 
   const remove = () => {
-    const removeOnTransitionEnd = () => (
-      removeCounter(id),
-      domRef.current.removeEventListener('transitionend', removeOnTransitionEnd)
-    );
-    domRef.current.addEventListener('transitionend', removeOnTransitionEnd);
-    domRef.current.classList.remove('active');
+    const removeOnTransitionEnd = () => {
+      removeCounter(id);
+      domRef.current?.removeEventListener(
+        'transitionend',
+        removeOnTransitionEnd,
+      );
+    };
+    if (domRef.current) {
+      domRef.current.addEventListener('transitionend', removeOnTransitionEnd);
+      domRef.current.classList.remove('active');
+    }
   };
 
   useEffect(
@@ -141,9 +175,13 @@ const _Counter = ({ id, initialCount, removeCounter }) => {
   );
 };
 
-const _CounterController = ({ Counter }) => {
+type CounterControllerProps = {
+  Counter: Component<CounterProps>;
+};
+
+const _CounterController = ({ Counter }: CounterControllerProps) => {
   const [counters, addCounter, removeCounter] = useCounter();
-  return [
+  return h.fragment({}, [
     h(
       'div',
       {
@@ -188,7 +226,7 @@ const _CounterController = ({ Counter }) => {
         }),
       ),
     ),
-  ];
+  ]);
 };
 
 const Counter = cast(_Counter);

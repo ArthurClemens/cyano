@@ -1,6 +1,5 @@
-/* global process */
 const path = require('path');
-const config = require('./webpack.config.js');
+const config = require('./webpack.config');
 
 const baseDir = process.cwd();
 

@@ -1,26 +1,33 @@
-import { cast, h } from "cyano";
+import { cast, Component, h } from 'cyano';
 
-const _InitialProps = ({ title, defaultTitle }) => {
-  return h("div",
-    {
-      "data-test-id": "InitialProps"
-    },
-    [
-      h("h2", null, title || defaultTitle),
-      // h("h2", defaultTitle),
-    ]
-  );
+type Props = {
+  title?: string;
+  defaultTitle?: string;
 };
 
-const _Wrapper = ({ title, InitialProps }) => 
-  h("div",
-    null,
-    h(InitialProps,
-      { title }
-    )
+const _InitialProps = ({ title, defaultTitle }: Props) =>
+  h(
+    'div',
+    {
+      'data-test-id': 'InitialProps',
+    },
+    [
+      h('h2', null, title || defaultTitle),
+      // h("h2", defaultTitle),
+    ],
   );
 
-const InitialProps = cast(_InitialProps, { defaultTitle: "default title" });
-const Wrapper = cast(_Wrapper, { title: "Hello", InitialProps });
+type WrapperProps = {
+  title: string;
+  InitialProps: Component<Props>;
+};
+
+const _Wrapper = ({ title, InitialProps }: WrapperProps) =>
+  h('div', null, h(InitialProps, { title }));
+
+const InitialProps = cast<Props>(_InitialProps, {
+  defaultTitle: 'default title',
+});
+const Wrapper = cast<WrapperProps>(_Wrapper, { title: 'Hello', InitialProps });
 
 export default Wrapper;

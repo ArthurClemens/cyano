@@ -28,5 +28,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": false
-  }
+  },
+  "typescript.tsdk": "frontend/node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "project-relative"
 }

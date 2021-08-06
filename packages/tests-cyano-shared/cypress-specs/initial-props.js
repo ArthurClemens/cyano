@@ -1,13 +1,11 @@
 /* global cy, describe, before, it */
 
-describe("Initial props", () => {
-
+describe('Initial props', () => {
   before(() => {
-    cy.visit("/TestInitialProps");
+    cy.visit('/TestInitialProps');
   });
 
-  it("should render initial props", () => {
-    cy.get("[data-test-id=InitialProps]").should("contain", "Hello");
+  it('should render initial props', () => {
+    cy.get('[data-test-id=InitialProps]').should('contain', 'Hello');
   });
-
 });

@@ -21,7 +21,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'simple-import-sort'],
+  plugins: ['react', '@typescript-eslint', 'simple-import-sort', 'prettier'],
   settings: {
     'import/resolver': {
       typescript: {},
@@ -51,7 +51,6 @@ module.exports = {
         packageDir: ['.', __dirname],
       },
     ],
-    quotes: [ERROR, 'single'],
 
     // Sorting rules
     'sort-imports': OFF,

@@ -1,35 +1,40 @@
-import { cast, h, getRef, useRef, useState } from "cyano";
+import { cast, getRef, h, useRef, useState } from 'cyano';
 
 const _GetRef = () => {
-  const domRef = useRef();
+  const domRef = useRef<Element>();
   const [render, forceRerender] = useState(0);
 
-  return h("div",
+  return h(
+    'div',
     {
-      "data-test-id": "DomElementRef"
+      'data-test-id': 'DomElementRef',
     },
     [
-      h("span", "Element to get a reference of: "),
-      h("span", 
+      h('span', 'Element to get a reference of: '),
+      h(
+        'span',
         {
           ...getRef(dom => {
             const shouldRerender = !domRef.current;
             domRef.current = domRef.current || dom;
-            shouldRerender && forceRerender(render + 1);
-          })
+            if (shouldRerender) {
+              forceRerender(render + 1);
+            }
+          }),
         },
-        "QWERTY"
+        'QWERTY',
       ),
-      h("p", [
-        h("span", "DOM element textContent: "),
-        h("span",
+      h('p', [
+        h('span', 'DOM element textContent: '),
+        h(
+          'span',
           {
-            "data-test-id": "textContent"
+            'data-test-id': 'textContent',
           },
-          domRef.current && domRef.current.textContent
-        )
-      ])
-    ]
+          domRef.current && domRef.current.textContent,
+        ),
+      ]),
+    ],
   );
 };
 

@@ -50,6 +50,7 @@ var htmlAttributes = {
   download: 'download',
   draggable: 'draggable',
   enctype: 'enctype',
+  for: 'for',
   form: 'form',
   formaction: 'formaction',
   formenctype: 'formenctype',
@@ -154,12 +155,9 @@ var htmlAttributes = {
 };
 
 const a = htmlAttributes;
-const h = {
-  ...m,
-  displayName: 'mithril',
-  trust: (html, wrapper) =>
-    wrapper ? m(wrapper, m.trust(html)) : m.trust(html),
-};
+const h = m;
+const { trust } = m;
+h.trust = (html, wrapper) => (wrapper ? h(wrapper, trust(html)) : trust(html));
 const jsx = m;
 const getRef = fn => ({
   oncreate: vnode => {

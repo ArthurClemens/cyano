@@ -1,22 +1,28 @@
-import { cast, h } from "cyano";
+import { cast, Children, h, ResultNode } from 'cyano';
 
-const _Layout = ({ navigation, children }) => (
-  h("div",
+export type LayoutProps = {
+  navigation: ResultNode;
+  children?: Children;
+};
+
+const _Layout = ({ navigation, children }: LayoutProps) =>
+  h(
+    'div',
     {
-      className: "layout"
+      className: 'layout',
     },
     [
       navigation,
-      h("div",
+      h(
+        'div',
         {
           // key: "component",
-          className: "component"
+          className: 'component',
         },
-        children
-      )
-    ]
-  )
-);
+        children,
+      ),
+    ],
+  );
 
 const Layout = cast(_Layout);
 

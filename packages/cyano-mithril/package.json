@@ -1,6 +1,6 @@
 {
   "name": "cyano-mithril",
-  "version": "0.6.7",
+  "version": "0.6.8",
   "description": "Takes a base component and returns a Mithril component",
   "main": "dist/cyano-mithril",
   "module": "dist/cyano-mithril.module.js",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
-    "@types/mithril": "2.0.7",
+    "@types/mithril": "^2.0.7",
     "size-limit": "^4.10.2"
   },
   "peerDependencies": {

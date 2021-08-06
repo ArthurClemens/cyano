@@ -1,22 +1,43 @@
-import { cast, h } from "cyano";
+import { cast, Component, h } from 'cyano';
+import { State } from 'router5';
 
-const _AppLayout = ({ Layout, Navigation, route, router, content, examples, tests }) => (
-  h(Layout,
+import { LayoutProps } from './Layout';
+import { NavigationProps } from './Navigation';
+import { AppRouter, RouteData } from './types';
+
+export type AppLayoutProps = {
+  Layout: Component<LayoutProps>;
+  Navigation: Component<NavigationProps>;
+  router: AppRouter;
+  route: State;
+  content: Component;
+  examples: RouteData[];
+  tests: RouteData[];
+};
+
+const _AppLayout = ({
+  Layout,
+  Navigation,
+  route,
+  router,
+  content,
+  examples,
+  tests,
+}: AppLayoutProps) =>
+  h(
+    Layout,
     {
-      route,
-      router,
       navigation: h(Navigation, {
         router,
         currentPath: route.path,
         parts: [
-          ["Examples", examples],
-          ["Cypress tests", tests]
-        ]
-      })
+          ['Examples', examples],
+          ['Cypress tests', tests],
+        ],
+      }),
     },
-    h(content)
-  )
-);
+    h(content),
+  );
 
 const AppLayout = cast(_AppLayout);
 

@@ -1,18 +1,14 @@
-/* global process */
-const config = require('./webpack.config.js');
+const config = require('./webpack.config');
 const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const env = process.env;
+const { env } = process;
 
 config.mode = 'production';
 
 config.optimization = {
-  minimizer: [
-    new TerserPlugin(),
-  ],
+  minimizer: [new TerserPlugin()],
 };
 
 config.plugins.push(new CompressionPlugin());

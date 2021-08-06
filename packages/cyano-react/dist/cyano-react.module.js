@@ -1,5 +1,5 @@
 import { jsx as jsx$1 } from 'react/jsx-runtime';
-import React, { Fragment, forwardRef } from 'react';
+import { Fragment, createElement, forwardRef } from 'react';
 export {
   useCallback,
   useEffect,
@@ -50,6 +50,7 @@ var htmlAttributes = {
   download: 'download',
   draggable: 'draggable',
   enctype: 'encType',
+  for: 'htmlFor',
   form: 'form',
   formaction: 'formAction',
   formenctype: 'formEncType',
@@ -154,27 +155,27 @@ var htmlAttributes = {
 };
 
 const a = htmlAttributes;
-const h = {
-  ...renderer,
+const h = Object.assign(renderer, {
   trust: (html, wrapper = '') =>
     renderer(wrapper, {
       dangerouslySetInnerHTML: { __html: html },
     }),
-  fragment: (props, children) =>
+  fragment: (props = {}, children = []) =>
     jsx$1(Fragment, Object.assign({}, props, { children: children }), void 0),
   displayName: 'react',
-};
-const jsx = React.createElement;
+});
+const jsx = createElement;
 const getRef = fn => ({
   ref: dom => fn(dom),
 });
-const cast = (component, initialProps = {}) =>
-  forwardRef((props = {}, ref) =>
+function cast(component, initialProps = {}) {
+  return forwardRef((props, ref) =>
     component({
       ...initialProps,
       ...props,
       ref,
     }),
   );
+}
 
 export { a, cast, getRef, h, jsx };

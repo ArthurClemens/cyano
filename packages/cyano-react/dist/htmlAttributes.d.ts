@@ -37,6 +37,7 @@ declare const _default: {
   download: string;
   draggable: string;
   enctype: string;
+  for: string;
   form: string;
   formaction: string;
   formenctype: string;

@@ -1,93 +1,113 @@
-import { cast, h, a, getRef, useState } from "cyano";
+import { a, cast, Component, getRef, h, useState } from 'cyano';
 
-const _Input = props => {
-  const [domElement, setDomElement] = useState();
-  const [value, setValue] = useState("some input");
+type InputProps = {
+  setRef: (dom: Element) => void;
+};
 
-  return h("div",
+const _Input = ({ setRef }: InputProps) => {
+  const [domElement, setDomElement] = useState<Element>();
+  const [value, setValue] = useState('some input');
+
+  return h(
+    'div',
     {
-      "data-test-id": "component-input"
+      'data-test-id': 'component-input',
     },
     [
-      h("input",
-        {
-          key: "input",
-          "data-test-id": "input",
-          value,
-          [a.onchange]: e => setValue(e.target.value),
-          [a.oninput]: e => setValue(e.target.value),
-          ...getRef(dom => dom && !domElement && (
-            setDomElement(dom),
-            // pass back to parent
-            props.ref && props.ref(dom)
-          )),
+      h('input', {
+        key: 'input',
+        'data-test-id': 'input',
+        value,
+        [a.onchange]: (e: InputEvent) =>
+          setValue((e.target as HTMLInputElement).value),
+        [a.oninput]: (e: InputEvent) =>
+          setValue((e.target as HTMLInputElement).value),
+        ...getRef((dom: Element) => {
+          if (dom && !domElement) {
+            setDomElement(dom);
+            if (setRef) {
+              // pass back to parent
+              setRef(dom);
+            }
+          }
         }),
-      h("p",
+      }),
+      h(
+        'p',
         {
-          key: "label",
-          "data-test-id": "feedback",
+          key: 'label',
+          'data-test-id': 'feedback',
         },
-        value
+        value,
       ),
-      h("p",
+      h(
+        'p',
         {
-          key: "feedback",
+          key: 'feedback',
         },
         [
-          h("span",
+          h(
+            'span',
             {
-              key: "label",
+              key: 'label',
             },
-            "input ref: "
+            'input ref: ',
           ),
-          h("span",
+          h(
+            'span',
             {
-              key: "domElement",
-              "data-test-id": "domElement",
+              key: 'domElement',
+              'data-test-id': 'domElement',
             },
-            domElement && domElement.getAttribute("data-test-id")
-          )
-        ]
+            domElement && domElement.getAttribute('data-test-id'),
+          ),
+        ],
       ),
-    ]
+    ],
   );
 };
 
-const _ForwardRef = ({ Input }) => {
-  const [domElement, setDomElement] = useState();
+type ForwardRefProps = {
+  Input: Component<InputProps>;
+};
 
-  return h("div",
+const _ForwardRef = ({ Input }: ForwardRefProps) => {
+  const [domElement, setDomElement] = useState<Element>();
+
+  return h(
+    'div',
     {
-      "data-test-id": "component-parent"
+      'data-test-id': 'component-parent',
     },
     [
       h(Input, {
-        key: "parent",
-        ref: dom => (
-          setDomElement(dom)
-        ),
+        key: 'parent',
+        setRef: (dom: Element) => setDomElement(dom),
       }),
-      h("p",
+      h(
+        'p',
         {
-          key: "feedback",
+          key: 'feedback',
         },
         [
-          h("span",
+          h(
+            'span',
             {
-              key: "label",
+              key: 'label',
             },
-            "Parent ref: "
+            'Parent ref: ',
           ),
-          h("span",
+          h(
+            'span',
             {
-              key: "domElement",
-              "data-test-id": "domElement",
+              key: 'domElement',
+              'data-test-id': 'domElement',
             },
-            domElement && domElement.getAttribute("data-test-id")
-          )
-        ]
+            domElement && domElement.getAttribute('data-test-id'),
+          ),
+        ],
       ),
-    ]
+    ],
   );
 };
 

@@ -1,2 +1,2 @@
-!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?t(exports):"function"==typeof define&&define.amd?define(["exports"],t):t((e="undefined"!=typeof globalThis?globalThis:e||self).cyano={})}(this,(function(e){"use strict";const t=()=>{},s=t,o=t,f=t,u=t,n=t,a=t,c=t,i={trust:t,displayName:"cyano"},d=t,l=t,p=t;e.a={},e.cast=p,e.getRef=l,e.h=i,e.jsx=d,e.useCallback=c,e.useEffect=o,e.useLayoutEffect=f,e.useMemo=a,e.useReducer=u,e.useRef=n,e.useState=s,Object.defineProperty(e,"__esModule",{value:!0})}));
+!function(n){"function"==typeof define&&define.amd?define(n):n()}((function(){}));
 //# sourceMappingURL=cyano.js.map

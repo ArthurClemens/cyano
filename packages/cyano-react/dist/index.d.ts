@@ -1,5 +1,8 @@
-import React, {
+import {
+  createElement,
+  ForwardedRef,
   FunctionComponent,
+  ReactElement,
   ReactNode,
   useCallback,
   useEffect,
@@ -57,6 +60,7 @@ export declare const a: {
   download: string;
   draggable: string;
   enctype: string;
+  for: string;
   form: string;
   formaction: string;
   formenctype: string;
@@ -159,30 +163,50 @@ export declare const a: {
   wmode: string;
   wrap: string;
 };
-export declare const h: {
+declare type RenderElement = ReactElement | string | number | null;
+export declare type Children = ReactNode | ReactNode[];
+declare function renderFunction(
+  children?: Children | ReadonlyArray<RenderElement> | RenderElement,
+): ReactElement;
+declare function renderFunction<P = unknown>(
+  componentOrTag: FunctionComponent<P> | string,
+  children?: Children | ReadonlyArray<RenderElement> | RenderElement,
+): ReactElement;
+declare function renderFunction<P = unknown>(
+  componentOrTag: FunctionComponent<P> | string,
+  properties: P | null,
+  children?: Children | ReadonlyArray<RenderElement> | RenderElement,
+): ReactElement<P>;
+declare type FragmentProps = {
+  [key: string]: string | number;
+};
+declare type HyperScript = typeof renderFunction & {
   trust: (
     html: string,
     wrapper?: string,
-  ) => React.ReactElement<
-    {
-      dangerouslySetInnerHTML: {
-        __html: string;
-      };
-    },
-    string | React.JSXElementConstructor<any>
-  >;
-  fragment: (props: unknown, children: ReactNode) => JSX.Element;
+  ) => ReactElement<{
+    dangerouslySetInnerHTML: {
+      __html: string;
+    };
+  }>;
+  fragment: (props?: FragmentProps, children?: ReactNode) => JSX.Element;
   displayName: string;
 };
-export declare const jsx: typeof React.createElement;
-export declare const getRef: (
-  fn: (dom: Element) => unknown,
-) => {
+export declare const h: HyperScript;
+export declare type Component<Props = unknown> = FunctionComponent<Props>;
+export declare const jsx: typeof createElement;
+export declare const getRef: (fn: (dom: Element) => unknown) => {
   ref: (dom: Element) => unknown;
 };
-export declare const cast: <T>(
-  component: React.FunctionComponent<{
-    ref: React.ForwardedRef<T>;
-  }>,
-  initialProps?: object,
-) => React.ForwardRefExoticComponent<React.RefAttributes<T>>;
+export declare function cast<Props = unknown, TRef = unknown>(
+  component: FunctionComponent<
+    Props & {
+      ref: ForwardedRef<TRef>;
+    }
+  >,
+  initialProps?: Partial<Props>,
+): import('react').ForwardRefExoticComponent<
+  import('react').PropsWithoutRef<Props> & import('react').RefAttributes<TRef>
+>;
+export declare type Cast = typeof cast;
+export declare type ResultNode = ReactElement;

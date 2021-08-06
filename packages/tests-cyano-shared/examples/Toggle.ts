@@ -1,6 +1,6 @@
 import { a, cast, h, useState } from 'cyano';
 
-const _Toggle = () => {
+export default cast(() => {
   const [clicked, setClicked] = useState(false);
   return h(
     'div',
@@ -25,6 +25,4 @@ const _Toggle = () => {
       ),
     ],
   );
-};
-
-export default cast(_Toggle);
+});
