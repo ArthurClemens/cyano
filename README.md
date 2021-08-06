@@ -2,46 +2,47 @@
 
 Takes a base component and returns a Mithril or React component. This is useful if you want to support both Mithril and React with a minimum of duplicate code.
 
-- [Online examples](#online-examples)
-- [Getting started](#getting-started)
-  - [Install](#install)
-  - [Import](#import)
-    - [Writing applications](#writing-applications)
-    - [Writing libraries](#writing-libraries)
-- [Usage](#usage)
-  - [Write a single codebase, deploy twice](#write-a-single-codebase-deploy-twice)
-  - [Shared language](#shared-language)
-  - [Using hooks](#using-hooks)
-    - [Supported hooks](#supported-hooks)
-    - [Custom hooks](#custom-hooks)
-  - [Importing options](#importing-options)
-    - [Import for applications (aliasing "cyano")](#import-for-applications-aliasing-cyano)
-      - [Configuring](#configuring)
-      - [Code example](#code-example)
-      - [Passing or nesting components](#passing-or-nesting-components)
-    - [Import for libraries (passing Cyano methods)](#import-for-libraries-passing-cyano-methods)
-  - [Solving issues](#solving-issues)
-    - [Issues with keys](#issues-with-keys)
-- [API](#api)
-  - [cast](#cast)
-  - [h (render function)](#h-render-function)
-    - [Inserting trusted content](#inserting-trusted-content)
-    - [Wrapping fragments](#wrapping-fragments)
-  - [a (HTML attributes)](#a-html-attributes)
-  - [getRef](#getref)
-  - [Children](#children)
-  - [jsx](#jsx)
-- [Additional setup when aliasing "cyano"](#additional-setup-when-aliasing-cyano)
-  - [Bundler configuration](#bundler-configuration)
-    - [Configuring Webpack](#configuring-webpack)
-    - [Configuring Rollup](#configuring-rollup)
-    - [Configuring Browserify](#configuring-browserify)
-  - [Configuring JSX](#configuring-jsx)
-  - [React and Webpack](#react-and-webpack)
-- [Compatibility](#compatibility)
-- [Size](#size)
-- [Supported browsers](#supported-browsers)
-- [License](#license)
+- [Cyano](#cyano)
+  - [Online examples](#online-examples)
+  - [Getting started](#getting-started)
+    - [Install](#install)
+    - [Import](#import)
+      - [Writing applications](#writing-applications)
+      - [Writing libraries](#writing-libraries)
+  - [Usage](#usage)
+    - [Write a single codebase, deploy twice](#write-a-single-codebase-deploy-twice)
+    - [Shared language](#shared-language)
+    - [Using hooks](#using-hooks)
+      - [Supported hooks](#supported-hooks)
+      - [Custom hooks](#custom-hooks)
+    - [Importing options](#importing-options)
+      - [Import for applications (aliasing "cyano")](#import-for-applications-aliasing-cyano)
+        - [Configuring](#configuring)
+        - [Code example](#code-example)
+        - [Passing or nesting components](#passing-or-nesting-components)
+      - [Import for libraries (passing Cyano methods)](#import-for-libraries-passing-cyano-methods)
+    - [Solving issues](#solving-issues)
+      - [Issues with keys](#issues-with-keys)
+  - [API](#api)
+    - [cast](#cast)
+    - [h (render function)](#h-render-function)
+      - [Inserting trusted content](#inserting-trusted-content)
+      - [Wrapping fragments](#wrapping-fragments)
+    - [a (HTML attributes)](#a-html-attributes)
+    - [getRef](#getref)
+    - [Children](#children)
+    - [jsx](#jsx)
+  - [Additional setup when aliasing "cyano"](#additional-setup-when-aliasing-cyano)
+    - [Bundler configuration](#bundler-configuration)
+      - [Configuring Webpack](#configuring-webpack)
+      - [Configuring Rollup](#configuring-rollup)
+      - [Configuring Browserify](#configuring-browserify)
+    - [Configuring JSX](#configuring-jsx)
+    - [React and Webpack](#react-and-webpack)
+  - [Compatibility](#compatibility)
+  - [Size](#size)
+  - [Supported browsers](#supported-browsers)
+  - [License](#license)
 
 
 ## Online examples
@@ -590,7 +591,10 @@ const _Component = () => {
   return (
     h("div", 
       {
-        ...getRef(dom => domRef.current = domRef.current || dom) // React will call this each render
+        ...getRef(dom => {
+          // React will call this each render
+          domRef.current = domRef.current || dom; 
+        }) 
       },
       "My component"
     )
@@ -609,11 +613,15 @@ When `getRef` is passed to a component, the component props will contain the fun
 
 h("input",
   {
-    ...getRef(dom => dom && !domElement && (
-      setDomElement(dom),
-      // pass back to parent
-      props.ref && props.ref(dom)
-    ))
+    ...getRef((dom: Element) => {
+      if (dom && !domElement) {
+        setDomElement(dom);
+        if (props.ref) {
+          // pass back to parent
+          props.ref(dom);
+        }
+      }
+    }),
   }
 )
  
