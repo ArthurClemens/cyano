@@ -49,8 +49,10 @@ Takes a base component and returns a Mithril or React component. This is useful 
 
 * Simple toggle
   * [Mithril](https://codesandbox.io/s/cyano-mithril-simple-toggle-pj801)
-  * [React](https://codesandbox.io/s/cyano-react-simple-counter-66n7c)
-
+  * [React](https://codesandbox.io/s/cyano-react-simple-toggle-66n7c)
+* Custom hooks reducer:
+  * [Mithril](https://codesandbox.io/s/cyano-mithril-custom-hooks-reducer-8phgg)
+  * [React](https://codesandbox.io/s/cyano-react-custom-hooks-reducer-x6pn3)
 
 ## Getting started
 
