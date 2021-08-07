@@ -11,6 +11,7 @@ const _Toggle = ({ title }: Props) => {
     h(
       'div',
       {
+        key: 'label',
         className: `button ${clicked ? 'is-info' : ''}`,
         [a.onclick]: () => setClicked(!clicked),
       },

@@ -785,8 +785,10 @@ resolve: {
 
 * `cyano-mithril.js`:
   * 2.27 kB with all dependencies, minified and gzipped
+  * Includes [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks)
 * `cyano-react.js`:
-  * 1.91 kB with all dependencies, minified and gzipped
+  * 1.91 KB with all dependencies, minified and gzipped
+  * Includes [react-hyperscript](https://github.com/mlmorg/react-hyperscript)
 
 
 ## Supported browsers
