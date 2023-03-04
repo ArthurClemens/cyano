@@ -1,5 +1,3 @@
-/* global cy, describe, before, it */
-
 describe('Fragment', () => {
   before(() => {
     cy.visit('/Fragment');

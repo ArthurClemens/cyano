@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { a, cast, h, useState } from 'cyano';
 
 type Props = {

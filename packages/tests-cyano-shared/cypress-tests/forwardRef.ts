@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { a, cast, Component, getRef, h, useState } from 'cyano';
 
 type InputProps = {

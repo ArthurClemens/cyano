@@ -1,4 +1,4 @@
-import {
+import React, {
   createElement,
   ForwardedRef,
   forwardRef,
@@ -13,7 +13,6 @@ import {
   useReducer,
   useRef,
   useState,
-  // eslint-disable-next-line import/no-unresolved
 } from 'react';
 import renderer from 'react-hyperscript';
 
@@ -37,12 +36,10 @@ export type Children = ReactNode | ReactNode[];
 declare function renderFunction(
   children?: Children | ReadonlyArray<RenderElement> | RenderElement,
 ): ReactElement;
-
 declare function renderFunction<P = unknown>(
   componentOrTag: FunctionComponent<P> | string,
   children?: Children | ReadonlyArray<RenderElement> | RenderElement,
 ): ReactElement;
-
 declare function renderFunction<P = unknown>(
   componentOrTag: FunctionComponent<P> | string,
   properties: P | null,
@@ -73,8 +70,9 @@ export const h: HyperScript = Object.assign(renderer as typeof renderFunction, {
   ): ReactElement =>
     renderer(wrapper, {
       dangerouslySetInnerHTML: { __html: html },
-    }),
+    } as any),
   fragment: (props: FragmentProps = {}, children: ReactNode = []) => (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <Fragment {...props}>{children}</Fragment>
   ),
   displayName: 'react',

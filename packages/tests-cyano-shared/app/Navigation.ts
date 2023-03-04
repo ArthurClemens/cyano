@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { a, cast, h } from 'cyano';
 
 import { AppRouter, RouteData } from './types';

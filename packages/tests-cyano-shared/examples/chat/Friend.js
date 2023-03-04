@@ -1,26 +1,27 @@
-import { cast, h } from "cyano";
-import FriendStatus from "./FriendStatus";
+// eslint-disable-next-line import/no-unresolved
+import { cast, h } from 'cyano';
 
-const _Friend = ({ friend, hasChatApi }) => {
-  return h("div", { className: "friend" }, [
-    h("div", {
-      className: "avatar",
+import FriendStatus from './FriendStatus';
+
+const _Friend = ({ friend, hasChatApi }) =>
+  h('div', { className: 'friend' }, [
+    h('div', {
+      className: 'avatar',
       style: {
         backgroundImage: `url(${friend.avatar})`,
       },
     }),
-    h("div", { className: "name" }, friend.name),
-    h("div", { className: "spacer" }),
+    h('div', { className: 'name' }, friend.name),
+    h('div', { className: 'spacer' }),
     hasChatApi
       ? h(
-          "div",
+          'div',
           null,
           h(FriendStatus, {
             friendId: friend.id,
-          })
+          }),
         )
       : null,
   ]);
-};
 
 export default cast(_Friend);

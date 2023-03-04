@@ -1,9 +1,10 @@
 {
-  "include": ["*/*"],
+  "extends": "../../tsconfig.json",
+  "include": ["./src"],
   "compilerOptions": {
     "esModuleInterop": true,
     "paths": {
-      "cyano": ["./node_modules/cyano-mithril"]
+      "cyano": ["../../node_modules/cyano-mithril"]
     },
     "jsx": "preserve"
   }

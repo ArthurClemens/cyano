@@ -2,47 +2,47 @@
 
 Takes a base component and returns a Mithril or React component. This is useful if you want to support both Mithril and React with a minimum of duplicate code.
 
-- [Cyano](#cyano)
-  - [Online examples](#online-examples)
-  - [Getting started](#getting-started)
-    - [Install](#install)
-    - [Import](#import)
-      - [Writing applications](#writing-applications)
-      - [Writing libraries](#writing-libraries)
-  - [Usage](#usage)
-    - [Write a single codebase, deploy twice](#write-a-single-codebase-deploy-twice)
-    - [Shared language](#shared-language)
-    - [Using hooks](#using-hooks)
-      - [Supported hooks](#supported-hooks)
-      - [Custom hooks](#custom-hooks)
-    - [Importing options](#importing-options)
-      - [Import for applications (aliasing "cyano")](#import-for-applications-aliasing-cyano)
-        - [Configuring](#configuring)
-        - [Code example](#code-example)
-        - [Passing or nesting components](#passing-or-nesting-components)
-      - [Import for libraries (passing Cyano methods)](#import-for-libraries-passing-cyano-methods)
-    - [Solving issues](#solving-issues)
-      - [Issues with keys](#issues-with-keys)
-  - [API](#api)
-    - [cast](#cast)
-    - [h (render function)](#h-render-function)
-      - [Inserting trusted content](#inserting-trusted-content)
-      - [Wrapping fragments](#wrapping-fragments)
-    - [a (HTML attributes)](#a-html-attributes)
-    - [getRef](#getref)
-    - [Children](#children)
-    - [jsx](#jsx)
-  - [Additional setup when aliasing "cyano"](#additional-setup-when-aliasing-cyano)
-    - [Bundler configuration](#bundler-configuration)
-      - [Configuring Webpack](#configuring-webpack)
-      - [Configuring Rollup](#configuring-rollup)
-      - [Configuring Browserify](#configuring-browserify)
-    - [Configuring JSX](#configuring-jsx)
-    - [React and Webpack](#react-and-webpack)
-  - [Compatibility](#compatibility)
-  - [Size](#size)
-  - [Supported browsers](#supported-browsers)
-  - [License](#license)
+- [Online examples](#online-examples)
+- [Getting started](#getting-started)
+  - [Install](#install)
+  - [Import](#import)
+    - [Writing applications](#writing-applications)
+    - [Writing libraries](#writing-libraries)
+- [Usage](#usage)
+  - [Write a single codebase, deploy twice](#write-a-single-codebase-deploy-twice)
+  - [Shared language](#shared-language)
+  - [Using hooks](#using-hooks)
+    - [Supported hooks](#supported-hooks)
+    - [Custom hooks](#custom-hooks)
+  - [Importing options](#importing-options)
+    - [Import for applications (aliasing "cyano")](#import-for-applications-aliasing-cyano)
+      - [Configuring](#configuring)
+      - [Code example](#code-example)
+      - [Passing or nesting components](#passing-or-nesting-components)
+    - [Import for libraries (passing Cyano methods)](#import-for-libraries-passing-cyano-methods)
+  - [Solving issues](#solving-issues)
+    - [Issues with keys](#issues-with-keys)
+- [API](#api)
+  - [cast](#cast)
+  - [h (render function)](#h-render-function)
+    - [Inserting trusted content](#inserting-trusted-content)
+    - [Wrapping fragments](#wrapping-fragments)
+  - [a (HTML attributes)](#a-html-attributes)
+  - [getRef](#getref)
+  - [Children](#children)
+  - [jsx](#jsx)
+- [Additional setup when aliasing "cyano"](#additional-setup-when-aliasing-cyano)
+  - [Bundler configuration](#bundler-configuration)
+    - [Configuring Webpack](#configuring-webpack)
+    - [Configuring Rollup](#configuring-rollup)
+    - [Configuring Browserify](#configuring-browserify)
+  - [Configuring JSX](#configuring-jsx)
+  - [React and Webpack](#react-and-webpack)
+- [Compatibility](#compatibility)
+- [Sizes](#sizes)
+  - [cyano-mithril](#cyano-mithril)
+  - [cyano-react](#cyano-react)
+- [License](#license)
 
 
 ## Online examples
@@ -780,46 +780,77 @@ resolve: {
 ## Compatibility
 
 * Mithril: tested with Mithril 1.1.6 and Mithril 2.x
-* React: tested with React 16.8.4
+* React: tested with React 16.8.4 and higher
 
 
-## Size
+## Sizes
 
-* `cyano-mithril.js`:
-  * 2.27 kB with all dependencies, minified and gzipped
-  * Includes [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks)
-* `cyano-react.js`:
-  * 1.91 KB with all dependencies, minified and gzipped
-  * Includes [react-hyperscript](https://github.com/mlmorg/react-hyperscript)
+### cyano-mithril
 
-
-## Supported browsers
-
-Output from `npx browserslist`:
+Includes [mithril-hooks](https://github.com/ArthurClemens/mithril-hooks)
 
 ```
-and_chr 71
-and_ff 64
-and_qq 1.2
-and_uc 11.8
-android 67
-baidu 7.12
-chrome 72
-chrome 71
-edge 18
-edge 17
-firefox 65
-firefox 64
-ie 11
-ie_mob 11
-ios_saf 12.0-12.1
-ios_saf 11.3-11.4
-op_mini all
-op_mob 46
-opera 57
-safari 12
-samsung 8.2
+┌───────────────────────────────────────────┐
+│                                           │
+│   Bundle Name:  cyano-mithril.module.js   │
+│   Bundle Size:  3.72 KB                   │
+│   Minified Size:  2.93 KB                 │
+│   Gzipped Size:  1.14 KB                  │
+│                                           │
+└───────────────────────────────────────────┘
+
+┌────────────────────────────────────────┐
+│                                        │
+│   Bundle Name:  cyano-mithril.umd.js   │
+│   Bundle Size:  5.15 KB                │
+│   Minified Size:  3.56 KB              │
+│   Gzipped Size:  1.35 KB               │
+│                                        │
+└────────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│                                     │
+│   Bundle Name:  cyano-mithril.cjs   │
+│   Bundle Size:  4.4 KB              │
+│   Minified Size:  3.53 KB           │
+│   Gzipped Size:  1.26 KB            │
+│                                     │
+└─────────────────────────────────────┘
 ```
+
+### cyano-react
+
+Includes [react-hyperscript](https://github.com/mlmorg/react-hyperscript)
+
+```
+┌─────────────────────────────────────────┐
+│                                         │
+│   Bundle Name:  cyano-react.module.js   │
+│   Bundle Size:  6.28 KB                 │
+│   Minified Size:  4.27 KB               │
+│   Gzipped Size:  1.92 KB                │
+│                                         │
+└─────────────────────────────────────────┘
+
+┌──────────────────────────────────────┐
+│                                      │
+│   Bundle Name:  cyano-react.umd.js   │
+│   Bundle Size:  7.83 KB              │
+│   Minified Size:  4.65 KB            │
+│   Gzipped Size:  2.03 KB             │
+│                                      │
+└──────────────────────────────────────┘
+
+┌───────────────────────────────────┐
+│                                   │
+│   Bundle Name:  cyano-react.cjs   │
+│   Bundle Size:  6.93 KB           │
+│   Minified Size:  4.85 KB         │
+│   Gzipped Size:  2.03 KB          │
+│                                   │
+└───────────────────────────────────┘
+```
+
 
 
 ## License

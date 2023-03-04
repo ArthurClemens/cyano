@@ -1,3 +1,8 @@
+import './css/app.css';
+import './css/custom-hooks-usereducer.css';
+import './css/toggle.css';
+import './css/chat.css';
+
 import { Component } from 'cyano-mithril';
 import m from 'mithril';
 import {

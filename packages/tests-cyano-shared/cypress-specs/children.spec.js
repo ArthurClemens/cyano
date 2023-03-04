@@ -1,5 +1,3 @@
-/* global cy, describe, before, it */
-
 describe('Children', () => {
   before(() => {
     cy.visit('/TestChildren');

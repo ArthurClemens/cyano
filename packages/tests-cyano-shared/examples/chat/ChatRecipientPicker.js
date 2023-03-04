@@ -1,35 +1,37 @@
-import { cast, useState, h, a } from "cyano";
-import FriendStatus from "./FriendStatus";
-import friendsData from "./friends-data";
+// eslint-disable-next-line import/no-unresolved
+import { a, cast, h, useState } from 'cyano';
+
+import friendsData from './friends-data';
+import FriendStatus from './FriendStatus';
 
 const _ChatRecipientPicker = () => {
-  const [recipientId, setRecipientId] = useState("1");
+  const [recipientId, setRecipientId] = useState('1');
 
-  return h("div", { className: "controls" }, [
+  return h('div', { className: 'controls' }, [
     h(FriendStatus, { key: recipientId, friendId: recipientId }),
     h(
-      "div",
+      'div',
       {
-        className: "select",
-        key: "select",
+        className: 'select',
+        key: 'select',
       },
       h(
-        "select",
+        'select',
         {
-          [a.onchange]: (e) => setRecipientId(e.target.value),
+          [a.onchange]: e => setRecipientId(e.target.value),
           value: recipientId,
         },
-        friendsData.map((friend) =>
+        friendsData.map(friend =>
           h(
-            "option",
+            'option',
             {
               value: friend.id,
               key: friend.id,
             },
-            friend.name
-          )
-        )
-      )
+            friend.name,
+          ),
+        ),
+      ),
     ),
   ]);
 };

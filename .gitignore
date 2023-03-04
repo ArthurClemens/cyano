@@ -1,6 +1,9 @@
-node_modules
 .DS_Store
-npm-debug.log*
-*.log
-*.lock
+.next
+.rpt2_cache
+.svelte-kit
+*.local
+dist-ssr
+node_modules
+packages/tests-cyano-*/dist/*
 screenshots

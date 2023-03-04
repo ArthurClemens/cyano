@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { cast, Children, Component, h } from 'cyano';
 
 type Props = {

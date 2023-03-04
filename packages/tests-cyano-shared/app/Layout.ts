@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { cast, Children, h, ResultNode } from 'cyano';
 
 export type LayoutProps = {

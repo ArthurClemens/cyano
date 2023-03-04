@@ -1,5 +1,3 @@
-/* global cy, describe, before, it */
-
 describe('Custom hooks', () => {
   before(() => {
     cy.visit('/TestCustomHooks');

@@ -2,43 +2,38 @@
   "name": "cyano-mithril",
   "version": "0.7.0",
   "description": "Takes a base component and returns a Mithril component",
-  "main": "dist/cyano-mithril",
-  "module": "dist/cyano-mithril.module.js",
-  "scripts": {
-    "build": "node ../../node_modules/npm-run-all/bin/run-s/index.js build:*",
-    "build:clean": "rimraf dist/*",
-    "build:types": "../../node_modules/typescript/bin/tsc --p tsconfig.gen.json",
-    "build:module": "TYPESCRIPT=1 ENTRY=src/index.ts MODULE=1 MODULE_NAME=cyanoMithril ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.config.ts",
-    "build:umd": "TYPESCRIPT=1 ENTRY=src/index.ts MODULE=0 MODULE_NAME=cyanoMithril ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.config.ts",
-    "build:prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc.json --write \"./dist/*.{d.ts,module.js}\"",
-    "build:size": "size-limit",
-    "size:why": "size-limit --why",
-    "lint": "eslint --fix --ext .ts ./src",
-    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc.json --write \"./{src,scripts}/**/*.{js,jsx,ts,tsx,ejs}\"",
-    "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u"
-  },
+  "type": "module",
   "files": [
     "dist",
     "README.md"
   ],
   "types": "dist",
+  "main": "./dist/cyano-mithril.umd",
+  "module": "./dist/cyano-mithril.module.js",
+  "exports": {
+    ".": {
+      "require": "./dist/cyano-mithril.cjs",
+      "import": "./dist/cyano-mithril.module.js",
+      "default": "./dist/cyano-mithril.umd.js"
+    }
+  },
+  "scripts": {
+    "deps": "../../node_modules/npm-check-updates/build/src/bin/cli.js -u",
+    "dev": "vite",
+    "build": "node ../../node_modules/npm-run-all/bin/run-s/index.js build:*",
+    "build:vite": "vite build",
+    "build:types": "../../node_modules/typescript/bin/tsc --p tsconfig.gen.json"
+  },
   "author": "Arthur Clemens <arthurclemens@gmail.com> (http://visiblearea.com)",
   "homepage": "https://github.com/ArthurClemens/cyano",
   "license": "MIT",
   "dependencies": {
-    "mithril-hooks": "^0.7.1"
+    "mithril-hooks": "^0.7.2"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.10.2",
-    "@types/mithril": "^2.0.7",
-    "size-limit": "^4.10.2"
+    "@types/mithril": "^2.0.12"
   },
   "peerDependencies": {
     "mithril": ">=2.0.4"
-  },
-  "size-limit": [
-    {
-      "path": "dist/cyano-mithril.js"
-    }
-  ]
+  }
 }
