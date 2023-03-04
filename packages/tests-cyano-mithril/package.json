@@ -2,7 +2,7 @@
   "name": "tests-cyano-mithril",
   "private": true,
   "description": "Test Cyano with Mithril",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -16,9 +16,9 @@
     "cypress:open": "cypress open --e2e"
   },
   "dependencies": {
-    "cyano-mithril": "^0.7.0",
+    "cyano-mithril": "^0.7.1",
     "mithril": "^2.2.2",
-    "tests-cyano-shared": "^0.7.0"
+    "tests-cyano-shared": "^0.7.1"
   },
   "devDependencies": {
     "@types/mithril": "2.0.12"
