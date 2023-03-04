@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { cast, getRef, h, useRef, useState } from 'cyano';
 
 const _GetRef = () => {

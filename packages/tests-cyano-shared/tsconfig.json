@@ -2,10 +2,6 @@
   "extends": "../../tsconfig.json",
   "include": ["*/*"],
   "compilerOptions": {
-    "paths": {
-      // "cyano": ["./node_modules/cyano-mithril"]
-      "cyano": ["./node_modules/cyano-react"]
-    },
     "jsx": "preserve"
   }
 }

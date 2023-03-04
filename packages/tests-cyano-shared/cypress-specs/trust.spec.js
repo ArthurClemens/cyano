@@ -1,5 +1,3 @@
-/* global cy, describe, before, it */
-
 describe('h.trust', () => {
   before(() => {
     cy.visit('/TestTrust');

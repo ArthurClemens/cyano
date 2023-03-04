@@ -3,7 +3,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "paths": {
-      "cyano": ["./node_modules/cyano-react"]
+      "cyano": ["../../node_modules/cyano-react"]
     },
     "jsx": "react-jsx"
   }

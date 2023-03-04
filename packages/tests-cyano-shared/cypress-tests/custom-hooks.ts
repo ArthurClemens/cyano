@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { a, cast, h, useState } from 'cyano';
 
 const useArray = <T>(
@@ -7,7 +8,7 @@ const useArray = <T>(
   return [
     arr,
     add => setArr(arr.concat(add)),
-    remove => setArr(arr.filter(item => item !== remove)),
+    remove => setArr(arr.filter((item: T) => item !== remove)),
   ];
 };
 

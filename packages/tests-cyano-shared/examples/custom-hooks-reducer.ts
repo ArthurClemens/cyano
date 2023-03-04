@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import {
   a,
   cast,
@@ -8,6 +9,7 @@ import {
   useReducer,
   useRef,
   useState,
+  // eslint-disable-next-line import/no-unresolved
 } from 'cyano';
 
 const useArray = <T>(

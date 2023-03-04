@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { cast, h } from 'cyano';
 
 const _Trust = () =>

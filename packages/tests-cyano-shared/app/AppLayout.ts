@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { cast, Component, h } from 'cyano';
 import { State } from 'router5';
 

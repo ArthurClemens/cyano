@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { Component } from 'cyano';
 import createRouter, { State } from 'router5';
 import browserPlugin from 'router5-plugin-browser';

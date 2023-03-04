@@ -1,5 +1,3 @@
-/* global cy, describe, before, it */
-
 describe('Initial props', () => {
   before(() => {
     cy.visit('/TestInitialProps');

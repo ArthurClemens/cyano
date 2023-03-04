@@ -2,38 +2,23 @@
   "name": "tests-cyano-react",
   "description": "Test Cyano with React",
   "private": true,
-  "main": "dist/js/index",
+  "type": "module",
   "version": "0.7.0",
   "license": "MIT",
   "scripts": {
-    "npm-check-updates": "../../node_modules/npm-check-updates/bin/cli.js -u",
-    "lint": "eslint --fix ./src",
-    "dev": "npm-run-all --parallel dev:watch dev:serve",
-    "dev:serve": "CYANO=cyano-react ENTRY=./src/index.ts ../../node_modules/webpack/bin/webpack.js serve --config ../../scripts/webpack.config.dev.js",
-    "dev:watch": "CYANO=cyano-react ENTRY=./src/index.ts ../../node_modules/webpack/bin/webpack.js --watch --config ../../scripts/webpack.config.dev.js",
-    "webpack": "CYANO=cyano-react ../../node_modules/webpack/bin/webpack.js --config ../../scripts/webpack.config.prod.js",
-    "build": "npm run build:webpack",
-    "build:webpack": "npm run clean && npm run webpack",
-    "build:browserify": "CYANO=cyano-react node ../../scripts/browserify.js",
-    "serve": "http-server -c-1 -p 8080 dist",
-    "build:rollup": "CYANO=cyano-react ../../node_modules/rollup/dist/bin/rollup -c ../../scripts/rollup.umd.js",
-    "clean": "rm -rf dist/js/*",
-    "test": "npm run test:cypress",
-    "test:cypress": "npm run build && start-server-and-test serve 8080 cypress:run",
-    "test:cypress:i": "npm run build && npm-run-all --parallel serve cypress:open",
-    "cypress:run": "../../node_modules/cypress/bin/cypress run",
-    "cypress:open": "../../node_modules/cypress/bin/cypress open"
+    "deps": "../../node_modules/npm-check-updates/build/src/bin/cli.js -u",
+    "dev": "CYANO=cyano-react vite --port 3000",
+    "build": "CYANO=cyano-react vite build",
+    "preview": "vite preview --port 3000",
+    "test": "npm run build && start-server-and-test --expect 200 preview http://localhost:3000 cypress:run",
+    "test:i": "npm-run-all --parallel dev cypress:open",
+    "cypress:run": "cypress run --e2e --browser chrome",
+    "cypress:open": "cypress open --e2e"
   },
   "dependencies": {
-    "cyano": "^0.6.9",
     "cyano-react": "^0.7.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tests-cyano-shared": "^0.7.0"
-  },
-  "devDependencies": {
-    "http-server": "^0.12.3",
-    "npm-run-all": "^4.1.5",
-    "start-server-and-test": "^1.12.2"
   }
 }

@@ -1,5 +1,3 @@
-/* global cy, describe, before, it */
-
 describe('Forward ref', () => {
   before(() => {
     cy.visit('/ForwardRef');

@@ -1,4 +1,5 @@
 // examples
+// eslint-disable-next-line import/no-unresolved
 import { Component } from 'cyano';
 
 import Children from '../cypress-tests/Children';
