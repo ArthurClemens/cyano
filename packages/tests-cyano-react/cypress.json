@@ -1,5 +1,0 @@
-{
-  "baseUrl": "http://localhost:8080/#!",
-  "integrationFolder": "../tests-cyano-shared/cypress-specs",
-  "video": false
-}
