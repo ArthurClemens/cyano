@@ -21,5 +21,8 @@
     "react-dom": "^18.2.0",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1"
+  },
+  "devDependencies": {
+    "start-server-and-test": "^2.0.0"
   }
 }
