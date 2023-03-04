@@ -1,6 +1,5 @@
 /// <reference types="../../node_modules/@types/react" />
-import React from 'react';
-import { ForwardedRef, FunctionComponent, ReactElement, ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState } from 'react';
+import React, { ForwardedRef, FunctionComponent, ReactElement, ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState } from 'react';
 export { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, };
 export declare const a: {
     accept: string;

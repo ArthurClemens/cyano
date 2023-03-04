@@ -225,7 +225,10 @@ const h = Object.assign(reactHyperscript, {
   trust: (html, wrapper = "") => reactHyperscript(wrapper, {
     dangerouslySetInnerHTML: { __html: html }
   }),
-  fragment: (props = {}, children = []) => /* @__PURE__ */ require$$0.createElement(require$$0.Fragment, { ...props }, children),
+  fragment: (props = {}, children = []) => (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    /* @__PURE__ */ require$$0.createElement(require$$0.Fragment, { ...props }, children)
+  ),
   displayName: "react"
 });
 const jsx = require$$0.createElement;
