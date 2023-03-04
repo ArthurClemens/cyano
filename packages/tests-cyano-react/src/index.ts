@@ -6,7 +6,7 @@ import './css/chat.css';
 // eslint-disable-next-line import/no-unresolved
 import { h } from 'cyano';
 import ReactDOM from 'react-dom';
-import { createApp } from 'tests-cyano-shared/app/createApp';
+import { createApp } from '../../tests-cyano-shared/app/createApp';
 
 const mountNode = document.querySelector('#root');
 
