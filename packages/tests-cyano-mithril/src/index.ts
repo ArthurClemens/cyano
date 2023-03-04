@@ -9,7 +9,7 @@ import {
   AppLayoutProps,
   createApp,
   SetContentProps,
-} from 'tests-cyano-shared/app';
+} from '../../tests-cyano-shared/app';
 
 const mountNode = document.querySelector('#root');
 

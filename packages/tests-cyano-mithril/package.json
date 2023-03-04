@@ -18,7 +18,8 @@
   "dependencies": {
     "cyano-mithril": "^0.7.1",
     "mithril": "^2.2.2",
-    "tests-cyano-shared": "^0.7.1"
+    "router5": "^8.0.1",
+    "router5-plugin-browser": "^8.0.1"
   },
   "devDependencies": {
     "@types/mithril": "2.0.12"
