@@ -22,7 +22,7 @@
     "router5-plugin-browser": "^8.0.1"
   },
   "devDependencies": {
-    "@types/mithril": "2.0.12",
+    "@types/mithril": "2.0.13",
     "start-server-and-test": "^2.0.0"
   }
 }
